@@ -16,6 +16,7 @@ This repository houses the complete standard operating procedures, architectural
 | :--- | :--- | :--- |
 | **Actionable SOP** | [`video-workflow.md`](video-workflow.md) | The **7-Step Collaborative Pipeline**: Page-by-page narrative budgeting, zero-render layout widgets, clip cue sheets, isolated audio stem auditions, and 0.5s remuxing. |
 | **Technical Blueprint** | [`ai-video-editing.md`](ai-video-editing.md) | Universal Production Standard V2.0: EBU R128 mastering math, closed-GOP CFR encoding, Node.js 22+ requirements, and HyperFrames container contracts. |
+| **Google Flow MCP Guide** | [`flowmcp.md`](flowmcp.md) | Google Flow MCP Integration Guide: CDP automation, session configuration, and Veo/Gemini video generation workflow. |
 | **Core Skills** | [`skills/`](skills/) | Specialized production skills for editorial direction, sound design, media handling, and HyperFrames motion components. |
 
 ---
