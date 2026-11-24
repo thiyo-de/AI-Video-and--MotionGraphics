@@ -251,7 +251,14 @@ Generates discrete WAV files for each page (`audio/stems/vo/vo_page_01.wav`, `vo
 
 ## Step 6: Page-by-Page Surgical SFX & Foley Design
 
-**Goal**: Build tactile, cinematic sound design mapped page-by-page to visual cuts, kinetic element animations, and UI foley.
+**Goal**: Build tactile, cinematic sound design mapped page-by-page to visual cuts, kinetic element animations, and UI foley that translates cleanly across mobile speakers, laptops, and headphones.
+
+### Cross-Device Translation (The 3-Layer Impact Principle)
+For key visual events (stamps, reveals, drops), do not rely on sub-bass alone (which mobile micro-speakers cut below 200–250 Hz). Ensure key impacts contain:
+1. **Sub Weight ($60–100\text{ Hz}$)**: Physical chest resonance for headphones and subwoofers.
+2. **Harmonic Mid Body ($400\text{ Hz}–1.2\text{ kHz}$)**: Low-mid punch triggering the brain's "phantom fundamental" on laptops and TVs.
+3. **Mechanical Transient Snap ($2.5–5\text{ kHz}$)**: Sharp $30\text{ms}–50\text{ms}$ click that cuts cleanly through spoken dialogue on phone speakers.
+*Rule: Do not blanket-trim or over-process every sound. Preserve natural decay when original assets already translate well.*
 
 ### Page-by-Page Sound Design Matrix
 | Page # | Visual Event Trigger | SFX Category | Audio File | Trim / Edit Rule | Mix Gain |
@@ -278,7 +285,13 @@ Generates discrete WAV files for each page (`audio/stems/vo/vo_page_01.wav`, `vo
    * `audio/stems/voiceover_clean_narration.mp3` (Dialogue only, auditioning Pages 1–7).
    * `audio/stems/sfx_and_foley_only.mp3` (All sound design & foley without dialogue or music).
    * `audio/stems/music_bed_ducked.mp3` (Background track with ducking dips).
-2. Present individual audition links to the user.
+2. **Run Diagnostic Mobile Speaker Simulation**:
+   ```bash
+   # Filter master audio through a phone speaker profile (250Hz - 7kHz Mono)
+   ffmpeg -y -i "audio/master_audio_ebur128.wav" -af "highpass=f=250,lowpass=f=7000" -ac 1 "audio/preview_mobile_simulation.mp3"
+   ```
+   *Verify that key SFX impacts remain audible and maintain positive contrast over dialogue.*
+3. Present individual audition links to the user.
 
 > [!IMPORTANT]
 > ### 🛑 CHECKPOINT 6: Audio Stems Audition
@@ -329,6 +342,7 @@ Before finalizing any video deliverable:
 
 - [ ] **Page Continuity**: Verified seamless transitions from Page $N$ to Page $N+1$ without visual flickers.
 - [ ] **Loudness Audit**: Ran `ffmpeg -i master_deliverable.mp4 -af ebur128=framelog=verbose -f null -` and verified **`-14.0 LUFS`** and $\le$ **`-1.0 dBTP`**.
+- [ ] **Mobile & Mono Simulation**: Auditioned via mobile filter (`highpass=250,lowpass=7000,ac=1`) to confirm SFX cut through dialogue on phone speakers without phase cancellation.
 - [ ] **Continuous Motion**: Confirmed no frozen frames or decoder stalls on any page.
 - [ ] **Sync Verification**: Checked kinetic text highlighting against spoken words page-by-page.
 - [ ] **Clarity & Separation**: Confirmed music ducks cleanly beneath dialogue with zero vocal masking.

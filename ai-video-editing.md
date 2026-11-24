@@ -250,7 +250,14 @@ To prevent audio clutter and muddy frequencies, audio is grouped into 5 isolated
 * **Cinematic Impacts / Drops**: Keep full natural decay (1.2s – 2.5s) to allow sub-bass frequencies to ring out cleanly.
 * **Whooshes / Swipes**: Keep the 250ms–400ms anticipation ramp and align the peak transient to the visual cut frame.
 
-### C. Structured SFX Manifest (`sfx_cue_sheet.json`)
+### C. Cross-Device Audio Translation (The 3-Layer Impact Rule)
+Loudness normalization ($-14\text{ LUFS}$) alone does **not** ensure audibility on mobile micro-speakers. For high-impact visual events (stamps, drops, reveals), ensure three complementary layers:
+1. **Sub Weight ($60–100\text{ Hz}$)**: Felt on headphones and subwoofers.
+2. **Harmonic Mid Body ($400\text{ Hz}–1.2\text{ kHz}$)**: Triggers the human brain's "phantom fundamental" on laptops and TVs when sub-bass is rolled off.
+3. **Mechanical Transient Snap ($2.5–5\text{ kHz}$)**: Crisp $30\text{ms}–50\text{ms}$ crack that punches through dialogue on phone speakers.
+*Pre-flight Test*: Filter master audio via `ffmpeg -i master.wav -af "highpass=f=250,lowpass=f=7000" -ac 1 mobile_preview.wav` to verify that SFX remain clearly audible above speech on phone hardware.
+
+### D. Structured SFX Manifest (`sfx_cue_sheet.json`)
 Every sound cue must be defined in a version-controlled JSON manifest:
 ```json
 [
@@ -279,7 +286,7 @@ Every sound cue must be defined in a version-controlled JSON manifest:
 ]
 ```
 
-### D. Correct Decibel Gain Calculations
+### E. Correct Decibel Gain Calculations
 * Amplitude multiplier $A$ to decibels: $\text{dBFS} = 20 \cdot \log_{10}(A)$
 * Decibels to amplitude: $A = 10^{(\text{dBFS} / 20)}$
 * **Reference**:
@@ -321,7 +328,7 @@ Rendering a full-resolution 1080×1920 video takes 45–75 seconds. Avoid re-ren
 
 ---
 
-## 11. 20-Point Studio Quality Audit Checklist
+## 11. 21-Point Studio Quality Audit Checklist
 
 Before delivering any video to a client or platform:
 
@@ -340,13 +347,14 @@ Before delivering any video to a client or platform:
 - [ ] **10. Voice Intelligibility**: Word count strictly budgeted to 8–10 words per 5-second scene.
 - [ ] **11. Edge TTS Metadata**: `WordBoundary` timestamps exported to JSON for caption sync.
 - [ ] **12. Conditional SFX**: Context-appropriate editing; cinematic tails preserved, UI clicks trimmed.
-- [ ] **13. Dynamic Ducking**: Music bed attenuates to `-20 dB` under dialogue and swells at climax.
+- [ ] **13. Cross-Device Translation**: Key impacts verified through mobile filter (`highpass=250,lowpass=7000,ac=1`) to confirm audibility over dialogue.
+- [ ] **14. Dynamic Ducking**: Music bed attenuates to `-20 dB` under dialogue and swells at climax.
 
 ### Creative & Editorial Quality
-- [ ] **14. Visual Evidence**: Real footage or comparison photos shown before abstract overlays.
-- [ ] **15. Continuous Flow**: No awkward clip repeats, freezes, or sudden black frames.
-- [ ] **16. Negative Space**: Minimum 0.3s silence before visual scene cuts.
-- [ ] **17. Typography Hierarchy**: Headline font (e.g. Clash Display) distinct from UI text (e.g. Satoshi).
-- [ ] **18. Micro-Interactions**: Visual actions (clicks, sends, reveals) synchronized with tactile foley.
-- [ ] **19. Clear CTA**: Final screen presents an unambiguous action trigger.
-- [ ] **20. Deliverable Proofs**: Timestamped snapshot proofs extracted and audited across all scenes.
+- [ ] **15. Visual Evidence**: Real footage or comparison photos shown before abstract overlays.
+- [ ] **16. Continuous Flow**: No awkward clip repeats, freezes, or sudden black frames.
+- [ ] **17. Negative Space**: Minimum 0.3s silence before visual scene cuts.
+- [ ] **18. Typography Hierarchy**: Headline font (e.g. Clash Display) distinct from UI text (e.g. Satoshi).
+- [ ] **19. Micro-Interactions**: Visual actions (clicks, sends, reveals) synchronized with tactile foley.
+- [ ] **20. Clear CTA**: Final screen presents an unambiguous action trigger.
+- [ ] **21. Deliverable Proofs**: Timestamped snapshot proofs extracted and audited across all scenes.
