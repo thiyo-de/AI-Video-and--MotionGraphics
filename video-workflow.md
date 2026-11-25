@@ -226,7 +226,7 @@ Once page clips are approved, process media and render the visual video pass:
 
 ### Voice Direction Standards
 * **Default Voice**: `en-US-AvaNeural` (Warm, authoritative, articulate female documentary voice).
-* **Speed Rate**: `+11%` (Measured, natural pace; never hurried).
+* **Speed Rate**: `+8%` ceiling target (Measured, natural pace; never exceed `+8%`—edit copy instead).
 * **Page-by-Page Sentence Rules**:
   * Every page receives **one clean sentence or thought**.
   * Spoken audio must finish **0.5s–0.8s before the page ends** to prevent vocal collision during page transitions.
@@ -244,8 +244,8 @@ Once page clips are approved, process media and render the visual video pass:
 | **P06** | `29.0s – 34.0s` | 4.5s | *"Trusted by fifty premier universities across the nation."* | 8 words |
 | **P07** | `34.0s – 38.0s` | 3.2s | *"Secure your future today with Ruthram Three-Sixty."* | 7 words |
 
-### Streaming Synthesis Script (`tools/produce_narration.py`)
-Generates discrete WAV files for each page (`audio/stems/vo/vo_page_01.wav`, `vo_page_02.wav`...) and captures exact `WordBoundary` timestamps for subtitle synchronization.
+### Illustrative Streaming Synthesis Pattern (`projects/<name>/tools/produce_*_narration.py`)
+Generates discrete 48 kHz 24-bit WAV files per page (`audio/stems/vo/vo_page_01.wav`, `vo_page_02.wav`...) using `edge_tts.Communicate(..., boundary="WordBoundary")` *(see [ai-video-editing.md](file:///d:/AI%20Video%20Editing/AI%20Video%20Editing/ai-video-editing.md#L160) for reference code)* and warns if any spoken page produces an empty word-timing list.
 
 ---
 
@@ -340,10 +340,11 @@ ffmpeg -y \
 
 Before finalizing any video deliverable:
 
-- [ ] **Page Continuity**: Verified seamless transitions from Page $N$ to Page $N+1$ without visual flickers.
-- [ ] **Loudness Audit**: Ran `ffmpeg -i master_deliverable.mp4 -af ebur128=framelog=verbose -f null -` and verified **`-14.0 LUFS`** and $\le$ **`-1.0 dBTP`**.
-- [ ] **Mobile & Mono Simulation**: Auditioned via mobile filter (`highpass=250,lowpass=7000,ac=1`) to confirm SFX cut through dialogue on phone speakers without phase cancellation.
+- [ ] **Page Continuity**: Verified seamless transitions from Page $N$ to Page $N+1$ without visual flickers or `1 -> 0 -> 1` opacity pops.
+- [ ] **Loudness & True Peak Audit**: Ran `ffmpeg -i master_deliverable.mp4 -af ebur128=peak=true -f null -` and verified **`-14.0 LUFS (±0.5)`** and true peak $\le$ **`-1.0 dBTP`**.
+- [ ] **Delivered MP4 Speech & SFX Audit**: Inspected the actual muxed **delivered MP4** (listen or transcribe + check cue offsets) to confirm opening/closing narration is crisp and every key SFX lands cleanly on its intended visual cue (numeric loudness alone does not catch dropped dialogue).
+- [ ] **Mobile & Mono Simulation**: Auditioned via mobile filter (`ffmpeg -i master_deliverable.mp4 -af "highpass=f=250,lowpass=f=7000" -ac 1 -f null -` or written mono MP3) with `-ac 1` placed **outside** `-af` to confirm SFX cut through dialogue on phone speakers without phase cancellation.
 - [ ] **Continuous Motion**: Confirmed no frozen frames or decoder stalls on any page.
 - [ ] **Sync Verification**: Checked kinetic text highlighting against spoken words page-by-page.
 - [ ] **Clarity & Separation**: Confirmed music ducks cleanly beneath dialogue with zero vocal masking.
-- [ ] **Deliverable Package**: Provided master MP4, master 48kHz WAV, audition MP3, and scene snapshot proofs for every page.
+- [ ] **Deliverable Package**: Provided master MP4, master 48kHz 24-bit WAV (`-c:a pcm_s24le`), audition MP3, and scene snapshot proofs for every page.

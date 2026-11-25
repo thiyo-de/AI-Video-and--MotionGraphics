@@ -10,8 +10,8 @@ A permanent blacklist of visual, editorial, motion, UI, GSAP, SFX, and render mi
 ---
 
 ## 1. Generic PowerPoint & Slideshow Anti-Patterns
-- **NO slide-deck layouts**: Never center boxy rectangular cards with bullet lists on pale flat backgrounds, separated by blank fades. Build layered spatial depth (`~50%` footage + `~50%` glassmorphic HUD/bento graphics over dark aurora obsidian `#070B15` grounds).
-- **NO dead still frames**: Never freeze the camera completely for `> 2.0s` (`MOTION_PHILOSOPHY` Law #4: *"Camera never sleeps"*). Keep continuous subtle scale push-ins, parallax, or orb drift alive.
+- **NO slide-deck layouts or cross-reel cloning**: Never center boxy rectangular cards with bullet lists on flat backgrounds, AND never lazily clone a previous reel's UI skeleton (same card layout, pill stepper, and closer halo) into a new domain. Choose depth, palette, and UI framing (full-bleed footage, unboxed editorial type, or intentional bento containers) fresh for each creative brief.
+- **NO dead still frames**: Never freeze the camera completely for `> 2.0s` (`MOTION_PHILOSOPHY` Law #4: *"Camera never sleeps"*). Keep continuous subtle scale push-ins, parallax, or drift alive.
 - **NO stop-then-cut timing**: Never let motion come to a dead halt *before* switching scenes. Cuts must ride active acceleration (`velocity-matched cuts`).
 - **NO generic filler slogans**: Never write copy that passes on any random company (*"Trusted Quality"`, `"Modern Solutions"`). Run the **Logo Test** (`pv-story`): prove specific proof points (`8K HDR`, `±1.2mm LiDAR`, `Google Blue-Line`).
 
@@ -26,6 +26,7 @@ A permanent blacklist of visual, editorial, motion, UI, GSAP, SFX, and render mi
 ---
 
 ## 3. Glitch, Loop & Repeat Element Bugs
+- **NO `1 -> 0 -> 1` flash on delayed `.fromTo(..., { immediateRender: false })` children**: Whenever a scene viewport fades in before staggered children animate, **always** `.set(...)` every delayed child's hidden starting state (`opacity: 0`, `yPercent`, `scale`, `scaleX/Y`) explicitly at `t = 0`. Never let incoming scenes jump to `opacity: 1` over an unfinished outgoing exit (`z-index` pop), never stack full-viewport `filter: blur()` over `backdrop-filter`, and always pre-prime `<video>` `currentTime` + debounce async `play()`.
 - **NO `.add(() => updateDOM())` text mutations mid-transition**: Calling JS functions from GSAP `.add()` paired with partial opacity re-tweens (`opacity: 0.4 -> 1`) causes scrubbing glitches, stale text flashes, and double-popping cards. Stack pre-rendered static DOM slots and cross-fade them deterministically *after* whip-pans land.
 - **NO duplicate/overlapping sheen or entrance tweens**: Never apply `addSheen()` 3 times on one persistent card or double-trigger card stagger animations.
 - **NO non-transform GSAP animations**: Never animate `left`, `top`, `width`, `height`, or `letterSpacing` (triggers HyperFrames `gsap_non_transform_motion` lint errors and layout jitter). Animate pure GPU transforms (`x`, `y`, `xPercent`, `scale`, `rotateX/Y`, `opacity`, `backgroundColor`).
@@ -35,8 +36,8 @@ A permanent blacklist of visual, editorial, motion, UI, GSAP, SFX, and render mi
 
 ## 4. UI, Typography & Container Failures
 - **NO hardcoded pixel widths/X-offsets on multi-step pills**: Never write `width: 117px; x: 236` on segmented sliders. Whenever render canvas (`412px`) and browser preview (`420px`) differ, pills overhang or leave asymmetric gaps (`03 · Confident` drift). **Always** use proportional CSS `width: calc((100% - <padding*2>) / <count>)` + GSAP **`xPercent: 0 -> 100 -> 200`**.
-- **NO washed-out pale UI on raw video**: Avoid flat translucent white pills floating ungrounded on full-bleed footage. Wrap featured footage in explicit rounded glass-bordered containers (`#s05-video-frame` + live badge) paired with dark multi-stop frosted bento cards (`rgba(..., 0.90)` + top `1px` specular catchlight).
-- **NO Unicode emojis or italic slop**: Never stamp system emojis (`🏥`, `🎓`, `✅`, `🔥`) in commercial graphics; use inline monochrome/dual-tone Lucide SVGs inside glass badges. Stick strictly to approved geometric fonts (`Google Sans` + `Satoshi`), **zero italics**.
+- **NO washed-out or cluttered UI plates**: Never drop low-contrast pills ungrounded over busy footage, and never trap every headline, stat, and video inside repetitive rounded glass boxes when clean edge-to-edge footage + soft `.scrim` + `1px` hairlines reads cleaner. Match surface style (plateless editorial vs. layered bento cards) to the brief.
+- **NO Unicode emojis or italic slop**: Never stamp system emojis (`🏥`, `🎓`, `✅`, `🔥`) in commercial graphics; use inline monochrome/dual-tone Lucide SVGs. Choose brief-matched geometric display/UI/mono fonts, **zero unsolicited italics**.
 - **NO clipped edge labels**: Keep labels safely inside `60px` outer margins; mask rising headlines with `overflow: hidden` containers (`.k-mask`), never naked unbounded text scaling across viewport edges.
 
 ---
@@ -46,8 +47,8 @@ A permanent blacklist of visual, editorial, motion, UI, GSAP, SFX, and render mi
 - **NO `-22 dBFS` vanishing UI clicks**: Leaving short `50–120ms` taps/pops weak next to `-9 dBFS` bass slams makes them vanish on laptop/phone speakers unless the user cranks max volume. Normalize every individual SFX stem to **`-10 to -15 dBFS` RMS** (`-1.0 dBFS` peak) with crisp mid-range tactile body (`700–3500 Hz`).
 - **NO untrimmed leading dead air**: Never drop raw SFX clips with 50–500ms silent intros onto frame 0 (`t_onset` lags behind the cut).
 - **NO muddy continuous wall-of-sound or dialogue clashing**: Leave `1.5s–3.0s` negative space for voiceover breathing, organize stems cleanly (`01_page_transitions/`, `02_motion_elements_and_graphics/`, `03_animations/`), carve BGM (`highpass=85Hz, lowpass=8500Hz`, ducked `0.085–0.12` under speech), and apply `-2.5 dB / 70ms` vocal pockets when sharp foley hits mid-dialogue.
-- **NO `+0.5 dBFS` true-peak clipping**: Never trust non-oversampled limiters alone before MP3/AAC encoding. Always verify `ffmpeg -af ebur128=peak=true` and enforce **`-14.0 LUFS (±0.5)`** + **`TP <= -1.0 dBTP`**.
-- **NO >+11% TTS speed-up squeezing**: Never crank voiceover rates up to force bloated copy into 30s—trim filler words to obey `<= 2.2 words/sec` with `0.5s–1.4s` tail silence.
+- **NO `+0.5 dBFS` true-peak clipping or broken phone audit**: Never trust non-oversampled limiters alone before MP3/AAC encoding, and never pass `ac=1` inside `-af`. Verify **`ffmpeg -i master_deliverable.mp4 -af ebur128=peak=true -f null -`** (`-14.0 LUFS ±0.5`, **`TP <= -1.0 dBTP`**) AND audition **`-af "highpass=f=250,lowpass=f=7000" -ac 1`** plus actual speech/SFX cues on the delivered MP4.
+- **NO >+8% TTS speed-up squeezing**: Keep TTS speed `<= +8%` target (`+10%` hard max only if trimming copy is impossible) and trim filler words to obey `<= 2.2 words/sec` with `0.5s–1.4s` tail silence; flag any empty `WordBoundary` list immediately.
 
 ---
 

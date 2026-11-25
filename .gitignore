@@ -31,8 +31,8 @@ export/
 *.zip
 *.tar.gz
 
-# Allow documentation assets and icons inside skills
-!skills/**/assets/*
+# Allow documentation assets, sound effects, and icons inside skills
+!skills/**/assets/**
 !skills/**/*.md
 !skills/**/*.json
 !skills/**/*.js

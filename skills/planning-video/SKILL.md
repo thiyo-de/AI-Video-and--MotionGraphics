@@ -35,8 +35,11 @@ Before designing scenes or writing custom components, check existing capabilitie
 ### Step A — Concept & Atomic Page Matrix (`P01..Pn`)
 1. Identify audience, conversion action, core **Pain vs. Proof** emotional contrast, aspect ratio (`1080x1920` @ `30fps` for Reels/Shorts, `1920x1080` for widescreen), and total runtime.
 2. Enforce the **3-Second Hook Rule** (pattern interrupt, curiosity gap, direct callout, or visual contrast—never a slow logo intro).
-3. Partition runtime into discrete atomic pages (`P01..Pn`) balancing **~50% real/Flow video footage + ~50% motion graphics/UI**.
-4. Apply **Production Lessons Guardrails**:
+3. Partition runtime into discrete atomic pages (`P01..Pn`) balancing footage and motion/UI to fit the brief (a `50:50` footage-to-motion blend is a baseline option, not a rigid quota).
+4. Document **Reference & Originality Choices** explicitly before picking a template:
+   - For each reference clip or repo used, write one sentence explaining **what single technique to learn from it** (e.g., *"how it locks tactile clicks onto cut momentum"*).
+   - Define **what visual system, typography, palette, and hero motion will be unique to this reel** so it never clones the previous reel's UI chrome.
+5. Apply **Production Lessons Guardrails**:
    - Keep visual preview card sequences in exact downstream scene order (`1 -> 2 -> 3`).
    - Run the **Logo Test** (`pv-story`): every scene needs product/sector specificity, never generic placeholder slogans.
 
@@ -50,16 +53,17 @@ Output `PLAN.md` (following `references/plan-template.md`) with **5 strictly sep
 
 #### Track 2 · Motion (`2. motion`)
 - Select reusable components/primitives before custom coding (`hyperframes catalog` IDs + exact paths inside `AI Video Editing/repos/`).
-- Lock the visual design system: typography (`Google Sans` + `Satoshi`, **zero `italic`**), palette (`<= 5` functional hues, dark aurora/obsidian ground + frosted multi-stop bento cards + framed media containers).
+- Choose a **brief-driven visual system** rather than repeating one fixed house look: pick typography pairing (e.g., `Google Sans` + `Satoshi`, architectural editorial sans/mono, or light matte ground — always **zero unsolicited `italic`**), a tight functional palette (`<= 5` hues, ideally 1 hero accent per shot), and either full-bleed *"type without plates"* or frosted/elevated bento framing as suited to the domain.
 - Specify page transitions with velocity-matched entry/exit pairs (`zoom-through`, `lateral whip`, `vertical drop`, `3D Y-axis flip`) + light streaks/blooms.
 - Enforce **GSAP Determinism & Alignment Rules**:
   - Transform-only tweens (`x`, `y`, `xPercent`, `scale`, `rotateX/Y`, `opacity`, `backgroundColor` — never `letterSpacing` or `left`).
+  - Explicit **`t=0` hidden baselines** (`.set(..., { opacity: 0 }, 0)`) on every delayed `immediateRender: false` child so elements never flash visible before entering.
   - Pre-rendered stacked static DOM slots for multi-state HUDs (never mutate DOM text with `.add()` callbacks during transitions).
   - Proportional slider geometry (`width: calc((100% - <pad*2>) / <n>)` + `xPercent: 0 -> 100 -> 200`), never hardcoded pixels across differing stage widths.
 
 #### Track 3 · VO (`3. vo`)
 - Script line-by-line mapped to `P01..Pn` windows.
-- Strictly enforce **130–145 WPM (`<= 2.2 words/sec`, `Word Budget = (Page Duration - Margin) x 2`)** and max `+8%`–`+11%` rate.
+- Strictly enforce **130–145 WPM (`<= 2.2 words/sec`, `Word Budget = (Page Duration - Margin) x 2`)** and **`<= +8%` TTS speed target** (`+10%` hard max only after trimming fluff). Request `boundary="WordBoundary"` whenever word-timed captions or foley sync is needed.
 - Spell out numerals/acronyms for natural TTS pronunciation (e.g., `"Three-Sixty"`, `"eight-K H-D-R"`).
 - Specify `start_sec`, `end_sec`, and mandatory `0.5s–1.4s` tail breathing silence per scene for SFX and cognitive processing.
 

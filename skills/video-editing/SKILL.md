@@ -71,12 +71,12 @@ Eliminate all visual markers of "AI slop" or amateur web mockups:
 1. **Zero System Emojis**:
    - ❌ **Forbidden**: Raw Unicode/Segoe UI emojis (`🏛️`, `🔬`, `📚`, `📲`, `❌`, `🎓`). They look cartoonish and cheap.
    - ✅ **Required**: Inline vector SVGs (Lucide / Feather style with `stroke-width: 1.75px` to `2.0px`) embedded in frosted glass micro-badge containers.
-2. **Strict Typography Hierarchy**:
-   - **Headlines / Punchwords**: Bold, high-weight geometric sans (`Satoshi 900` or `Bricolage Grotesque`), uppercase, tight negative letter-spacing (`-1.2px` to `-1.8px`).
-   - **Body / Feature Labels**: Clean geometric sans (`Google Sans 500/700` or `Inter`), comfortable line-height.
-   - **Micro-Badges / Meta**: Monospace or bold tracking (`Satoshi 700`, uppercase, `letter-spacing: +1.2px`).
-3. **Frosted Glassmorphism (Apple/Linear Style)**:
-   - Cards must not be flat solid boxes. Use multi-layer glass:
+2. **Brief-Matched Typography Hierarchy** *(adapt font family to the brand; zero italic slop)*:
+   - **Headlines / Punchwords**: Bold display grotesk (e.g., `Satoshi 900`, `Space Grotesk`, or architectural sans), uppercase, tight negative tracking.
+   - **Body / Feature Labels**: Clean neutral geometric sans (`Google Sans 500/700`, `Inter`), comfortable line-height.
+   - **Micro-Badges / Technical Readouts**: Tracked uppercase labels or monospace (`JetBrains Mono` / `Space Mono`, `tabular-nums`).
+3. **Intentional Surface System (Plateless Type vs. Layered Cards — Choose One per Brief)**:
+   - Let **real/Flow architectural footage breathe** using unboxed *"type without plates"* over subtle gradient scrims (`.scrim`) when visuals carry the space, OR choose multi-stop frosted cards where UI/HUD explanation demands structure (never box every headline/metric out of habit):
      ```css
      background: rgba(15, 23, 42, 0.65);
      backdrop-filter: blur(24px) saturate(180%);

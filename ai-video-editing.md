@@ -69,12 +69,12 @@ D:\AI Video Editing\
 │       ├── edit_decisions.json              # Shot selection, duration, and pacing decisions
 │       └── narration_timing.json            # WordBoundary timestamps from Edge TTS
 │
-├── tools\                                   # Studio Toolchain Automation
-│   ├── optimize_clips.py                    # Closed-GOP CFR FFmpeg pre-transcoder
-│   ├── produce_narration.py                 # Edge TTS WordBoundary streaming generator
-│   ├── mix_soundtrack.py                    # Multi-bus audio mixer & EBU R128 normalizer
+├── tools\                                   # Studio Toolchain (illustrative names; real per-project scripts live under root `tools/` or `projects/<name>/tools/`)
+│   ├── optimize_clips.py                    # Closed-GOP CFR FFmpeg pre-transcoder (`D:\AI Video Editing\tools\optimize_clips.py`)
+│   ├── produce_*_narration.py               # Edge TTS WordBoundary streaming generator (illustrative pattern; e.g., `produce_vo_reel03.py`)
+│   ├── mix_soundtrack.py                    # Multi-bus audio mixer & EBU R128 normalizer (pattern; see `master_ruthram360_audio.py`)
 │   ├── render_hyperframes.py                # HyperFrames render execution wrapper
-│   └── mux_and_verify.py                    # Multiplexer, AAC peak auditor & snapshot proofing
+│   └── mux_and_verify.py                    # Multiplexer, AAC peak auditor & snapshot proofing (see `mux_and_verify_master.py`)
 │
 └── export\<project-name>\                   # Project Deliverables Destination
     ├── raw_video.mp4                        # Clean video render from HyperFrames
@@ -163,7 +163,7 @@ import soundfile as sf
 import edge_tts
 
 VOICE = "en-US-AvaNeural" # Warm, authoritative documentary voice
-RATE = "+11%"              # Relaxed, professional cadence
+RATE = "+8%"               # Natural, unhurried cadence (never exceed +8% ceiling)
 SR = 48000                 # Video standard 48 kHz
 
 async def generate_narration_with_metadata(text, scene_id, start_time, output_dir):
@@ -190,6 +190,9 @@ async def generate_narration_with_metadata(text, scene_id, start_time, output_di
                     "end": round(start_time + offset_sec + duration_sec, 3),
                     "duration": round(duration_sec, 3)
                 })
+
+    if not words:
+        print(f"[WARN] {scene_id}: WordBoundary timestamps list is empty; check edge-tts boundary flag.")
 
     # Save canonical word-timing manifest for animated typography
     with open(json_path, "w", encoding="utf-8") as f:
@@ -307,10 +310,10 @@ Social Media Video Target:      -14.0 LUFS (For Instagram Reels, TikTok, YouTube
 # Pass 1: Measure Audio Properties
 ffmpeg -i rough_mix.wav -af "loudnorm=I=-14:TP=-1.0:LRA=7:print_format=json" -f null -
 
-# Pass 2: Linear Normalization
-ffmpeg -y -i rough_mix.wav -af "loudnorm=I=-14.0:TP=-1.0:LRA=7.0:measured_I=<val>:measured_TP=<val>:measured_LRA=<val>:measured_thresh=<val>:offset=<val>:linear=true" -ar 48000 -ac 2 master_audio_ebur128.wav
+# Pass 2: Linear Normalization (24-bit 48 kHz PCM WAV master)
+ffmpeg -y -i rough_mix.wav -af "loudnorm=I=-14.0:TP=-1.0:LRA=7.0:measured_I=<val>:measured_TP=<val>:measured_LRA=<val>:measured_thresh=<val>:offset=<val>:linear=true" -ar 48000 -ac 2 -c:a pcm_s24le master_audio_ebur128.wav
 ```
-* **Post-Export Verification**: AAC compression can introduce true-peak overshoots. Always measure the final exported `.mp4` container using `ffprobe` / `ebur128`, ensuring true peak remains at or below `-1.0 dBTP`.
+* **Post-Export Verification**: AAC compression can introduce true-peak overshoots. Always measure the final exported `.mp4` container using `ffmpeg -i master_deliverable.mp4 -af ebur128=peak=true -f null -` AND audition/verify delivered dialogue & SFX cues, ensuring true peak remains at or below `-1.0 dBTP`.
 
 ---
 
@@ -341,13 +344,13 @@ Before delivering any video to a client or platform:
 - [ ] **6. No CSS Transitions**: Zero browser-clock CSS transitions on animated elements.
 
 ### Audio & Sound Design
-- [ ] **7. Sample Rate**: Master audio produced at **48 kHz, 24-bit PCM WAV**.
-- [ ] **8. Integrated Loudness**: Final MP4 measures **`-14.0 LUFS (±0.5 LUFS)`**.
+- [ ] **7. Sample Rate**: Master audio produced at **48 kHz, 24-bit PCM WAV** (`-c:a pcm_s24le`).
+- [ ] **8. Integrated Loudness**: Final MP4 measures **`-14.0 LUFS (±0.5 LUFS)`** via `ebur128=peak=true`.
 - [ ] **9. True Peak Ceiling**: Peak measures $\le$ **`-1.0 dBTP`** (verified on final AAC stream).
-- [ ] **10. Voice Intelligibility**: Word count strictly budgeted to 8–10 words per 5-second scene.
-- [ ] **11. Edge TTS Metadata**: `WordBoundary` timestamps exported to JSON for caption sync.
+- [ ] **10. Voice Intelligibility**: Word count strictly budgeted to 8–10 words per 5-second scene, delivered MP4 listened/verified cleanly.
+- [ ] **11. Edge TTS Metadata**: `WordBoundary` timestamps exported to JSON (`boundary="WordBoundary"`) with non-empty word check.
 - [ ] **12. Conditional SFX**: Context-appropriate editing; cinematic tails preserved, UI clicks trimmed.
-- [ ] **13. Cross-Device Translation**: Key impacts verified through mobile filter (`highpass=250,lowpass=7000,ac=1`) to confirm audibility over dialogue.
+- [ ] **13. Cross-Device Translation**: Key impacts verified through mobile filter (`ffmpeg -i master_deliverable.mp4 -af "highpass=f=250,lowpass=f=7000" -ac 1 -f null -`) with `-ac 1` outside `-af`.
 - [ ] **14. Dynamic Ducking**: Music bed attenuates to `-20 dB` under dialogue and swells at climax.
 
 ### Creative & Editorial Quality
