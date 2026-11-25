@@ -140,4 +140,4 @@ Execute the render cleanly using HyperFrames and FFmpeg:
    - Master mux: Stream-copy video with −14.0 LUFS 48kHz stereo master audio.
    - Review artifacts: Extract 6 representative stills at key beats for client approval.
 
-*Detailed guide*: Read [references/hyperframes-engine.md](references/hyperframes-engine.md).
+*Detailed guide*: Read [references/hyperframes-engine.md](references/hyperframes-engine.md) and field-tested guardrails in [references/production-lessons-reel03.md](references/production-lessons-reel03.md).

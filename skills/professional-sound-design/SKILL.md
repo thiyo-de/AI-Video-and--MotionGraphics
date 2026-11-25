@@ -97,3 +97,10 @@ Before mixing, every video project must produce an audited Cue Sheet:
 | `SFX-02` | `03.10s` | Match-cut to 8K Lab | Sweep | `220 ms` | `0.18` | `6.2s clean gap` |
 | `SFX-03` | `09.50s` | Smart Classrooms tap | UI Tap | `50 ms` | `0.16` | `2.0s clean gap` |
 ```
+
+## 7. Field-Tested Engineering Guardrails (From Reel 03)
+
+- **Always Probe Peak Index (`argmax`) Before Slicing**: Source cinematic whooshes and risers vary widely in buildup time (e.g., `2.5s–4.0s` before peak). Never hardcode `start_offset_s` blindly; extract symmetric pre/post windows anchored around the measured peak so transition crests hit frame 0.
+- **Audible UI Staging (`-10 to -15 dBFS RMS` per stem)**: Short `50–120ms` micro UI hits drop out on mobile/laptop speakers if left at `-22 dBFS` RMS next to bass impacts. Level micro hits cleanly with warm mid-band harmonic presence and apply gentle dynamics + true-peak limiting before export.
+- **Separate Categorized Deliverables**: Organize individual 48kHz 24-bit `.wav` cues under `01_page_transitions/`, `02_motion_elements_and_graphics/`, and `03_animations/` with a JSON audit manifest, plus a combined `sfx_only` WAV/MP3 audition stem.
+- **Prevent MP3 Inter-Sample Overshoots**: Verify the rendered `.wav` and `.mp3` stems with FFmpeg `ebur128=peak=true` and `volumedetect`; enforce `TP <= -1.0 dBTP` via two-pass `loudnorm` rather than relying solely on a non-oversampled limiter.
