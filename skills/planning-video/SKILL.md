@@ -26,7 +26,7 @@ Before designing scenes or writing custom components, check existing capabilitie
 1. **Workspace SOP, Anti-Patterns & Brand Guardrails**:
    - `d:\AI Video Editing\AI Video Editing\video-workflow.md` — Unified **Stage 1–9** Hard-Gated Pipeline, `<= 2.2 words/sec` VO pacing, Preview-First Render-Last, Independent Audio QA.
    - `d:\AI Video Editing\AI Video Editing\flowmcp.md` — Google Flow MCP generation guidelines, aspect ratio framing, credit-confirm safety.
-   - `d:\AI Video Editing\.agents\skills\video-editing\SKILL.md` + `references/creative-direction.md`, `references/editorial-rhythm.md`, `references/production-lessons-reel03.md`.
+   - `d:\AI Video Editing\.agents\skills\video-editing\SKILL.md` + `references/creative-direction.md`, `references/editorial-rhythm.md`, `references/reference-2-0-styles.md`, `references/production-lessons-reel03.md`.
    - `d:\AI Video Editing\.agents\skills\dont-do-in-video-edit\SKILL.md` — Mandatory anti-pattern blacklist (visual, GSAP Zero-Flash, SFX `-10 to -15 dBFS`, cross-device QA, hard gate discipline).
 2. **Built-In HyperFrames Engine & Catalog (448 Ready Items)**:
    - `d:\AI Video Editing\.agents\skills\hyperframes\SKILL.md` — Core HyperFrames HTML/GSAP timing and render contract.

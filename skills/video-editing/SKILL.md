@@ -46,7 +46,7 @@ Before writing any timeline or composition code, establish the commercial intent
    - **Strict Prohibition**: NEVER speed up TTS beyond `+8%` target (`+10%` hard max). If voiceover exceeds the window, **edit the copy**.
    - **Action match cuts**: Plan J-cuts, L-cuts, and velocity-matched motion vectors (`1.0s–1.8s` hold for titles; `2.5s–4.0s` hold for spatial rooms).
 
-*Detailed guides*: Read [references/creative-direction.md](references/creative-direction.md) and [references/editorial-rhythm.md](references/editorial-rhythm.md).
+*Detailed guides*: Read [references/creative-direction.md](references/creative-direction.md), [references/editorial-rhythm.md](references/editorial-rhythm.md), and [references/reference-2-0-styles.md](references/reference-2-0-styles.md).
 **🛑 Gate 1**: Stop for user approval of `PLAN.md` (`Clips`, `Motion`, `VO`, `SFX`, `BGM`) before building UI or spending credits.
 
 ---
