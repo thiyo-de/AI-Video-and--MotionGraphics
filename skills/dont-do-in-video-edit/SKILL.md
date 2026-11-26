@@ -21,6 +21,7 @@ A permanent blacklist of visual, editorial, motion, UI, GSAP, SFX, and render mi
 - **NO generic crossfades, box wipes, or linear slides**: Never cut between scenes using basic `opacity: 0 -> 1` dissolves, linear slides, or mismatched exit/entry axes (e.g., exiting left while next scene slides down). Choose motivated cuts—velocity camera moves, **component focus-zooms** (`transformOrigin` + GPU wrapper scale), or **deterministic organic foreground overlays** (e.g., bird flyovers, mist, archway wipes synced at occlusion peak, never `Math.random()` / CSS keyframes).
 - **NO static dead cards during VO**: When narration lists multi-room/campus/facility features, avoid static text-only boxes—play pre-primed muted clips cleanly *inside* cards synced to `Stage 4` `WordBoundary` cues, and pass `data-media-start="<sec>"` on continuous PiP/focus-zoom docks (`never` reset video to `0.0s`).
 - **NO card-to-scene sequence mismatch**: Preview card strips (`Card 1 -> Card 2 -> Card 3`) must **never** disagree with the actual scene walkthrough order.
+- **NO empty transition voids or broken focus-zooms**: Never leave an empty dark background or flat placeholder polygon on screen for `>0.3s` during a transformation, and never zoom into an object only to hard-cut onto the back of a device or mismatched angle.
 - **NO black-frame flashes**: Never leave a sub-composition timeline shorter than `data-duration` (`tl.duration() < data-duration`).
 
 ---
@@ -54,6 +55,7 @@ A permanent blacklist of visual, editorial, motion, UI, GSAP, SFX, and render mi
 ---
 
 ## 6. Hard-Gated Workflow & Verification Mistakes (`Stages 1–9`)
+- **NO fake Stage 2 vector illustrations (Time & Token Waste)**: Never waste time or tokens hand-drawing SVG people, temples, furniture, or fake scenic artwork inside Stage 2 `layout_preview_widget.html` to mimic missing video footage. Draw clean wireframe placeholder containers labeled with the exact clip/video name (`[VIDEO: Flow 01 — <subject>]`) alongside real typography, palette, margins, and transition timing.
 - **NO skipping user gates or rushing steps**: Hard-stop for user approval at every gate (**Gate 1 `PLAN.md`** → **Gate 2 `UI Preview`** → **Gate 3 `Footage/Flow`** → **Gate 4 `VO`** → **Gate 5 `SFX`** → **Gate 6 `BGM`** → **Gate 7 `Approved 48kHz 24-bit Audio Master`** → **Stage 9 Final Render/Mux QA**). Never run Flow generation, TTS, SFX, BGM, or renders without clearing the prior gate.
 - **NO SFX timed from script guesses**: Always let **Stage 4 VO** establish real spoken durations & `WordBoundary` anchors first, snap UI animation/rough-cut cut frames to that VO, and only then lock **Stage 5 SFX** onto actual visual frame timestamps.
 - **NO stale verification screenshots on Windows**: Chrome headless `--screenshot` silently fails or hits locks on paths with spaces or default user profiles. Always write to a space-free scratch path with an isolated `--user-data-dir` + `Start-Process -Wait`, then copy cleanly.

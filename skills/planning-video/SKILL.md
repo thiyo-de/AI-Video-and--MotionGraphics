@@ -9,7 +9,7 @@ Architect every commercial reel, promo, or explainer **before writing compositio
 
 ### Studio Pipeline Map (`Stage 1 → Stage 9`, Never Skip a Gate)
 - **Stage 1 (This Skill)**: Brief, Concept & 5-Track `PLAN.md` + Master Audio Plan → **🛑 Gate 1**
-- **Stage 2**: Interactive UI & Motion Preview (`layout_preview_widget.html`, `0` render) → **🛑 Gate 2**
+- **Stage 2**: Lightweight Wireframe UI & Motion Preview (`layout_preview_widget.html`, `0` render, **Time & Token Saver: draw labeled media/video placeholder boxes + real typography/palette/transitions only — NEVER hand-draw fake vector scenes or character illustrations**) → **🛑 Gate 2**
 - **Stage 3**: Footage Sourcing & Closed-GOP CFR Prep (`Clip` / `Flow` map) → **🛑 Gate 3**
 - **Stage 4**: Isolated Voiceover (`VO`) Synthesis & **`WordBoundary` -> Timeline Timing Lock** → **🛑 Gate 4**
 - **Stage 5**: Isolated SFX & Foley locked to **actual VO-locked animation/rough-cut frames** → **🛑 Gate 5**

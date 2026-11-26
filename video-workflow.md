@@ -151,9 +151,10 @@ Every page is wrapped in its own isolated viewport container with absolute coord
 **Why this saves hours**: Video rendering takes 2–5 minutes per attempt. A tabbed HTML preview widget (`layout_preview_widget.html` + `contact_sheet.html`) renders **instantly in 0.0 seconds** in any browser, allowing screen-by-screen design inspection and Playwright Zero-Flash (`0` flicker / `0` JS error) checks.
 
 ### Action Items
-1. Generate `layout_preview_widget.html` + `contact_sheet.html` in the project directory.
-2. Provide interactive clickable tabs for every single page + full 30s playback bar.
-3. Clicking a tab renders that exact page's layout, brief-matched typography (`0` italic slop), clean surface framing, and color contrast inside a 1080×1920 mobile viewport frame.
+1. **Use Lightweight Wireframe Media Boxes (Time & Token Saver)**: For footage/Flow scenes, draw simple clean wireframe boxes labeled with the exact video slot name and camera move (`[VIDEO: Flow 01 — Temple Grandeur]`) instead of hand-coding fake vector illustrations of buildings or people. Focus Stage 2 strictly on real typography, exact color palette, safe-zone spacing, and transition timing.
+2. Generate `layout_preview_widget.html` + `contact_sheet.html` in the project directory.
+3. Provide interactive clickable tabs for every single page + full playback bar.
+4. Clicking a tab renders that exact page's layout, brief-matched typography (`0` italic slop), clean surface framing, and color contrast inside a 1080×1920 mobile viewport frame.
 
 > [!IMPORTANT]
 > ### 🛑 GATE 2: Screen-by-Screen UI & Motion Approval

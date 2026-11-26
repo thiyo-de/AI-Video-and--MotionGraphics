@@ -51,9 +51,13 @@ Before writing any timeline or composition code, establish the commercial intent
 
 ---
 
-## Stage 2: Motion Design & Interactive UI Preview *(🛑 Gate 2 — Zero Render)*
+## Stage 2: Motion Design & Interactive UI Preview *(🛑 Gate 2 — Zero Render, Token-Saving Wireframe)*
 
-Build `layout_preview_widget.html` + `contact_sheet.html` with zero AI visual slop:
+Build `layout_preview_widget.html` + `contact_sheet.html` with zero AI visual slop **and zero wasted illustration tokens**:
+
+0. **Time & Token-Saving Wireframe Rule (Mandatory)**:
+   - For scenes driven by video/Flow footage, render **clean labeled wireframe boxes** displaying the clip name, slot role, and camera move (`[VIDEO: Flow 01 — Temple Grandeur · Z-Dolly In]`) rather than hand-coding multi-path fake SVG buildings, carvings, or human characters.
+   - Spend Stage 2 layout fidelity on **real typography, exact brand palette, contrast scrims, safe-zone spacing, and transition choreography** — reserve real vector/SVG tracing for true Motion Graphics scenes using real reference frames (`Stage 3 / Stage 9`).
 
 1. **Zero System Emojis**:
    - ❌ **Forbidden**: Raw Unicode/Segoe UI emojis (`🏛️`, `🔬`, `📚`, `📲`, `❌`, `🎓`). They look cartoonish and cheap.
