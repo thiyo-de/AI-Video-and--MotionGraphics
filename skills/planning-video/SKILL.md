@@ -64,7 +64,10 @@ Output `PLAN.md` (following `references/plan-template.md`) with **5 strictly sep
 #### Track 2 · Motion (`2. motion`)
 - Select reusable components/primitives before custom coding (`hyperframes catalog` IDs + exact paths inside `AI Video Editing/repos/`).
 - Choose a **brief-driven visual system** rather than repeating one fixed house look: pick typography pairing (e.g., `Google Sans` + `Satoshi`, architectural editorial sans/mono, or light matte ground — always **zero unsolicited `italic`**), a tight functional palette (`<= 5` hues, ideally 1 hero accent per shot), and either full-bleed *"type without plates"* or frosted/elevated bento framing as suited to the domain.
-- Specify page transitions with velocity-matched entry/exit pairs (`zoom-through`, `lateral whip`, `vertical drop`, `3D Y-axis flip`) + light streaks/blooms.
+- Specify page transitions with velocity-matched entry/exit pairs (`zoom-through`, `lateral whip`, `vertical drop`, `3D Y-axis flip`) + light streaks/blooms, AND intentionally mix **scene-world creative transitions**:
+  - **Organic Foreground Overlays**: Birds flying across lens silhouette/flight path, temple pillar/doorway wipes, mist/foliage sweeps matched to occlusion peaks & SFX in `01_page_transitions/`.
+  - **Cinematic Component Focus-Zoom**: Target `transformOrigin` on a key card, carving, map pin, or badge → brief focus hold → smooth GPU `scale` dive right into fullscreen spatial footage (`data-media-start`).
+  - **VO-Synced Motion Clips Inside Cards**: Play muted clips inside cards/split viewports timed directly to Stage 4 VO clauses (e.g., separate clips highlighting *rooms / surroundings / facilities* as named) before diving full-bleed.
 - Enforce **GSAP Determinism & Alignment Rules**:
   - Transform-only tweens (`x`, `y`, `xPercent`, `scale`, `rotateX/Y`, `opacity`, `backgroundColor` — never `letterSpacing` or `left`).
   - Explicit **`t=0` hidden baselines** (`.set(..., { opacity: 0 }, 0)`) on every delayed `immediateRender: false` child so elements never flash visible before entering.

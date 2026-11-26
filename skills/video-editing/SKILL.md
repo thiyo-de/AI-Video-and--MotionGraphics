@@ -75,6 +75,10 @@ Build `layout_preview_widget.html` + `contact_sheet.html` with zero AI visual sl
    - **Anticipation**: Pull back 5% before launching forward.
    - **Overshoot & Settling**: Use spring physics (`power3.out` or custom cubic-bezier `0.22, 1, 0.36, 1`) rather than linear slides.
    - **Secondary Motion**: Badges follow cards with a 0.08s stagger delay.
+5. **Creative Transitions & VO-Synced In-Card Clips**:
+   - **Organic Foreground Overlays**: Use deterministic `f(time)` foreground sweeps matched to the reel's world (e.g., silhouette birds flying across frame for heritage/nature, drifting mist, doorway/pillar wipes), switching scenes under the peak visual pass alongside matched SFX.
+   - **Cinematic Component Focus-Zoom**: Rack camera focus onto one key component (room card, carved detail, telemetry badge, or pin) via wrapper `transformOrigin` + GPU `scale` dive (`cinematic-zoom` / custom GSAP) straight into full-bleed spatial footage (`data-media-start`).
+   - **VO-Synced Clips Inside Cards**: Keep card grids/split containers alive by scrubbing/playing muted motion clips *inside* cards synced to individual VO phrases (`Stage 4` `WordBoundary` cues) instead of static stills.
 
 *Detailed guide*: Read [references/motion-design-craft.md](references/motion-design-craft.md).
 **🛑 Gate 2**: Deliver interactive `layout_preview_widget.html` + `contact_sheet.html` and wait for UI & transition approval before sourcing paid footage or audio.

@@ -37,9 +37,17 @@ Choose one of these 4 high-retention hook types:
 
 ---
 
-## 4. Director's Review Checklist
+## 4. Creative Choreography: Transitions & In-Card Motion
+- **Environmental Foreground Overlays**: Match transitions to the subject's physical world — silhouette bird flyovers across heritage gopurams or natural parks, mist/foliage sweeps in resorts, sliding doorway/archway wipes, or clean architectural light curtains. Cut underneath the foreground pass peak so scenes bridge invisibly.
+- **Cinematic Component Focus-Zoom**: Highlight one interactive card, pin, architectural detail, or stat block, pulse focus briefly, then rack-zoom straight through that element (`transformOrigin` + GPU `scale`) into fullscreen 8K spatial exploration.
+- **VO-Synced Motion Clips Inside Cards**: When VO lists sub-features (*e.g., "rooms, surroundings, and facilities"* or *"library, labs, and campus"*), let muted live clips play dynamically inside crisp cards or split windows timed to those exact VO words before zooming full-screen.
+
+---
+
+## 5. Director's Review Checklist
 Before approving any video concept, ask:
 - [ ] Is the primary contrast obvious within the first 3 seconds?
 - [ ] Does the visual framing match the viewer's mental model?
-- [ ] Are we showcasing authentic proof rather than abstract marketing buzzwords?
+- [ ] Are we showcasing authentic proof (and live in-card clips where VO details features) rather than static filler?
+- [ ] Do transitions (organic overlays, focus-zooms, camera cuts) belong uniquely to this subject's world?
 - [ ] Does the ending feel prestigious and confident, or cluttered and desperate?

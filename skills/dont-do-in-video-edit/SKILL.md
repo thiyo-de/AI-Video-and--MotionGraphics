@@ -18,8 +18,8 @@ A permanent blacklist of visual, editorial, motion, UI, GSAP, SFX, and render mi
 ---
 
 ## 2. PowerPoint / Slideshow Transition Mistakes
-- **NO generic crossfades, box wipes, or linear slides**: Never cut between scenes using basic `opacity: 0 -> 1` dissolves, linear slides, or mismatched exit/entry axes (e.g., exiting left while next scene slides down).
-- **NO jarring clip restarts on PiP docks**: When Scene N docks into a mini card in Scene N+1, **never** let the video reset to `0.0s`. Pass `data-media-start="<sec>"` cleanly in HTML and preview playback.
+- **NO generic crossfades, box wipes, or linear slides**: Never cut between scenes using basic `opacity: 0 -> 1` dissolves, linear slides, or mismatched exit/entry axes (e.g., exiting left while next scene slides down). Choose motivated cuts—velocity camera moves, **component focus-zooms** (`transformOrigin` + GPU wrapper scale), or **deterministic organic foreground overlays** (e.g., bird flyovers, mist, archway wipes synced at occlusion peak, never `Math.random()` / CSS keyframes).
+- **NO static dead cards during VO**: When narration lists multi-room/campus/facility features, avoid static text-only boxes—play pre-primed muted clips cleanly *inside* cards synced to `Stage 4` `WordBoundary` cues, and pass `data-media-start="<sec>"` on continuous PiP/focus-zoom docks (`never` reset video to `0.0s`).
 - **NO card-to-scene sequence mismatch**: Preview card strips (`Card 1 -> Card 2 -> Card 3`) must **never** disagree with the actual scene walkthrough order.
 - **NO black-frame flashes**: Never leave a sub-composition timeline shorter than `data-duration` (`tl.duration() < data-duration`).
 
