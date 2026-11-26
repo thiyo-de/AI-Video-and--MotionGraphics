@@ -9,23 +9,26 @@ This skill transforms the agent from a pure code generator into an **Executive C
 
 ---
 
-## 🏛️ The 5-Phase Production Pipeline
+## 🏛️ The Unified 9-Stage Hard-Gated Pipeline
 
-Every video project—whether 15s Shorts, 30s Reels, or 2-minute product films—must pass through these 5 sequential phases:
+Every video project—whether 15s Shorts, 30s Reels, or 2-minute product films—follows this single chronological pipeline, pausing for explicit user sign-off at every gate (`Gate 1` → `Gate 7`):
 
 ```mermaid
 flowchart LR
-    P1[Phase 1: Creative Direction & Hook] --> P2[Phase 2: Editorial & Script Cadence]
-    P2 --> P3[Phase 3: Motion Design & Visual Craft]
-    P3 --> P4[Phase 4: Surgical Sound Design]
-    P4 --> P5[Phase 5: Technical Render & Quality QA]
+    S1[Stage 1: Brief & 5-Track PLAN.md] -->|Gate 1| S2[Stage 2: UI Preview & Motion Craft]
+    S2 -->|Gate 2| S3[Stage 3: Footage / CFR Prep]
+    S3 -->|Gate 3| S4[Stage 4: VO & Timeline Timing Lock]
+    S4 -->|Gate 4| S5[Stage 5: SFX Locked to Animation]
+    S5 -->|Gate 5| S6[Stage 6: BGM Stem]
+    S6 -->|Gate 6| S7[Stage 7-8: 5-Stem Mix & Cross-Device QA]
+    S7 -->|Gate 7: 48kHz 24-bit WAV| S9[Stage 9: Render, Mux & Delivery QA]
 ```
 
 ---
 
-## Phase 1: Creative Direction & Narrative Hook
+## Stage 1: Creative Direction, Hook & 5-Track `PLAN.md` *(🛑 Gate 1)*
 
-Before writing any timeline or composition code, establish the commercial intention:
+Before writing any timeline or composition code, establish the commercial intention and run `/planning-video`:
 
 1. **The Core Emotional Contrast**:
    - Every high-converting video contrasts an old painful reality with a new effortless reality.
@@ -37,36 +40,20 @@ Before writing any timeline or composition code, establish the commercial intent
    - B2B / Enterprise (Chancellors, Directors): Calm, authoritative, prestigious, spacious.
    - Consumer / Tech SaaS (Linear/Stripe style): Hyper-sleek, snappy, dark obsidian, neon micro-accents.
    - Social / Viral: High-energy beat-synced, punchy kinetic type, rapid curiosity loops.
-
-*Detailed guide*: Read [references/creative-direction.md](references/creative-direction.md).
-
----
-
-## Phase 2: Editorial Rhythm & Script Cadence
-
-Never treat voiceover as an elastic audio block to be squeezed with speed multipliers.
-
-1. **The Speaking Rate Golden Rule**:
+4. **Script Speaking Rate Golden Rule (Budgeted in `Stage 1`, Executed in `Stage 4`)**:
    - Natural human conversational speech is **130 to 145 Words Per Minute (WPM)** (≈ 2.2 words/second).
-   - In a 30.0-second commercial reel:
-     - 0.5s visual hook before speech begins.
-     - 2.5s to 3.5s musical outro and CTA hold.
-     - **Net speech window: 26.0 seconds = 50 to 54 words MAXIMUM**.
-   - **Strict Prohibition**: NEVER speed up TTS beyond `+8%`. If a voiceover exceeds the time window, **edit the script** to remove fluff and filler syllables.
-2. **Shot Hold Times (Cognitive Load)**:
-   - Simple text card / title: **1.0s – 1.8s** minimum read time.
-   - Complex 3D scene / campus tour / dashboard walkthrough: **2.5s – 4.0s** minimum hold so the human eye can register spatial layout before new graphics enter.
-3. **Cuts on Action & Match Cuts**:
-   - Cut on motion vectors (e.g., zoom through a phone screen into the room, rather than generic cross-fades).
-   - Use J-cuts (audio leads picture by 4–8 frames) and L-cuts (picture changes while dialogue tails off) for organic cinematic flow.
+   - In a 30.0-second commercial reel: 0.5s visual hook + 2.5s–3.5s musical outro = **Net speech window ~26.0s (50–54 words max)**.
+   - **Strict Prohibition**: NEVER speed up TTS beyond `+8%` target (`+10%` hard max). If voiceover exceeds the window, **edit the copy**.
+   - **Action match cuts**: Plan J-cuts, L-cuts, and velocity-matched motion vectors (`1.0s–1.8s` hold for titles; `2.5s–4.0s` hold for spatial rooms).
 
-*Detailed guide*: Read [references/editorial-rhythm.md](references/editorial-rhythm.md).
+*Detailed guides*: Read [references/creative-direction.md](references/creative-direction.md) and [references/editorial-rhythm.md](references/editorial-rhythm.md).
+**🛑 Gate 1**: Stop for user approval of `PLAN.md` (`Clips`, `Motion`, `VO`, `SFX`, `BGM`) before building UI or spending credits.
 
 ---
 
-## Phase 3: Motion Design & Visual Craft
+## Stage 2: Motion Design & Interactive UI Preview *(🛑 Gate 2 — Zero Render)*
 
-Eliminate all visual markers of "AI slop" or amateur web mockups:
+Build `layout_preview_widget.html` + `contact_sheet.html` with zero AI visual slop:
 
 1. **Zero System Emojis**:
    - ❌ **Forbidden**: Raw Unicode/Segoe UI emojis (`🏛️`, `🔬`, `📚`, `📲`, `❌`, `🎓`). They look cartoonish and cheap.
@@ -90,54 +77,49 @@ Eliminate all visual markers of "AI slop" or amateur web mockups:
    - **Secondary Motion**: Badges follow cards with a 0.08s stagger delay.
 
 *Detailed guide*: Read [references/motion-design-craft.md](references/motion-design-craft.md).
+**🛑 Gate 2**: Deliver interactive `layout_preview_widget.html` + `contact_sheet.html` and wait for UI & transition approval before sourcing paid footage or audio.
 
 ---
 
-## Phase 4: Surgical Sound Design & EBU R128 Mastering
+## Stage 3: Footage Sourcing & Closed-GOP CFR Media Prep *(🛑 Gate 3)*
 
-Sound design is narrative punctuation, not continuous background noise:
-
-1. **Pre-Processing & Micro-Trimming**:
-   - Analyze raw audio files with Librosa/FFmpeg. Strip leading silence (0ms attack latency).
-   - Trim sound effects to their active acoustic body:
-     - UI clicks / taps: **40ms – 120ms**
-     - Text pops / card entrances: **60ms – 180ms**
-     - Spatial sweeps / whooshes: **180ms – 280ms**
-     - Authority outro hits: **250ms – 400ms**
-   - Apply 10ms micro-fades to avoid digital clicks.
-2. **Intentional Negative Space**:
-   - Maintain at least **1.5s to 3.0s of clean negative space** between SFX cues.
-   - Total active SFX time across a 30s video must not exceed **1.2 seconds**.
-3. **Dynamic Sidechain Music Ducking**:
-   - Duck background music to **0.10 – 0.14** during speech.
-   - Ramp up to **0.35 – 0.45** during intro hooks and outro musical holds.
-4. **Broadcast Mastering Standard**:
-   - 2-pass linear EBU R128 loudness normalization:
-     - Integrated Loudness: **−14.0 LUFS (±0.5)**
-     - Loudness Range (LRA): **≤ 7.0 LU**
-     - True Peak Ceiling: **−1.0 dBTP**
-
-*Detailed guide*: Read [references/sound-design-mastery.md](references/sound-design-mastery.md).
+Confirm staged clips vs. Google Flow generations (`flowmcp.md`). Transcode every clip to deterministic Closed-GOP CFR (`fps=30, -g 30 -keyint_min 30 -sc_threshold 0 -flags +cgop -fps_mode cfr -an`) and pre-prime `<video>` elements (`muted playsinline`, no duplicate `autoplay loop`).
 
 ---
 
-## Phase 5: Technical Render & Quality QA
+## Stages 4–8: Independent Audio Production Pipeline *(Gated Stem-by-Stem)*
+
+Never drop BGM and random SFX straight onto video timelines. Audio is planned (`Stage 1`), built and audited separately (`Stages 4–6`), mixed (`Stage 7`), cross-device tested (`Stage 8`), and approved as **`48 kHz · 24-bit PCM WAV`** before attaching to video:
+
+1. **Stage 4 — Voice Agent (`VO` Only → 🛑 Gate 4)**:
+   - Generate per-page WAVs (`48 kHz · 24-bit`, `<= +8%` rate, `boundary="WordBoundary"` + empty word-list guard), strip leading silence, audit WPM/headroom/tail gaps (`0.5s–1.4s`).
+   - **Approved VO establishes final timing** — lock HTML/rough-cut transition & animation timestamps to actual VO duration before Stage 5!
+2. **Stage 5 — Sound Designer (`SFX` & Foley Only → 🛑 Gate 5)**:
+   - Place cues strictly against the **VO-locked animation preview or rough cut**, never guessed from script.
+   - Pre-process with `0ms` attack latency, `10ms` micro-fades, `1.5s–3.0s` negative space (`<= 1.2s` active SFX per 30s), and active duration caps (clicks **40–120ms**, pops **60–180ms**, sweeps **180–380ms**, hits **250–400ms**). Audition isolated `sfx_only` stem at **-10 to -15 dBFS RMS**.
+3. **Stage 6 — Music Agent (`BGM` Only → 🛑 Gate 6)**:
+   - Prepare instrumental track (`highpass=85Hz, lowpass=8500Hz` speech carve), verify domain energy curve & frequency headroom, audition separately.
+4. **Stage 7 — Audio Mixing Engineer (`5-Stem Mix` → `48 kHz · 24-bit WAV`)**:
+   - Duck BGM smoothly (`0.095–0.14` under VO → `0.24–0.40` in breaks, `220ms` cosine ramps), apply `-2.5 dB / 70ms` vocal pockets over mid-dialogue transients, and run 2-pass linear EBU R128 normalization (**`-14.0 LUFS ± 0.5`**, **`LRA <= 7.0 LU`**, **`TP <= -1.0 dBTP`**).
+5. **Stage 8 — Cross-Device QA & Independent Review *(🛑 Gate 7 — Approved Audio Master)***:
+   - Test across **Mobile Mono (`250Hz–7kHz`, `-ac 1`) · Laptop · Headphones · Television · Full-Band Mono Fold-down**, verify zero masking/distortion/phase drop/timing drift, and wait for user approval of **`master_audio_ebur128.wav`** before Stage 9.
+
+*Detailed guide*: Read [references/sound-design-mastery.md](references/sound-design-mastery.md) and `professional-sound-design/SKILL.md`.
+
+---
+
+## Stage 9: Headless Render, Audio Integration & Final Delivery QA *(🚀 Ship)*
 
 Execute the render cleanly using HyperFrames and FFmpeg:
 
 1. **Composition Architecture**:
-   - Composition entry point: `index.html` (1080×1920 @ 30fps for vertical reels, 1920×1080 for widescreen).
-   - Ensure all `<video>` elements use `muted playsinline` without duplicate `autoplay loop` attributes.
-   - Mark non-reading HUD/watermark elements with `data-layout-ignore`.
+   - Composition entry point: `index.html` (`1080×1920 @ 30fps` for vertical reels, `1920×1080` for widescreen), synced strictly to approved Stage 4–8 timestamps.
+   - Ensure all `<video>` elements use `muted playsinline` without duplicate `autoplay loop` attributes, and mark non-reading HUD/watermark elements with `data-layout-ignore`.
 2. **Verification Protocol**:
-   - Run `hyperframes check` to confirm:
-     - Lint: 0 errors
-     - Runtime: 0 errors
-     - Layout: 0 collision issues
-     - Contrast: 100% WCAG AA compliance
-3. **Render & Multiplex**:
-   - Headless render: `npx hyperframes render . -o raw.mp4 -q looks --format mp4`
-   - Master mux: Stream-copy video with −14.0 LUFS 48kHz stereo master audio.
-   - Review artifacts: Extract 6 representative stills at key beats for client approval.
+   - Run `hyperframes check` (`0` lint errors, `0` runtime errors, `0` collision issues, 100% WCAG AA contrast).
+3. **Render, Fast Mux & Post-Export Audit**:
+   - Headless render: `npx hyperframes render . -o raw_video.mp4 -q looks --format mp4`
+   - Fast 0.5s mux: `ffmpeg -y -i raw_video.mp4 -i master_audio_ebur128.wav -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 320k -ar 48000 -shortest master_deliverable.mp4`
+   - Final Delivered MP4 Audit: measure `ebur128=peak=true` (`-14.0 LUFS ± 0.5`, `TP <= -1.0 dBTP`), run `-af "highpass=f=250,lowpass=f=7000" -ac 1` mono mobile audition, listen/transcribe delivered speech + SFX hits, and inspect 6 extracted key-frame stills.
 
 *Detailed guide*: Read [references/hyperframes-engine.md](references/hyperframes-engine.md) and field-tested guardrails in [references/production-lessons-reel03.md](references/production-lessons-reel03.md).

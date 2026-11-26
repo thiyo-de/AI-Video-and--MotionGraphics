@@ -3,7 +3,9 @@
 - **Format & Specs**: `1080×1920 (9:16)` · `30 fps` · `<30.0s>` total
 - **Audience & Goal**: `<Audience>` → `<Conversion Action>`
 - **Core Contrast**: `<Old Pain>` vs. `<New Proof>`
-- **Visual System**: Dark Obsidian/Aurora `#070B15` · Accent `<#FF791F / #38BDF8>` · Fonts `Google Sans` + `Satoshi` (`0` italic) · **~50% Footage / ~50% Motion UI**
+- **Visual System**: `<Brief-matched ground, surface style (plateless over scrims OR frosted bento), 1 hero accent, domain-matched fonts (0 italic)>`
+- **Reference Takeaway**: From `<reference / repo>`, learn `<1-sentence single technique borrowed>`.
+- **Original in This Reel**: `<What visual language, mechanic, and per-page transitions belong uniquely to this reel — never clone previous reel chrome>`.
 
 ---
 
@@ -36,7 +38,7 @@
 
 ## 3. Voiceover (`VO`) Plan
 
-- **Voice & Pace**: `<en-US-AvaNeural>`, `130–145 WPM` (`<= 2.2 words/sec`, rate `<= +11%`)
+- **Voice & Pace**: `<en-US-AvaNeural>`, `130–145 WPM` (`<= 2.2 words/sec`, **`<= +8%` target rate**, `+10%` hard max), `boundary="WordBoundary"` + empty word-list `[WARN]` check *(Approved Stage 4 VO establishes timing & locks animation cuts before Stage 5 SFX placement)*.
 
 | Scene | Start–End (`s`) | Tail Gap | Script Line (TTS Pronunciation Safe) | Words |
 | :---: | :---: | :---: | --- | :---: |
@@ -62,13 +64,15 @@
 - **Track Style & Selection Reason**: `<Genre / mood / instrumentation tailored to brief; instrumental only>`
 - **Tempo & Structure**: `<BPM>` · Intro `0.0s–<X>s` · Breakdown `<X>s–<Y>s` · Drop `<Y>s` · Natural Fade `<Z>s–30.0s`
 - **Frequency & Ducking Curve**: `highpass=85Hz, lowpass=8500Hz` under VO; ducked to `0.085–0.12` during speech, rising to `0.20–0.40` across open hooks/outro with `220ms` cosine ramps.
-- **Final Broadcast Target**: Two-pass EBU R128 `loudnorm` → **`-14.0 LUFS`**, **`-1.0 dBTP`**, **`LRA <= 7.0 LU`**.
+- **Final Broadcast Target & QA**: Two-pass EBU R128 `loudnorm` (`-c:a pcm_s24le`, `48 kHz · 24-bit WAV` master) → **`-14.0 LUFS (±0.5)`**, **`TP <= -1.0 dBTP`**, **`LRA <= 7.0 LU`**, audited across **5 cross-device profiles** (`Mobile Mono`, `Laptop`, `Headphones`, `TV`, `Stereo→Mono Fold-down`) before Stage 9 video mux (`320 kbps AAC @ 48 kHz`).
 
 ---
 
-## Checkpoint Approval
-- [ ] Track 1 Flow/Video Prompts approved
-- [ ] Track 2 Motion/Template picks approved
-- [ ] Track 3 VO phrasing & cadence approved
-- [ ] Track 4 SFX 3-bucket cue sheet approved
-- [ ] Track 5 BGM mood & ducking profile approved
+## Hard-Gated Checkpoints (Stop & Wait at Every Gate)
+- [ ] **Gate 1 (`Stage 1`)**: `PLAN.md` Tracks 1–5 + Master Audio Plan approved
+- [ ] **Gate 2 (`Stage 2`)**: Interactive UI & Motion Preview (`layout_preview_widget.html`) approved *(Zero render)*
+- [ ] **Gate 3 (`Stage 3`)**: Footage / Flow Clip sourcing & CFR prep approved
+- [ ] **Gate 4 (`Stage 4`)**: Isolated Voiceover (`VO`) audition approved *(Locks timeline timing)*
+- [ ] **Gate 5 (`Stage 5`)**: Isolated SFX & Foley (`3` buckets) audition approved *(Locked to real animation frames)*
+- [ ] **Gate 6 (`Stage 6`)**: Isolated Background Music (`BGM`) audition approved
+- [ ] **Gate 7 (`Stages 7–8`)**: Combined 5-Stem Mix, Cross-Device QA & `48 kHz · 24-bit WAV` Master approved before Stage 9 video mux

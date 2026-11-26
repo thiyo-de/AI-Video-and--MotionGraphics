@@ -323,11 +323,11 @@ Rendering a full-resolution 1080×1920 video takes 45–75 seconds. Avoid re-ren
 
 | Production Stage | Rendering Strategy | Command / Action |
 | :--- | :--- | :--- |
-| **1. Validation** | Linter & Timeline Check | `npx hyperframes lint` & `npx hyperframes timeline --json` |
-| **2. Layout & Design (Step 3.1)** | **Zero-Render Preview Widget** | Open `layout_preview_widget.html` directly in browser. Instant inspection with zero render latency. |
-| **3. Motion & Footage (Step 4.1)** | Raw Video Assembly Render | Render visual composition (`-q looks`) after clip cue sheet is confirmed by user. |
-| **4. Audio / VO Revision (Step 7)** | **Audio-Only Remux** | Do not re-render video. Re-mux new audio into existing video (`-c:v copy -c:a aac`) in **0.5 seconds**! |
-| **5. Final Delivery** | Full Resolution Master | `npx hyperframes render <dir> -o <out.mp4> -q looks --format mp4` |
+| **1. Plan & Validate (`Stage 1`)** | 5-Track `PLAN.md` + Gate 1 | Lock creative brief, 5-track plan & timeline contract (`hyperframes timeline --json` after markup) |
+| **2. Interactive UI (`Stage 2`)** | **Zero-Render Preview Widget + Gate 2** | Open `layout_preview_widget.html` directly in browser (`0` flicker / `0` JS errors). Zero render wait. |
+| **3. Audio Pipeline (`Stages 4–8`)** | **Independent Audio Master (`Gates 4–7`)** | Build & approve separately: `VO` (locks timeline) → `SFX` (locked to animation) → `BGM` → 5-Stem Mix → **5-Device Cross-Device QA** (`48 kHz · 24-bit WAV`) |
+| **4. Final Video & Remux (`Stage 9`)** | Headless Render + **0.5s Audio Mux** | Render `raw_video.mp4` (`-q looks`), mux approved `48kHz 24-bit WAV` via `-c:v copy -c:a aac -b:a 320k -ar 48000` |
+| **5. Final MP4 QA (`Stage 9`)** | Delivered Container Audit | Verify `ebur128=peak=true`, `-af "highpass=f=250,lowpass=f=7000" -ac 1`, speech/SFX audition, & frame strips |
 
 ---
 
@@ -350,7 +350,7 @@ Before delivering any video to a client or platform:
 - [ ] **10. Voice Intelligibility**: Word count strictly budgeted to 8–10 words per 5-second scene, delivered MP4 listened/verified cleanly.
 - [ ] **11. Edge TTS Metadata**: `WordBoundary` timestamps exported to JSON (`boundary="WordBoundary"`) with non-empty word check.
 - [ ] **12. Conditional SFX**: Context-appropriate editing; cinematic tails preserved, UI clicks trimmed.
-- [ ] **13. Cross-Device Translation**: Key impacts verified through mobile filter (`ffmpeg -i master_deliverable.mp4 -af "highpass=f=250,lowpass=f=7000" -ac 1 -f null -`) with `-ac 1` outside `-af`.
+- [ ] **13. Cross-Device Translation (`Stage 8`)**: Verified approved `master_audio_ebur128.wav` & delivered MP4 across **Mobile Mono** (`-af "highpass=f=250,lowpass=f=7000" -ac 1`), **Laptop**, **Headphones**, **TV**, and **Mono Fold-down** (`-ac 1` outside `-af`).
 - [ ] **14. Dynamic Ducking**: Music bed attenuates to `-20 dB` under dialogue and swells at climax.
 
 ### Creative & Editorial Quality

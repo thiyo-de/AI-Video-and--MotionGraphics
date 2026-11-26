@@ -7,9 +7,17 @@ description: >-
   cinematic impacts, UI sounds, or loudness mastering.
 ---
 
-# Professional Sound Design & Surgical Audio Mastering for HyperFrames
+# Independent Audio Production & Surgical Mastering (`Stages 4–8`)
 
-This skill enforces a broadcast-grade audio engineering and sound design pipeline for AI video production in HyperFrames. It guarantees that sound effects are **surgically trimmed, transient-aligned, and mixed with intentional negative space** rather than played as raw, bloated audio files.
+Every video runs audio as an **independent, gated production pipeline**—never an afterthought bolted onto rendered video. Audio components (`VO`, `SFX/Foley`, `BGM`) are **planned first (`Stage 1`), built & analyzed separately (`Stages 4–6`), combined (`Stage 7`), cross-device tested & independently reviewed (`Stage 8`), and approved as a `48 kHz · 24-bit WAV` master before attaching to video (`Stage 9`)**.
+
+### Independent Audio Architecture (`Stages 4–8`)
+1. **Stage 1 (`Audio Director Plan`)**: From Script + Creative Direction, define tone, emotion, target loudness (`-14.0 LUFS`), VO word budget, 3-bucket SFX strategy, and BGM direction.
+2. **Stage 4 (`Voice Agent` — VO Only → 🛑 Gate 4)**: Synthesize per-page WAV stems (`en-US-AvaNeural`, `<= +8%` speed target, `boundary="WordBoundary"`), strip leading silence, and shift word timings. **Individual VO Analysis**: measure WPM, LUFS/TP, empty word-list guard, pronunciation, and tail silence (`0.5s–1.4s`). **Wait for user approval. Approved VO establishes real timing and locks animation/rough-cut cut frames before Stage 5.**
+3. **Stage 5 (`Sound Designer` — SFX & Foley Only → 🛑 Gate 5)**: Sync SFX strictly to **VO-locked animation preview or rough-cut frames**—never estimated from script. Process via the 4-stage DSP pipeline below into `01_page_transitions/`, `02_motion_elements_and_graphics/`, `03_animations/`. **Individual SFX Analysis**: `0ms` attack check, `-10 to -15 dBFS` RMS mobile presence, frequency separation from speech. **Wait for user approval.**
+4. **Stage 6 (`Music Agent` — BGM Only → 🛑 Gate 6)**: Create/select instrumental track matched to domain mood, BPM, and scene drops. Carve speech pocket (`highpass=85Hz, lowpass=8500Hz`). **Individual BGM Analysis**: dynamic stability, spectral clearance in `300Hz–3kHz`, zero vocal distractions. **Wait for user approval.**
+5. **Stage 7 (`Audio Mixing Engineer` — 5-Stem Mixdown)**: Combine `VO` + ducked `BGM` (`220ms` cosine ramps, `0.085–0.12` under speech → `0.24–0.38` in breaks) + `SFX` + `Foley` + `Ambience` (with `-2.5 dB / 70ms` vocal pockets if transients hit speech) into 2-pass linear EBU R128 **`master_audio_ebur128.wav` (`48 kHz · 24-bit PCM WAV`)**.
+6. **Stage 8 (`Cross-Device QA + Independent Review` → 🛑 Gate 7)**: Audition & measure the master across **Mobile · Laptop · Headphones · Television · Mono Fold-down**, pass the Independent Quality Review (zero masking, zero clipping/distortion, frame-locked timing, creative cohesion), and obtain user sign-off **before Stage 9 video integration**.
 
 ---
 
@@ -82,7 +90,19 @@ All exported social reels and broadcast videos must meet these technical metrics
 | **Integrated Loudness** | **−14.0 LUFS** (±0.5 LUFS) | FFmpeg `loudnorm=I=-14:TP=-1.0:LRA=7` |
 | **Maximum True Peak** | **−1.0 dBTP** | Prevents DAC inter-sample clipping on mobile speakers |
 | **Loudness Range (LRA)**| **4.0 – 8.0 LU** | Keeps dialogue intelligible across quiet/loud environments |
-| **Audio Format** | Stereo AAC @ 256 kbps, 44.1/48 kHz | Broadcast standard delivery |
+| **Audio Format** | **Master:** `48 kHz · 24-bit PCM WAV` (`-c:a pcm_s24le`)<br>**Delivery:** Stereo AAC `320 kbps @ 48 kHz` | Preserves headroom before final MP4 mux (`-c:v copy`) |
+
+### Cross-Device Testing & Independent Review Matrix (`Stage 8`)
+
+Before `Gate 7` approval and video muxing, inspect the mastered audio (`master_audio_ebur128.wav`) across all **5 target playback profiles**:
+
+| Device Profile | FFmpeg Diagnostic Filter / Check | What It Catches |
+| :--- | :--- | :--- |
+| **1. Mobile Speaker (Mono)** | `-af "highpass=f=250,lowpass=f=7000" -ac 1` *(outside `-af`)* | Sub-only SFX disappearing (`< 250 Hz`), harsh sibilance, dialogue buried under foley |
+| **2. Laptop Speakers** | `-af "highpass=f=160,lowpass=f=12000"` | Weak `400Hz–1.2kHz` mid-body punch, congested midrange between VO and BGM |
+| **3. Headphones (Full Range)** | Full-band `20 Hz – 20 kHz` stereo + quiet tail scan | Mouth clicks, digital pops, reverb/tail mud, unnatural stereo swings, sub rumble |
+| **4. Television / Living Room** | `-af "highpass=f=60,lowpass=f=14000"` + `LRA <= 7.0 LU` check | Whisper-quiet VO vs. loud BGM swells (`LRA` too wide for room distance) |
+| **5. True Mono Fold-Down** | `-ac 1` full-band phase / LUFS delta vs. stereo master | L/R stereo widening phase cancellation collapsing BGM or SFX in mono |
 
 ---
 

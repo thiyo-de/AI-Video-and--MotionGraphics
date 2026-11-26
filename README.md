@@ -14,7 +14,7 @@ This repository houses the complete standard operating procedures, architectural
 
 | Component | Path | Description |
 | :--- | :--- | :--- |
-| **Actionable SOP** | [`video-workflow.md`](video-workflow.md) | The **7-Step Collaborative Pipeline**: Page-by-page narrative budgeting, zero-render layout widgets, clip cue sheets, isolated audio stem auditions, and 0.5s remuxing. |
+| **Actionable SOP** | [`video-workflow.md`](video-workflow.md) | The **9-Stage Hard-Gated Pipeline**: `PLAN.md` (`Gate 1`), zero-render UI preview (`Gate 2`), footage CFR (`Gate 3`), independent `VO`→`SFX`→`BGM`→`Cross-Device WAV Master` (`Gates 4–7`), and 0.5s MP4 remux (`Stage 9`). |
 | **Technical Blueprint** | [`ai-video-editing.md`](ai-video-editing.md) | Universal Production Standard V2.0: EBU R128 mastering math, closed-GOP CFR encoding, Node.js 22+ requirements, and HyperFrames container contracts. |
 | **Google Flow MCP Guide** | [`flowmcp.md`](flowmcp.md) | Google Flow MCP Integration Guide: CDP automation, session configuration, and Veo/Gemini video generation workflow. |
 | **Core Skills** | [`skills/`](skills/) | Specialized production skills for 5-track planning, anti-pattern quality gates, editorial direction, sound design, media handling, and HyperFrames motion components. |
@@ -48,10 +48,10 @@ Delivery Format:          AAC Stereo (320 kbps @ 48 kHz)
 ## 🛠️ The 7 Core Production Skills
 
 Inside [`skills/`](skills/):
-- **`planning-video`**: 5-track pre-production planner (`Flow/Video Clips`, `Motion`, `VO`, `SFX`, `Background Audio`) combining this SOP, the HyperFrames 448-item registry, and `repos/`.
-- **`dont-do-in-video-edit`**: Anti-pattern checklist preventing PowerPoint slideshows/transitions, GSAP `.add()`/repeat glitches, slider width drift, faint UI clicks, and stale captures.
-- **`video-editing`**: Master creative direction, visual rhythm, Disney's 12 motion principles, kinetic typography, editorial pacing, and [Reel 03 Production Lessons](skills/video-editing/references/production-lessons-reel03.md).
-- **`professional-sound-design`**: Peak-anchored slicing (`np.argmax`), audible mobile RMS staging, separate 3-bucket cues, dynamic ducking, and EBU R128 mastering (`-14.0 LUFS / -1.0 dBTP`).
+- **`planning-video`**: **Stage 1** 5-track pre-production planner (`Flow/Video Clips`, `Motion`, `VO`, `SFX`, `Background Audio`) combining this SOP, the HyperFrames 448-item registry, and `repos/`.
+- **`dont-do-in-video-edit`**: Anti-pattern checklist enforcing hard gates (`Gate 1–7`) and preventing PowerPoint slideshows, GSAP flashes/glitches, slider width drift, faint `-22 dBFS` SFX, and untested mixes.
+- **`video-editing`**: Master **Stages 1–9** creative direction, visual rhythm, Disney's 12 motion principles, kinetic typography, editorial pacing, and [Reel 03 Production Lessons](skills/video-editing/references/production-lessons-reel03.md).
+- **`professional-sound-design`**: Independent Audio Production Pipeline (**Stages 4–8**: `VO` timing lock → `SFX` locked to animation → `BGM` → 5-stem mix → **5-device Cross-Device QA** → **`48 kHz · 24-bit WAV` master** at `-14.0 LUFS / -1.0 dBTP`).
 - **`hyperframes`**: Frame-deterministic HTML/CSS rendering contracts, container viewport animations, and GSAP master timelines.
 - **`hyperframes-registry`**: 450+ production-ready motion components (kinetic type, charts, glitch overlays, frosted cards, and camera moves).
 - **`media-use`**: Footage transcoding rules (Closed-GOP CFR 30fps), color grading, and asset curation.
@@ -68,11 +68,12 @@ Inside [`skills/`](skills/):
 
 ---
 
-## 🚀 Quickstart
+## 🚀 Quickstart (`Stage 1 → Stage 9`, Gate-by-Gate)
 
-1. Run **`planning-video`** (`skills/planning-video/SKILL.md`) to lock a 5-track `PLAN.md` across clips, motion, VO, SFX, and background music before rendering.
-2. Review the **7-Step SOP** in [`video-workflow.md`](video-workflow.md) and FFmpeg mastering formulas in [`ai-video-editing.md`](ai-video-editing.md).
-3. Pull components from [`skills/hyperframes-registry/`](skills/hyperframes-registry/) or [`repos/`](repos/), and audit every scene against [`skills/dont-do-in-video-edit/`](skills/dont-do-in-video-edit/SKILL.md).
+1. **Stage 1 (`planning-video`)**: Lock a 5-track `PLAN.md` across clips, motion, VO, SFX, and background music (**🛑 Gate 1**).
+2. **Stages 2–3**: Build interactive `layout_preview_widget.html` (**🛑 Gate 2**), then prep CFR clips/Flow (**🛑 Gate 3**).
+3. **Stages 4–8 (Independent Audio Pipeline)**: Generate & approve `VO` (**🛑 Gate 4** → locks cut frames) → `SFX` locked to animation (**🛑 Gate 5**) → `BGM` (**🛑 Gate 6**) → 5-Stem Mix & **5-Device Cross-Device QA** → **Approved `48 kHz · 24-bit WAV` Master** (**🛑 Gate 7**).
+4. **Stage 9**: Render headless with HyperFrames (`-q looks`), 0.5s mux (`-c:v copy`), audit the delivered MP4, and ship.
 
 ---
 

@@ -16,41 +16,44 @@
 > **Every single Page is an independent creative unit** with 6 fixed parameters:
 > 1. **Timecode & Duration Window**: Exactly defined start and end seconds (e.g. Page 1: `0.0s – 5.0s`, Page 2: `5.0s – 11.0s`).
 > 2. **DOM Viewport Container**: Independent wrapper (`<div id="page-01-viewport">`) preventing transform bleed.
-> 3. **Unique Layout & Motion**: Dedicated card glassmorphism, metric counters, badges, and kinetic typography.
+> 3. **Brief-Driven Layout & Motion**: Intentional visual craft (unboxed type over soft scrims OR frosted bento cards), metric counters, Lucide vector icons, and kinetic typography.
 > 4. **Assigned Media Asset**: Specific CFR-transcoded video clip or static graphic mapped to that page.
-> 5. **Dedicated Voiceover Sentence**: Word-budgeted narration line (strictly $\le 2\text{ words/sec}$) with breathing silence.
-> 6. **Tailored SFX & Foley Cues**: Transition sweep entering the page, tactile foley during page action, and exit cues.
+> 5. **Dedicated Voiceover Sentence**: Word-budgeted narration line (strictly $\le 2.2\text{ words/sec}$, `<= +8%` rate) with breathing silence.
+> 6. **Tailored SFX & Foley Cues**: Transition sweep entering the page, tactile foley locked to animation hits, and exit cues.
 >
-> **You never render a full video until every individual page has been validated through this 7-step sequence.**
+> **Never skip a gate. UI, Voiceover, SFX, Music, Cross-Device Audio Master, and Video Render each pause for explicit user approval.**
 
 ---
 
-## The 7-Step Page-by-Page Production Pipeline
+## The Unified 9-Stage Hard-Gated Pipeline
 
 ```
-[Step 1: Page-by-Page Narrative Blueprint] ──────────► 🛑 CHECKPOINT 1: Story & Time Budget Alignment
+[Stage 1: Brief, Page Blueprint & 5-Track PLAN.md] ────────► 🛑 GATE 1: Plan & Audio Architecture Approval
                  │
-[Step 2: Page-by-Page Media Classification] ────────► 🛑 CHECKPOINT 2: Asset Strategy Alignment
+[Stage 2: Interactive UI & Motion Preview Widget] ─────────► 🛑 GATE 2: Screen-by-Screen UI Approval (Zero Render)
                  │
-[Step 3: Page-by-Page DOM & Motion Layout]
-       └── [Step 3.1: Interactive Page Layout Widget (NO Video Render)] ──► 🛑 CHECKPOINT 3: Screen-by-Screen UI Approval
+[Stage 3: Footage Sourcing, Clip Map & Closed-GOP CFR] ────► 🛑 GATE 3: Footage / Flow Spend Approval
                  │
-[Step 4: Page-by-Page Clip Mapping (NO Video Render)] ───────────────► 🛑 CHECKPOINT 4: Footage Plan Approval
-       └── [Step 4.1: Closed-GOP Transcode & Video Assembly Render] ────► 🛑 CHECKPOINT 4.1: Visual Motion Verification
+ ┌───────────────┴────────────── INDEPENDENT AUDIO PRODUCTION PIPELINE ──────────────────────────────┐
+ │ [Stage 4: Voice Agent — Isolated VO + WordBoundary + Lock Animation Cut Times] ──► 🛑 GATE 4: VO  │
+ │               │                                                                                   │
+ │ [Stage 5: Sound Designer — Isolated 3-Bucket SFX Locked to Real Animation] ──────► 🛑 GATE 5: SFX │
+ │               │                                                                                   │
+ │ [Stage 6: Music Agent — Isolated BGM Track & Speech Carve] ──────────────────────► 🛑 GATE 6: BGM │
+ │               │                                                                                   │
+ │ [Stage 7: Mixing Engineer — 5-Stem Bus & EBU R128 48 kHz · 24-bit WAV Master]                     │
+ │               │                                                                                   │
+ │ [Stage 8: 5-Device Cross-Device QA (Mobile/Laptop/Headphones/TV/Mono) + Review] ► 🛑 GATE 7: WAV │
+ └───────────────────────────────────────────────────────────────────────────────────────────────────┘
                  │
-[Step 5: Page-by-Page Narration Synthesis (AvaNeural / Calm / Punctuation)]
-                 │
-[Step 6: Page-by-Page Surgical SFX & Foley Design]
-       └── [Step 6.1: Page-by-Page Isolated VO & SFX Audition Stems] ──► 🛑 CHECKPOINT 6: Audio Stems Audition
-                 │
-[Step 7: Master Timeline Stitching, 5-Stem Mix & 0.5s Fast Remux] ──► 🚀 FINAL DELIVERABLE & QA
+[Stage 9: HyperFrames Render (-q looks), 0.5s Audio Mux & Final MP4 QA] ────────────► 🚀 DELIVER & SHIP
 ```
 
 ---
 
-## Step 1: Page-by-Page Narrative Blueprint & Time Budgeting
+## Stage 1: Page-by-Page Blueprint, Media Classification & `PLAN.md` *(🛑 Gate 1)*
 
-**Goal**: Partition the total video runtime into discrete, bite-sized Pages (Screens) with defined psychological objectives and strict word budgets.
+**Goal**: Partition the total video runtime into discrete Pages (Screens), classify footage/motion per page, and draft the **Master Audio Director Plan** inside `PLAN.md` before spending credits, recording audio, or writing HTML.
 
 ### Action Items
 1. **Define Canvas Aspect Ratio**:
@@ -73,23 +76,18 @@
 | **P06** | Institutional Authority | `29.0s – 34.0s` | 5.0s | 8 accredited campus logos & trust badges | 8 words | 0.5s |
 | **P07** | Call to Action Closer | `34.0s – 38.0s` | 4.0s | Specular brand logo reveal with pulsing CTA button | 7 words | 0.8s |
 
-> [!IMPORTANT]
-> ### 🛑 CHECKPOINT 1: Story & Time Budget Alignment
-> **Present the Page-by-Page Production Matrix to the user.**  
-> *Do not write code, build layouts, or record audio until the user approves the page sequence and durations.*
-
 ---
 
-## Step 2: Page-by-Page Media & Motion Classification
+### Media & Motion Classification (Part of Stage 1 `PLAN.md`)
 
-**Goal**: Determine the exact visual medium and asset pipeline for every individual page to eliminate guesswork.
+**Goal**: Determine the exact visual medium and asset pipeline for every individual page to eliminate guesswork before **Gate 1**.
 
 ### Classification Categories
 Assign each page to one of four technical pipelines:
-1. **Pure Motion Infographics**: 100% HTML/CSS/GSAP vectors, metric counters, glowing glass cards, kinetic typography. (Zero footage needed).
+1. **Pure Motion Infographics**: 100% HTML/CSS/GSAP vectors, metric counters, clean typography or glass cards. (Zero footage needed).
 2. **Curated Video Footage**: Real human footage, campus tours, aerial drones, device recordings.
 3. **AI / Google Flow Generation**: Hyper-specific cinematic scenarios generated via Google Flow or text-to-video tools.
-4. **Hybrid Split / Layered Composition**: Live video background contained in a glass card with interactive UI overlay badges.
+4. **Hybrid Split / Layered Composition**: Live video background with clean unboxed overlay type or HUD callipers.
 
 ### Page Asset Classification Sheet
 | Page # | Classification | Primary Visual Element | Source / Production Tool | Asset File |
@@ -100,18 +98,18 @@ Assign each page to one of four technical pipelines:
 | **P04** | Curated Video + HUD UI | Fullscreen drone footage with telemetry pill overlay | 4K Drone clip + CSS glass badge | `aerial_campus_cfr.mp4` |
 | **P05** | Kinetic UI + Foley | Glass iPhone WhatsApp chat with typing bubble dots | Custom CSS Chat + iOS haptic taps | 100% Code + `sfx_mobile_typing_ios.wav` |
 | **P06** | Pure Motion Infographic | Authority ticker with partner logo glass badges | Tailwind CSS Grid + Lucide | 100% Code (SVG Badges) |
-| **P07** | Brand Motion Closer | Specular brand logo with pulsing glowing CTA button | CSS Specular gradient + Radial glow | Brand SVG Logo |
+| **P07** | Brand Motion Closer | Clean brand emblem with horizon perspective grid | Clean SVG + subtle perspective floor | Brand SVG Logo |
 
 > [!IMPORTANT]
-> ### 🛑 CHECKPOINT 2: Asset Strategy Alignment
-> **Present the Page Asset Classification Sheet to the user.**  
-> *Confirm which pages require user-supplied footage, which require AI generation, and which are pure code.*
+> ### 🛑 GATE 1: Master 5-Track `PLAN.md` Approval
+> **Present the complete `PLAN.md` (Page Matrix, Media Classification, Reference Takeaway, Original Visual System, and Master Audio Plan for VO/SFX/BGM) to the user.**  
+> *Do not write preview code, generate Flow clips, synthesize audio, or render video until Gate 1 is approved.*
 
 ---
 
-## Step 3: Page-by-Page DOM & Motion Layout Construction
+## Stage 2: Interactive Page Layout & Motion Preview *(🛑 Gate 2 — Zero Video Render)*
 
-**Goal**: Build each page as an independent visual viewport in HTML/CSS/Tailwind, ensuring clean modular separation.
+**Goal**: Build each page as an independent visual viewport in HTML/CSS, inspect every transition in the browser with Zero-Flash `t=0` GSAP baselines, and obtain visual approval **before rendering any video or generating audio**.
 
 ### Modular Viewport Architecture
 Every page is wrapped in its own isolated viewport container with absolute coordinates:
@@ -148,191 +146,171 @@ Every page is wrapped in its own isolated viewport container with absolute coord
 
 ---
 
-### Step 3.1: Interactive Page Layout Widget (NO Video Render)
+### Interactive Page Layout Widget (Zero Video Render)
 
-**Why this saves hours**: Video rendering takes 2–5 minutes per attempt. A tabbed HTML preview widget renders **instantly in 0.0 seconds** in any browser, allowing screen-by-screen design inspection.
+**Why this saves hours**: Video rendering takes 2–5 minutes per attempt. A tabbed HTML preview widget (`layout_preview_widget.html` + `contact_sheet.html`) renders **instantly in 0.0 seconds** in any browser, allowing screen-by-screen design inspection and Playwright Zero-Flash (`0` flicker / `0` JS error) checks.
 
 ### Action Items
-1. Generate `layout_preview_widget.html` in the conversation artifact directory or project folder.
-2. Provide interactive clickable tabs for every single page:
-   * `[Page 1: Hook]` `[Page 2: Dilemma]` `[Page 3: System]` `[Page 4: Proof]` `[Page 5: Action]` `[Page 6: Authority]` `[Page 7: Closer]`
-3. Clicking a tab renders that exact page's layout, glassmorphic cards, typography scale (Clash Display + Satoshi), and color contrast inside a 1080×1920 mobile viewport frame.
+1. Generate `layout_preview_widget.html` + `contact_sheet.html` in the project directory.
+2. Provide interactive clickable tabs for every single page + full 30s playback bar.
+3. Clicking a tab renders that exact page's layout, brief-matched typography (`0` italic slop), clean surface framing, and color contrast inside a 1080×1920 mobile viewport frame.
 
 > [!IMPORTANT]
-> ### 🛑 CHECKPOINT 3: Screen-by-Screen UI Approval
-> **Deliver [layout_preview_widget.html](file:///c:/Users/ADMIN/.gemini/antigravity/brain/31d64721-5bc4-46b0-b73e-deb1959af81d/layout_preview_widget.html) to the user.**  
-> *Ask the user to click through every page tab, auditing typography, contrast, and layout hierarchy before rendering any video.*
+> ### 🛑 GATE 2: Screen-by-Screen UI & Motion Approval
+> **Deliver `layout_preview_widget.html` and visual contact sheet screenshots to the user.**  
+> *Wait for explicit user sign-off on layout, typography, transitions, and contrast before generating Flow clips, synthesizing audio, or rendering video.*
 
 ---
 
-## Step 4: Page-by-Page Footage & Clip Mapping (NO Video Render)
+## Stage 3: Footage Sourcing, Clip Mapping & Closed-GOP CFR Prep *(🛑 Gate 3)*
 
-**Goal**: Organize, verify, and map video footage to DOM containers page-by-page before executing video renders.
+**Goal**: Organize, approve, and pre-transcode footage cleanly before audio sync or video render.
 
 ### Action Items
-1. **Author the Page Clip Cue Sheet**:
-   | Page # | Viewport Container ID | Video Tag ID | Assigned Clip | Time In | Duration | Audio Action |
-   | :---: | :--- | :--- | :--- | :---: | :---: | :--- |
-   | **P01** | `#page-01-viewport` | `#clip-p01` | `assets/clips/parents_worried_cfr.mp4` | 0.0s | 5.0s | Muted (`-an`) |
-   | **P02** | `#page-02-viewport` | `#clip-p02` | `assets/clips/students_walk_cfr.mp4` | 5.0s | 6.0s | Muted (`-an`) |
-   | **P04** | `#page-04-viewport` | `#clip-p04` | `assets/clips/aerial_campus_cfr.mp4` | 17.0s | 6.0s | Native foley preserved |
-2. **Present the Clip Checklist to the User**:
-   * Confirm that each video clip fits its page's narrative intent.
-
-> [!IMPORTANT]
-> ### 🛑 CHECKPOINT 4: Footage Plan Approval
-> **Confirm page-by-page clip mapping with the user.**  
-> *Ensure all placeholder or stock footage is approved before starting batch transcode and rendering.*
-
----
-
-### Step 4.1: Closed-GOP Transcode & Video Assembly Render
-
-Once page clips are approved, process media and render the visual video pass:
-
-1. **Pre-Transcode Every Clip to Closed-GOP CFR**:
+1. **Confirm Real vs. Staged vs. Google Flow Clips** (no paid Flow generation without user sign-off).
+2. **Pre-Transcode Every Clip to Closed-GOP CFR (`fps=30`, `-an`)**:
    ```bash
    ffmpeg -y -i "raw_footage/clip_p01.mp4" \
      -map 0:v:0 -vf "fps=30" -c:v libx264 -preset fast -crf 18 -pix_fmt yuv420p \
      -g 30 -keyint_min 30 -sc_threshold 0 -flags +cgop -fps_mode cfr -movflags +faststart \
      -an "assets/clips/clip_p01_cfr.mp4"
    ```
-2. **Render Raw Visual Composition**:
-   ```bash
-   npx hyperframes render "projects/<project_name>" -o "export/<project_name>/raw_video.mp4" -q looks --format mp4
-   ```
-3. **Extract Page-by-Page Snapshot Proofs**:
-   ```bash
-   # Extract keyframes from the center of each page's timecode window
-   ffmpeg -y -ss 00:00:02.00 -i raw_video.mp4 -frames:v 1 -q:v 2 "export/proof_page_01.png"
-   ffmpeg -y -ss 00:00:07.50 -i raw_video.mp4 -frames:v 1 -q:v 2 "export/proof_page_02.png"
-   ffmpeg -y -ss 00:00:14.00 -i raw_video.mp4 -frames:v 1 -q:v 2 "export/proof_page_03.png"
-   ffmpeg -y -ss 00:00:20.00 -i raw_video.mp4 -frames:v 1 -q:v 2 "export/proof_page_04.png"
-   ffmpeg -y -ss 00:00:26.00 -i raw_video.mp4 -frames:v 1 -q:v 2 "export/proof_page_05.png"
-   ffmpeg -y -ss 00:00:31.50 -i raw_video.mp4 -frames:v 1 -q:v 2 "export/proof_page_06.png"
-   ffmpeg -y -ss 00:00:36.00 -i raw_video.mp4 -frames:v 1 -q:v 2 "export/proof_page_07.png"
-   ```
+3. **Map Clips to `<video>` Viewport Containers (`data-media-start`, `muted playsinline`, pre-primed)**.
 
 > [!IMPORTANT]
-> ### 🛑 CHECKPOINT 4.1: Visual Motion Verification
-> **Share page-by-page snapshot proofs with the user.**  
-> *Confirm that video playback is smooth, animations are timed properly, and there are no frozen video frames.*
+> ### 🛑 GATE 3: Footage Plan Approval
+> **Confirm page-by-page clip mapping (`Flow` / B-roll / reused CFRs) with the user before proceeding to Stage 4 Audio Production.**
 
 ---
 
-## Step 5: Page-by-Page Narration Synthesis (AvaNeural / Calm & Punctuation)
+## Stage 4: Voice Agent — Isolated Voiceover & Timing Lock *(🛑 Gate 4)*
 
-**Goal**: Synthesize voiceover page-by-page with exact duration matching, natural breathing pauses, and streaming word metadata.
+**Goal**: Synthesize voiceover per page, analyze quality & timings independently, obtain approval, and **lock final page cut timestamps so Stage 5 SFX aligns to reality — never script guesses**.
 
 ### Voice Direction Standards
 * **Default Voice**: `en-US-AvaNeural` (Warm, authoritative, articulate female documentary voice).
-* **Speed Rate**: `+8%` ceiling target (Measured, natural pace; never exceed `+8%`—edit copy instead).
+* **Speed Rate**: `+8%` ceiling target (Measured, natural pace; never exceed `+8%` target / `+10%` hard max—edit copy instead).
 * **Page-by-Page Sentence Rules**:
   * Every page receives **one clean sentence or thought**.
-  * Spoken audio must finish **0.5s–0.8s before the page ends** to prevent vocal collision during page transitions.
-  * Use deliberate commas (`,`) to introduce natural 150ms–250ms breathing pauses.
-* **Audio Standard**: **48,000 Hz, 24-bit PCM WAV**.
+  * Spoken audio must finish **0.5s–0.8s before the page ends** (`tail silence` prevents collision during transitions).
+  * Use deliberate commas (`,`) for 150ms–250ms natural breathing pauses.
+* **Audio Standard**: **48,000 Hz, 24-bit PCM WAV** (`-c:a pcm_s24le`).
 
-### Page-by-Page Narration Script & Time Alignment
-| Page # | Timecode Window | Max Voice Duration | Script Sentence | Word Count |
-| :---: | :---: | :---: | :--- | :---: |
-| **P01** | `0.0s – 5.0s` | 4.2s | *"Every year, ninety percent of student applications get rejected."* | 9 words |
-| **P02** | `5.0s – 11.0s` | 5.3s | *"Flat photos hide reality. Live digital twins reveal the truth."* | 10 words |
-| **P03** | `11.0s – 17.0s` | 5.2s | *"Our platform verifies facilities, faculty, and real-world placement records instantly."* | 10 words |
-| **P04** | `17.0s – 23.0s` | 5.4s | *"Tour campuses in ultra-high-definition from anywhere in the world."* | 9 words |
-| **P05** | `23.0s – 29.0s` | 5.3s | *"Connect directly with verified admission counselors over WhatsApp."* | 8 words |
-| **P06** | `29.0s – 34.0s` | 4.5s | *"Trusted by fifty premier universities across the nation."* | 8 words |
-| **P07** | `34.0s – 38.0s` | 3.2s | *"Secure your future today with Ruthram Three-Sixty."* | 7 words |
-
-### Illustrative Streaming Synthesis Pattern (`projects/<name>/tools/produce_*_narration.py`)
-Generates discrete 48 kHz 24-bit WAV files per page (`audio/stems/vo/vo_page_01.wav`, `vo_page_02.wav`...) using `edge_tts.Communicate(..., boundary="WordBoundary")` *(see [ai-video-editing.md](file:///d:/AI%20Video%20Editing/AI%20Video%20Editing/ai-video-editing.md#L160) for reference code)* and warns if any spoken page produces an empty word-timing list.
-
----
-
-## Step 6: Page-by-Page Surgical SFX & Foley Design
-
-**Goal**: Build tactile, cinematic sound design mapped page-by-page to visual cuts, kinetic element animations, and UI foley that translates cleanly across mobile speakers, laptops, and headphones.
-
-### Cross-Device Translation (The 3-Layer Impact Principle)
-For key visual events (stamps, reveals, drops), do not rely on sub-bass alone (which mobile micro-speakers cut below 200–250 Hz). Ensure key impacts contain:
-1. **Sub Weight ($60–100\text{ Hz}$)**: Physical chest resonance for headphones and subwoofers.
-2. **Harmonic Mid Body ($400\text{ Hz}–1.2\text{ kHz}$)**: Low-mid punch triggering the brain's "phantom fundamental" on laptops and TVs.
-3. **Mechanical Transient Snap ($2.5–5\text{ kHz}$)**: Sharp $30\text{ms}–50\text{ms}$ click that cuts cleanly through spoken dialogue on phone speakers.
-*Rule: Do not blanket-trim or over-process every sound. Preserve natural decay when original assets already translate well.*
-
-### Page-by-Page Sound Design Matrix
-| Page # | Visual Event Trigger | SFX Category | Audio File | Trim / Edit Rule | Mix Gain |
-| :---: | :--- | :--- | :--- | :--- | :---: |
-| **P01** | `0.0s`: Reel Intro Whoosh | Transition Sweep | `whoosh_sub_in.wav` | Align peak transient to `0.0s` | `-14 dBFS` |
-| **P01** | `1.2s`: Red `REJECTED` Stamp Slam | Heavy Impact | `stamp_slam_impact.wav` | **Keep full 2.2s sub decay** | `-11 dBFS` |
-| **P02** | `5.0s`: Split Card Slide-In | Mechanical Swoosh | `card_slide_snap.wav` | Trim tail to 0.4s | `-18 dBFS` |
-| **P03** | `11.2s`: Node Pulse Light-Up | Tech Beep / Chime | `node_connect_tech.wav` | Trim tail to 80ms | `-22 dBFS` |
-| **P04** | `17.0s`: Drone Whoosh Transition | Cinematic Riser | `cinematic_swell.wav` | 0.8s swell into drone reveal | `-16 dBFS` |
-| **P05** | `23.3s–25.15s`: WhatsApp Message Typing | Tactile Foley | `sfx_mobile_typing_ios.wav` | **Discrete 30ms glass haptic taps** | `-12 dBFS` |
-| **P05** | `25.3s`: WhatsApp Message Send "Whoosh" | UI Foley | `message_sent_pop.wav` | Clean 50ms chime | `-15 dBFS` |
-| **P06** | `29.0s`: Partner Badges Unfurl | Kinetic Rattle | `cards_deck_fan.wav` | 0.5s textured flutter | `-20 dBFS` |
-| **P07** | `34.0s`: Logo Specular Flare | Shimmer Chime | `metallic_sheen_chime.wav` | Full 1.8s shimmer decay | `-16 dBFS` |
-| **P07** | `36.0s`: Final CTA Button Pulse | Sub Thump | `sub_bass_drop.wav` | Full 2.0s low-end decay | `-13 dBFS` |
-
----
-
-### Step 6.1: Page-by-Page Isolated VO & SFX Audition Stems
-
-**Why separate auditioning prevents errors**: If dialogue and SFX are mixed together too early, it is impossible to hear whether an SFX is masking a spoken syllable or if speech volume is balanced against music.
-
-### Action Items
-1. Export isolated review audio files:
-   * `audio/stems/voiceover_clean_narration.mp3` (Dialogue only, auditioning Pages 1–7).
-   * `audio/stems/sfx_and_foley_only.mp3` (All sound design & foley without dialogue or music).
-   * `audio/stems/music_bed_ducked.mp3` (Background track with ducking dips).
-2. **Run Diagnostic Mobile Speaker Simulation**:
-   ```bash
-   # Filter master audio through a phone speaker profile (250Hz - 7kHz Mono)
-   ffmpeg -y -i "audio/master_audio_ebur128.wav" -af "highpass=f=250,lowpass=f=7000" -ac 1 "audio/preview_mobile_simulation.mp3"
-   ```
-   *Verify that key SFX impacts remain audible and maintain positive contrast over dialogue.*
-3. Present individual audition links to the user.
+### Illustrative Streaming Synthesis & Individual VO Analysis (`projects/<name>/tools/produce_*_narration.py`)
+- Generate discrete `vo_page_01.wav..` using `edge_tts.Communicate(..., boundary="WordBoundary")`, strip leading silence cleanly, shift `words` JSON timestamps, and warn if any spoken scene yields an empty word list.
+- **Individual VO Analysis**: Print actual duration per page, WPM, LUFS/TP, and `WordBoundary` coverage.
+- **Timeline Lock**: Adjust HTML/GSAP transition timestamps (`T1..Tn`) to match approved VO durations + tail breathing space **before starting Stage 5**.
 
 > [!IMPORTANT]
-> ### 🛑 CHECKPOINT 6: Audio Stems Audition
-> **Provide isolated audio stems to the user for listening.**  
-> *Allow the user to verify speech clarity, pronunciation, and SFX impact choices page-by-page before final bus mixdown.*
+> ### 🛑 GATE 4: Voiceover Audition Approval (Do Not Proceed Without User Sign-Off)
+> **Deliver isolated VO narration (`voiceover_clean_narration.wav/.mp3` + per-page timing table).**  
+> *Only after the user approves the voiceover and locked scene timings does Stage 5 (SFX) begin.*
 
 ---
 
-## Step 7: Master Timeline Stitching, 5-Stem Mix & 0.5s Fast Remux
+## Stage 5: Sound Designer — Isolated SFX & Foley Locked to Animation *(🛑 Gate 5)*
 
-**Goal**: Combine the verified pages into the master GSAP timeline, balance the 5-stem audio bus, master to international loudness targets, and multiplex in seconds.
+**Goal**: Build tactile, cinematic sound design synchronized against the **actual VO-locked UI animation preview or rough cut** (never estimated from script), organized in 3 separate folders and audited cleanly on its own.
 
-### 1. The 5-Stem Mixing Bus
-* **Stem 1: Voiceover (VO)** — Center-panned dialogue (`0.90` gain).
-* **Stem 2: Background Music (BGM)** — Stereo width with dynamic speech ducking:
-  * Attenuated to **`-20.4 dBFS`** (`0.095` amplitude) under dialogue.
-  * Swelled to **`-8.4 dBFS`** (`0.380` amplitude, a **`+12.0 dB`** relative boost) during musical climaxes and outro.
-* **Stem 3: Sound Effects (SFX)** — Transients and cinematic impacts.
-* **Stem 4: Foley** — Subtle tactile micro-sounds (typing, card flips).
-* **Stem 5: Ambience** — Low-level spatial bed (`-28 dBFS`).
+### Cross-Device Translation (The 3-Layer Impact Principle)
+For key visual events (stamps, reveals, drops), ensure impacts contain:
+1. **Sub Weight ($60–100\text{ Hz}$)**: Chest weight for headphones/TV.
+2. **Harmonic Mid Body ($400\text{ Hz}–1.2\text{ kHz}$)**: Low-mid punch triggering the "phantom fundamental" on laptops/TV.
+3. **Mechanical Transient Snap ($2.5–5\text{ kHz}$)**: Crisp `30ms–50ms` tactile transient cutting cleanly on mobile speakers.
+*Enforce `-10 to -15 dBFS` RMS per stem, `np.argmax` peak-anchored slicing, `1.5s–3.0s` negative space, and separate `01_page_transitions/`, `02_motion_elements_and_graphics/`, `03_animations/` WAV outputs.*
 
-### 2. Mastering Target
-* **Audio Standard**: ITU-R BS.1770 / EBU R128 Social Media Target.
-* **Integrated Loudness**: **`-14.0 LUFS`** ($\pm 0.5$ LUFS).
-* **Maximum True Peak**: $\le$ **`-1.0 dBTP`**.
-* **Master WAV**: 48,000 Hz, 24-bit PCM WAV (`master_audio_ebur128.wav`).
+### Example Sound Design Cue Matrix (`-10 to -15 dBFS RMS` Stems)
+| Page # | Visual Event Trigger | SFX Category | Audio File | Trim / Edit Rule | Stem RMS Target |
+| :---: | :--- | :--- | :--- | :--- | :---: |
+| **P01** | `0.00s`: Opening Hook Sweep | `01_page_transitions` | `whoosh_sub_in.wav` | Peak-anchored `argmax` | `-12 dBFS` |
+| **P01** | `1.25s`: Rejection / Split Snap | `03_animations` | `stamp_slam_impact.wav` | Keep transient body + `-2 dB` pocket if VO | `-11 dBFS` |
+| **P02** | `4.44s`: Toggle / Wipe Sweep | `01_page_transitions` | `card_slide_snap.wav` | Trim tail + `10ms` cosine fade | `-12 dBFS` |
+| **P03** | `11.16s`: Telemetry Tick / Chime | `03_animations` | `node_connect_tech.wav` | Crisp `40–120ms` tick, `-10 to -15 dBFS` | `-13 dBFS` |
 
-### 3. Fast 0.5-Second Remuxing (The Iteration Superpower)
-When video visuals are already rendered (Step 4.1), you **never need to re-render the video** to change narration, adjust ducking, or swap an SFX:
+> [!IMPORTANT]
+> ### 🛑 GATE 5: Isolated SFX & Foley Approval (Do Not Proceed Without User Sign-Off)
+> **Deliver combined `sfx_only.wav/.mp3` + 3-bucket breakdown + Individual SFX Analysis (`argmax` peak sync error, `-10 to -15 dBFS` RMS check, dialogue clash check).**  
+> *Wait for user approval before Stage 6 Background Music.*
 
+---
+
+## Stage 6: Music Agent — Background Music (`BGM`) Selection & Carving *(🛑 Gate 6)*
+
+**Goal**: Select or generate instrumental music aligned to domain emotion and BPM/drop phrasing, shaped so voiceover always sits in clear focus.
+- Match genre/BPM to brief (`95–115 BPM` architectural tech-house for B2B spatial, warm piano/sub for healthcare, organic swell for hospitality — **strictly instrumental, zero vocals**).
+- Apply speech-presence EQ carve (`highpass=85Hz, lowpass=8500Hz`) and prepare cut-aligned breakdown/drop markers.
+- **Individual BGM Analysis**: Verify LUFS/crest factor, `300Hz–3kHz` vocal headroom, and smooth outro decay.
+
+> [!IMPORTANT]
+> ### 🛑 GATE 6: Background Music Approval
+> **Deliver `bgm_carved_preview.wav/.mp3` with structural timing notes (`Intro` / `Breakdown` / `Drop` / `Outro`) and wait for approval before Stage 7 mixing.**
+
+---
+
+## Stage 7: Audio Mixing Engineer — 5-Stem Mixdown (`48 kHz · 24-bit WAV`)
+
+**Goal**: Combine all **5 isolated, user-approved stems** cleanly into a cohesive broadcast mix:
+* **Stem 1: Voiceover (`VO`)** — Center-panned, clean speech presence.
+* **Stem 2: Background Music (`BGM`)** — Stereo width with `220ms` cosine sidechain ducking (`-20.4 dBFS` / `0.095` under VO → `-8.4 dBFS` / `0.380` in breaks/outro).
+* **Stem 3: Sound Effects (`SFX`)** — Peak-locked transition sweeps & hits (`-10 to -15 dBFS` RMS).
+* **Stem 4: Foley** — Subtle tactile micro-sounds (`-2.5 dB / 70ms` pocket if overlapping speech).
+* **Stem 5: Ambience** — Subtle spatial bed (`-28 dBFS`) when appropriate.
+* **Two-Pass EBU R128 Normalization (`-c:a pcm_s24le`)**: **`-14.0 LUFS (±0.5)`**, **`TP <= -1.0 dBTP`**, **`LRA <= 7.0 LU`**, saved as **`master_audio_ebur128.wav` (`48 kHz · 24-bit PCM WAV`)**.
+
+---
+
+## Stage 8: Cross-Device Audio Testing & Independent Quality Review *(🛑 Gate 7)*
+
+**Goal**: Prove the combined audio master translates flawlessly across every playback device and passes an independent critical audit **before touching video integration**.
+
+### 1. 5-Profile Cross-Device Diagnostic Matrix
 ```bash
-# Multiplex new master audio into existing raw video in 0.5 seconds
+# 1. Mobile Phone Mono (250Hz - 7kHz, -ac 1 outside -af)
+ffmpeg -y -i "audio/master_audio_ebur128.wav" -af "highpass=f=250,lowpass=f=7000" -ac 1 "audio/qa_mobile_mono.mp3"
+# 2. Laptop Speakers (160Hz - 12kHz)
+ffmpeg -y -i "audio/master_audio_ebur128.wav" -af "highpass=f=160,lowpass=f=12000" "audio/qa_laptop.mp3"
+# 3. Television / Living Room (60Hz - 14kHz + verify LRA <= 7.0 LU)
+ffmpeg -y -i "audio/master_audio_ebur128.wav" -af "highpass=f=60,lowpass=f=14000" "audio/qa_tv.mp3"
+# 4. Headphones Full-Band (`master_audio_ebur128.wav` inspected directly across 20Hz-20kHz)
+# 5. True Mono Fold-Down (Full-band -ac 1 LUFS/phase drop check)
+ffmpeg -y -i "audio/master_audio_ebur128.wav" -ac 1 -af "ebur128=peak=true" -f null -
+```
+
+### 2. Independent Quality Review Audit
+- Zero vocal masking (every spoken syllable clear on Mobile, Laptop, TV, Headphones, and Mono).
+- Zero digital clipping (`TP <= -1.0 dBTP`), zero clicks, zero distortion, zero sub rumble.
+- Exact creative & temporal alignment against Stage 4–5 cut frames. Fix any flaw at the stem level and re-export WAV before proceeding.
+
+> [!IMPORTANT]
+> ### 🛑 GATE 7: Approved Audio Master (`48 kHz · 24-bit WAV`)
+> **Present combined master WAV/MP3 + Cross-Device QA metrics for final user approval. Never render/mux final MP4 with unapproved audio.**
+
+---
+
+## Stage 9: Video Assembly Render, Fast `0.5s` Audio Integration & Final Delivery QA
+
+**Goal**: Render the **Gate 2 + Gate 4 timing-locked** HyperFrames composition (`raw_video.mp4`), integrate the **Approved `48 kHz · 24-bit WAV` Audio Master**, and audit the finished MP4.
+
+### 1. Final Visual Render & Key-Frame Verification
+```bash
+npx hyperframes check "projects/<project_name>"
+npx hyperframes render "projects/<project_name>" -o "export/<project_name>/raw_video.mp4" -q looks --format mp4
+```
+Extract representative key-frame stills across every page (`P01..Pn`) and verify smooth playback with zero frozen frames or visual glitches.
+
+### 2. Fast `0.5s` Audio-to-Video Integration (Stream Copy)
+```bash
+# Multiplex Approved Audio Master onto rendered video in ~0.5 seconds
 ffmpeg -y \
   -i "export/<project_name>/raw_video.mp4" \
   -i "projects/<project_name>/audio/master_audio_ebur128.wav" \
   -map 0:v:0 -map 1:a:0 \
   -c:v copy \
-  -c:a aac -b:a 320k \
+  -c:a aac -b:a 320k -ar 48000 \
   -shortest \
   "export/<project_name>/master_deliverable.mp4"
 ```
+*(Because video visuals are separate from audio mastering, audio tweaks only re-run Stage 7–8 + this 0.5s mux without re-rendering video frames.)*
 
 ---
 
