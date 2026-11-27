@@ -87,6 +87,8 @@ Master Video:            Constant Frame Rate (CFR), Rec.709, YUV420p
 └── tools\                                   # Shared Studio Binaries ONLY (ffmpeg, venv, whisper)
 ```
 
+> **Starter Template:** Copy [`skills/video-editing/assets/hyperframes-project-template/`](skills/video-editing/assets/hyperframes-project-template/) into `projects/<project-name>/` to bootstrap a clean self-contained HyperFrames project.
+
 ---
 
 ## 4. HyperFrames Deterministic Render Contract

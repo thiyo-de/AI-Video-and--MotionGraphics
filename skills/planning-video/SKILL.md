@@ -8,14 +8,7 @@ description: Plan an approved multitrack video production across footage, motion
 Start with the interview in the [general editing skill](../video-editing/SKILL.md). For a simple edit, record only the relevant decisions there and return. For an approved multitrack production, plan the applicable tracks below and confirm their approval stages. Read specialist material only for the tracks in scope.
 
 ### Studio pipeline for the approved tracks
-- **Stage 1 (This Skill)**: Brief, Concept & 5-Track `PLAN.md` + Master Audio Plan → **🛑 Gate 1**
-- **Stage 2**. Present one playable rough cut in the existing player or as a low-resolution MP4. Show layout, motion and transitions with dialogue or scratch VO, SFX and relevant ambience. Mute background music. Reuse available media and label missing shots. Wait for preview approval.
-- **Stage 3**: Footage Sourcing & Closed-GOP CFR Prep (`Clip` / `Flow` map) → **🛑 Gate 3**
-- **Stage 4**: Isolated Voiceover (`VO`) Synthesis & **`WordBoundary` -> Timeline Timing Lock** → **🛑 Gate 4**
-- **Stage 5**: Isolated SFX & Foley locked to **actual VO-locked animation/rough-cut frames** → **🛑 Gate 5**
-- **Stage 6**: Isolated Background Music (`BGM`) Selection & Frequency Carving → **🛑 Gate 6**
-- **Stage 7 & 8**: 5-Stem Audio Mix → **5-Device Cross-Device QA (`Mobile`, `Laptop`, `Headphones`, `TV`, `Mono`)** + **Independent Quality Review** → **🛑 Gate 7 (`Approved 48 kHz · 24-bit WAV Master`)**
-- **Stage 9**: HyperFrames Video Render (`-q looks`), Fast `0.5s` Master Audio Mux (`-c:v copy`), Final MP4 QA → **🚀 Ship**
+This skill executes **Stage 1** (`PLAN.md` + Gate 1). Downstream **Stages 2–9** (rough cut → CFR clips → `VO → SFX → BGM → -14 LUFS WAV` + 5-device QA → HyperFrames render & `0.5s` mux) follow `video-workflow.md` and [professional-sound-design](../professional-sound-design/SKILL.md).
 
 ---
 

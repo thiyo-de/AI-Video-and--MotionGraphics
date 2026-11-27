@@ -2,20 +2,7 @@
 
 Use these recipes for the approved stages of a commissioned motion and sound production. Visual styles, pacing and audio numbers below are examples for this studio format. Use the project brief for each choice.
 
-## 🏛️ The Unified 9-Stage Hard-Gated Pipeline
-
-For a full nine-stage production, confirm the applicable gates with the user and follow them in order.
-
-```mermaid
-flowchart LR
-    S1[Stage 1: Brief & 5-Track PLAN.md] -->|Gate 1| S2[Stage 2: Playable rough cut]
-    S2 -->|Gate 2| S3[Stage 3: Footage / CFR Prep]
-    S3 -->|Gate 3| S4[Stage 4: VO & Timeline Timing Lock]
-    S4 -->|Gate 4| S5[Stage 5: SFX Locked to Animation]
-    S5 -->|Gate 5| S6[Stage 6: BGM Stem]
-    S6 -->|Gate 6| S7[Stage 7-8: 5-Stem Mix & Cross-Device QA]
-    S7 -->|Gate 7: 48kHz 24-bit WAV| S9[Stage 9: Render, Mux & Delivery QA]
-```
+For the canonical 9-stage gated pipeline (`PLAN.md` → rough cut → CFR → `VO → SFX → BGM → WAV Master` → `0.5s` render/mux), see `video-workflow.md` in the framework root. Confirm applicable gates with the user and follow stages below in order.
 
 ---
 
@@ -88,24 +75,9 @@ Confirm staged clips vs. Google Flow generations (`flowmcp.md`). Download raw fo
 
 ---
 
-## Stages 4–8: Independent Audio Production Pipeline *(Gated Stem-by-Stem)*
+## Stages 4–8: Independent Audio Pipeline *(🛑 Gates 4–7)*
 
-Never drop BGM and random SFX straight onto video timelines. Audio is planned (`Stage 1`), built and audited separately (`Stages 4–6`), mixed (`Stage 7`), cross-device tested (`Stage 8`), and approved as **`48 kHz · 24-bit PCM WAV`** before attaching to video:
-
-1. **Stage 4 — Voice Agent (`VO` Only → 🛑 Gate 4)**:
-   - Generate per-page WAVs (`48 kHz · 24-bit`, `<= +8%` rate, `boundary="WordBoundary"` + empty word-list guard), strip leading silence, audit WPM/headroom/tail gaps (`0.5s–1.4s`).
-   - **Approved VO establishes final timing** — lock HTML/rough-cut transition & animation timestamps to actual VO duration before Stage 5!
-2. **Stage 5 — Sound Designer (`SFX` & Foley Only → 🛑 Gate 5)**:
-   - Place cues strictly against the **VO-locked animation preview or rough cut**, never guessed from script.
-   - Pre-process full sources (bandpass/HPF before slicing transients), apply `0ms` attack latency, `>= 3ms` to `10ms` micro-fades, `1.5s–3.0s` negative space (`<= 1.2s` active SFX per 30s), and active duration caps (clicks **40–120ms**, pops **60–180ms**, sweeps **180–380ms**, hits **250–400ms**). Ensure `400 Hz–5 kHz` midrange presence and keep overlapping SFX tucked **`-2 to -6 dB` below VO** post-loudnorm (or omit SFX cleanly for `VO + BGM`).
-3. **Stage 6 — Music Agent (`BGM` Only → 🛑 Gate 6)**:
-   - Prepare instrumental track (`highpass=85Hz, lowpass=8500Hz` speech carve), verify domain energy curve & frequency headroom, audition separately.
-4. **Stage 7 — Audio Mixing Engineer (`5-Stem Mix` → `48 kHz · 24-bit WAV`)**:
-   - Duck BGM smoothly (`0.095–0.14` under VO → `0.24–0.40` in breaks, `220ms` cosine ramps), apply `-2.5 dB / 70ms` vocal pockets over mid-dialogue transients, and run 2-pass linear EBU R128 normalization (**`-14.0 LUFS ± 0.5`**, **`LRA <= 7.0 LU`**, **`TP <= -1.0 dBTP`**).
-5. **Stage 8 — Cross-Device QA & Independent Review *(🛑 Gate 7 — Approved Audio Master)***:
-   - Test across **Mobile Mono (`350Hz–7kHz`, `-ac 1`) · Laptop · Headphones · Television · Full-Band Mono Fold-down**, verify zero masking/distortion/phase drop/timing drift, and wait for user approval of **`master_audio_ebur128.wav`** before Stage 9.
-
-*Detailed guide*: Read [references/sound-design-mastery.md](sound-design-mastery.md) and `professional-sound-design/SKILL.md`.
+Follow [professional-sound-design/SKILL.md](../../professional-sound-design/SKILL.md) and [sound-design-mastery.md](sound-design-mastery.md) for the full gated workflow (`VO` locks animation timings → pre-slice filtered `SFX` tucked `-2 to -6 dB` below VO → carved `BGM` → `-14.0 LUFS / <= -1.0 dBTP` `48 kHz · 24-bit WAV` master → 5-device QA with `highpass=f=350,lowpass=f=7000` mono check before Stage 9).
 
 ---
 

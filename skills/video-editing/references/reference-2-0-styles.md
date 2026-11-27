@@ -28,10 +28,10 @@ The nine linked MP4s are the default visual style library. Scan the linked conta
 
 ---
 
-## 3. Recommended Domain Mapping (10 Solution Scripts)
+## 3. Industry Style Pairing Guide
 
-- **Heritage Temples (`01`) / Museums (`07`)**: Pair `Ref 05` editorial serif/rack-focus depth + `Ref 07` archival collage (`+ silhouette bird-flock overlay` for outdoor monuments).
-- **Schools & Colleges (`02`) / Factories (`08`)**: Use `Ref 08` airy step clarity + `Ref 03`/`09` **VO-synced in-card clips** & floating metric cards over softly blurred spatial depth.
-- **Hospitals (`03`) / Accessibility (`04`)**: Clean white/cream welcoming light palettes (`Ref 03`/`08`/`05`), window-to-sanctuary **Component Focus-Zooms**, zero harsh dark/neon treatments.
-- **Tourism (`05`) / Hotels & Resorts (`06`) / Real Estate (`09`)**: Blueprint crosshairs or glass device stacks (`Ref 02`/`06`) playing **rooms, surroundings & facilities** inside cards during VO, transitioning via daylight optical bloom or **Focus-Zoom** into fullscreen walkthroughs.
-- **Botanical & Nature (`10`)**: `Ref 09` deep forest emerald + crisp white contrast with `Ref 05` out-of-focus foreground leaf/bird sweeps.
+- **Heritage & Architecture**: Pair `Ref 05` editorial serif/rack-focus depth + `Ref 07` archival collage (`+ silhouette bird-flock overlay` for outdoor monuments).
+- **Education & Industrial Facilities**: Use `Ref 08` airy step clarity + `Ref 03`/`09` **VO-synced in-card clips** & floating metric cards over softly blurred spatial depth.
+- **Healthcare & Accessibility**: Clean white/cream welcoming light palettes (`Ref 03`/`08`/`05`), window-to-sanctuary **Component Focus-Zooms**, zero harsh dark/neon treatments.
+- **Hospitality, Tourism & Real Estate**: Blueprint crosshairs or glass device stacks (`Ref 02`/`06`) playing **rooms, surroundings & facilities** inside cards during VO, transitioning via daylight optical bloom or **Focus-Zoom** into fullscreen walkthroughs.
+- **Nature & Botanical**: `Ref 09` deep forest emerald + crisp white contrast with `Ref 05` out-of-focus foreground leaf/bird sweeps.
