@@ -51,7 +51,7 @@ Use the sections for the approved production. Record confirmed choices, outstand
 
 ## 4. Sound Effects (`SFX`) Cue Sheet
 
-- **Master Rule**: All cues peak-anchored (`argmax` for sweeps, `0ms` onset for impacts), `-10 to -15 dBFS` RMS per stem, output separated into `01_page_transitions/`, `02_motion_elements_and_graphics/`, `03_animations/` + combined `sfx_only.wav`.
+- **Master Rule**: All cues real acoustic retrieval (`media-use` / Openverse), pre-slice filtered + peak-anchored (`argmax` for sweeps, `0ms` onset for impacts, `≥ 3 ms` fades), `400 Hz–5 kHz` mobile presence tucked `-2 to -6 dB` below VO post-loudnorm (or omitted for clean `VO + BGM`), output separated into `01_page_transitions/`, `02_motion_elements_and_graphics/`, `03_animations/` + combined `sfx_only.wav`.
 
 | Cue ID | Bucket | Trigger Timestamp | Peak Align / Dur | Visual Event | Vocal Pocket Needed? |
 | :--- | :--- | :---: | :---: | --- | :---: |

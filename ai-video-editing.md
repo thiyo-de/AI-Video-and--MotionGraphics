@@ -47,10 +47,14 @@ Master Video:            Constant Frame Rate (CFR), Rec.709, YUV420p
 │       ├── hyperframes-registry\            # Pre-built motion blocks & components
 │       └── media-use\                       # Footage, voice, audio, and asset rules
 │
-├── projects\<project-name>\                 # Independent Project Workspace
+├── projects\<project-name>\                 # 100% Self-Contained Project Workspace
 │   ├── index.html                           # DOM composition & GSAP master timeline
+│   ├── hyperframes.json                     # Project composition & asset paths
+│   ├── PLAN.md                              # Stage 1 5-track blueprint
+│   ├── compositions\                        # Per-page composition partials
 │   │
 │   ├── assets\
+│   │   ├── raw\                             # Unprocessed Flow/stock clips before CFR transcode
 │   │   ├── clips\                           # CFR-optimized footage (30/60 fps, Closed GOP)
 │   │   ├── images\                          # Static 2D photographs, textures, UI thumbnails
 │   │   └── fonts\                           # Local @font-face files (Clash Display, Satoshi, etc.)
@@ -65,20 +69,22 @@ Master Video:            Constant Frame Rate (CFR), Rec.709, YUV420p
 │   │   ├── master_audio_ebur128.wav         # Final mastered 48kHz 24-bit stereo WAV
 │   │   └── sfx_cue_sheet.json               # Structured SFX decision manifest
 │   │
-│   └── manifests\
-│       ├── edit_decisions.json              # Shot selection, duration, and pacing decisions
-│       └── narration_timing.json            # WordBoundary timestamps from Edge TTS
+│   ├── manifests\
+│   │   ├── edit_decisions.json              # Shot selection, duration, and pacing decisions
+│   │   └── narration_timing.json            # WordBoundary timestamps from Edge TTS
+│   │
+│   ├── tools\                               # Per-Project Automation Scripts
+│   │   ├── optimize_clips.py                # Closed-GOP CFR FFmpeg pre-transcoder
+│   │   ├── produce_*_narration.py           # Edge TTS WordBoundary streaming generator
+│   │   ├── mix_soundtrack.py                # Multi-bus audio mixer & EBU R128 normalizer
+│   │   └── mux_and_verify.py                # Multiplexer, AAC peak auditor & snapshot proofing
+│   │
+│   └── export\                              # Project Deliverables & Verification Proofs
+│       ├── raw_video.mp4                    # Clean video render from HyperFrames
+│       ├── master_deliverable.mp4           # Final video muxed with -14 LUFS master audio
+│       └── qa\                              # validation.json & checksum reports
 │
-├── tools\                                   # Studio Toolchain (illustrative names; real per-project scripts live under root `tools/` or `projects/<name>/tools/`)
-│   ├── optimize_clips.py                    # Closed-GOP CFR FFmpeg pre-transcoder (`project-specific helper`)
-│   ├── produce_*_narration.py               # Edge TTS WordBoundary streaming generator (illustrative pattern; e.g., `produce_vo_reel03.py`)
-│   ├── mix_soundtrack.py                    # Multi-bus audio mixer & EBU R128 normalizer (pattern; see `master_ruthram360_audio.py`)
-│   ├── render_hyperframes.py                # HyperFrames render execution wrapper
-│   └── mux_and_verify.py                    # Multiplexer, AAC peak auditor & snapshot proofing (see `mux_and_verify_master.py`)
-│
-└── export\<project-name>\                   # Project Deliverables Destination
-    ├── raw_video.mp4                        # Clean video render from HyperFrames
-    └── master_deliverable.mp4               # Final video muxed with -14 LUFS master audio
+└── tools\                                   # Shared Studio Binaries ONLY (ffmpeg, venv, whisper)
 ```
 
 ---
@@ -258,7 +264,7 @@ Loudness normalization ($-14\text{ LUFS}$) alone does **not** ensure audibility 
 1. **Sub Weight ($60–100\text{ Hz}$)**: Felt on headphones and subwoofers.
 2. **Harmonic Mid Body ($400\text{ Hz}–1.2\text{ kHz}$)**: Triggers the human brain's "phantom fundamental" on laptops and TVs when sub-bass is rolled off.
 3. **Mechanical Transient Snap ($2.5–5\text{ kHz}$)**: Crisp $30\text{ms}–50\text{ms}$ crack that punches through dialogue on phone speakers.
-*Pre-flight Test*: Filter master audio via `ffmpeg -i master.wav -af "highpass=f=250,lowpass=f=7000" -ac 1 mobile_preview.wav` to verify that SFX remain clearly audible above speech on phone hardware.
+*Pre-flight Test*: Filter master audio via `ffmpeg -i master.wav -af "highpass=f=350,lowpass=f=7000" -ac 1 mobile_preview.wav` to verify that SFX retain `400 Hz–5 kHz` midrange clarity and sit `-2 to -6 dB` cleanly under dialogue post-loudnorm on phone hardware.
 
 ### D. Structured SFX Manifest (`sfx_cue_sheet.json`)
 Every sound cue must be defined in a version-controlled JSON manifest:
@@ -327,7 +333,7 @@ Rendering a full-resolution 1080×1920 video takes 45–75 seconds. Avoid re-ren
 | **2. Rough cut (Stage 2)** | **One playable preview and Gate 2** | Review layout, motion and transitions with dialogue or draft VO, effects and ambience in the existing timeline or one low-resolution MP4. Mute background music. |
 | **3. Audio Pipeline (`Stages 4–8`)** | **Independent Audio Master (`Gates 4–7`)** | Build & approve separately: `VO` (locks timeline) → `SFX` (locked to animation) → `BGM` → 5-Stem Mix → **5-Device Cross-Device QA** (`48 kHz · 24-bit WAV`) |
 | **4. Final Video & Remux (`Stage 9`)** | Headless Render + **0.5s Audio Mux** | Render `raw_video.mp4` (`-q looks`), mux approved `48kHz 24-bit WAV` via `-c:v copy -c:a aac -b:a 320k -ar 48000` |
-| **5. Final MP4 QA (`Stage 9`)** | Delivered Container Audit | Verify `ebur128=peak=true`, `-af "highpass=f=250,lowpass=f=7000" -ac 1`, speech/SFX audition, & frame strips |
+| **5. Final MP4 QA (`Stage 9`)** | Delivered Container Audit | Verify `ebur128=peak=true`, `-af "highpass=f=350,lowpass=f=7000" -ac 1`, speech/SFX audition, & frame strips |
 
 ---
 
@@ -350,7 +356,7 @@ Before delivering any video to a client or platform:
 - [ ] **10. Voice Intelligibility**: Word count strictly budgeted to 8–10 words per 5-second scene, delivered MP4 listened/verified cleanly.
 - [ ] **11. Edge TTS Metadata**: `WordBoundary` timestamps exported to JSON (`boundary="WordBoundary"`) with non-empty word check.
 - [ ] **12. Conditional SFX**: Context-appropriate editing; cinematic tails preserved, UI clicks trimmed.
-- [ ] **13. Cross-Device Translation (`Stage 8`)**: Verified approved `master_audio_ebur128.wav` & delivered MP4 across **Mobile Mono** (`-af "highpass=f=250,lowpass=f=7000" -ac 1`), **Laptop**, **Headphones**, **TV**, and **Mono Fold-down** (`-ac 1` outside `-af`).
+- [ ] **13. Cross-Device Translation (`Stage 8`)**: Verified approved `master_audio_ebur128.wav` & delivered MP4 across **Mobile Mono** (`-af "highpass=f=350,lowpass=f=7000" -ac 1`), **Laptop**, **Headphones**, **TV**, and **Mono Fold-down** (`-ac 1` outside `-af`).
 - [ ] **14. Dynamic Ducking**: Music bed attenuates to `-20 dB` under dialogue and swells at climax.
 
 ### Creative & Editorial Quality

@@ -84,7 +84,7 @@ The following techniques are options for a brief that calls for designed graphic
 
 ## Stage 3: Footage Sourcing & Closed-GOP CFR Media Prep *(🛑 Gate 3)*
 
-Confirm staged clips vs. Google Flow generations (`flowmcp.md`). Transcode every clip to deterministic Closed-GOP CFR (`fps=30, -g 30 -keyint_min 30 -sc_threshold 0 -flags +cgop -fps_mode cfr -an`) and pre-prime `<video>` elements (`muted playsinline`, no duplicate `autoplay loop`).
+Confirm staged clips vs. Google Flow generations (`flowmcp.md`). Download raw footage strictly inside `projects/<project-name>/assets/raw/`, transcode every clip to deterministic Closed-GOP CFR in `assets/clips/` (`fps=30, -g 30 -keyint_min 30 -sc_threshold 0 -flags +cgop -fps_mode cfr -an`), and pre-prime `<video>` elements (`muted playsinline`, no duplicate `autoplay loop`).
 
 ---
 
@@ -97,13 +97,13 @@ Never drop BGM and random SFX straight onto video timelines. Audio is planned (`
    - **Approved VO establishes final timing** — lock HTML/rough-cut transition & animation timestamps to actual VO duration before Stage 5!
 2. **Stage 5 — Sound Designer (`SFX` & Foley Only → 🛑 Gate 5)**:
    - Place cues strictly against the **VO-locked animation preview or rough cut**, never guessed from script.
-   - Pre-process with `0ms` attack latency, `10ms` micro-fades, `1.5s–3.0s` negative space (`<= 1.2s` active SFX per 30s), and active duration caps (clicks **40–120ms**, pops **60–180ms**, sweeps **180–380ms**, hits **250–400ms**). Audition isolated `sfx_only` stem at **-10 to -15 dBFS RMS**.
+   - Pre-process full sources (bandpass/HPF before slicing transients), apply `0ms` attack latency, `>= 3ms` to `10ms` micro-fades, `1.5s–3.0s` negative space (`<= 1.2s` active SFX per 30s), and active duration caps (clicks **40–120ms**, pops **60–180ms**, sweeps **180–380ms**, hits **250–400ms**). Ensure `400 Hz–5 kHz` midrange presence and keep overlapping SFX tucked **`-2 to -6 dB` below VO** post-loudnorm (or omit SFX cleanly for `VO + BGM`).
 3. **Stage 6 — Music Agent (`BGM` Only → 🛑 Gate 6)**:
    - Prepare instrumental track (`highpass=85Hz, lowpass=8500Hz` speech carve), verify domain energy curve & frequency headroom, audition separately.
 4. **Stage 7 — Audio Mixing Engineer (`5-Stem Mix` → `48 kHz · 24-bit WAV`)**:
    - Duck BGM smoothly (`0.095–0.14` under VO → `0.24–0.40` in breaks, `220ms` cosine ramps), apply `-2.5 dB / 70ms` vocal pockets over mid-dialogue transients, and run 2-pass linear EBU R128 normalization (**`-14.0 LUFS ± 0.5`**, **`LRA <= 7.0 LU`**, **`TP <= -1.0 dBTP`**).
 5. **Stage 8 — Cross-Device QA & Independent Review *(🛑 Gate 7 — Approved Audio Master)***:
-   - Test across **Mobile Mono (`250Hz–7kHz`, `-ac 1`) · Laptop · Headphones · Television · Full-Band Mono Fold-down**, verify zero masking/distortion/phase drop/timing drift, and wait for user approval of **`master_audio_ebur128.wav`** before Stage 9.
+   - Test across **Mobile Mono (`350Hz–7kHz`, `-ac 1`) · Laptop · Headphones · Television · Full-Band Mono Fold-down**, verify zero masking/distortion/phase drop/timing drift, and wait for user approval of **`master_audio_ebur128.wav`** before Stage 9.
 
 *Detailed guide*: Read [references/sound-design-mastery.md](sound-design-mastery.md) and `professional-sound-design/SKILL.md`.
 
@@ -118,9 +118,9 @@ Execute the render cleanly using HyperFrames and FFmpeg:
    - Ensure all `<video>` elements use `muted playsinline` without duplicate `autoplay loop` attributes, and mark non-reading HUD/watermark elements with `data-layout-ignore`.
 2. **Verification Protocol**:
    - Run `hyperframes check` (`0` lint errors, `0` runtime errors, `0` collision issues, 100% WCAG AA contrast).
-3. **Render, Fast Mux & Post-Export Audit**:
-   - Headless render: `npx hyperframes render . -o raw_video.mp4 -q looks --format mp4`
-   - Fast 0.5s mux: `ffmpeg -y -i raw_video.mp4 -i master_audio_ebur128.wav -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 320k -ar 48000 -shortest master_deliverable.mp4`
-   - Final Delivered MP4 Audit: measure `ebur128=peak=true` (`-14.0 LUFS ± 0.5`, `TP <= -1.0 dBTP`), run `-af "highpass=f=250,lowpass=f=7000" -ac 1` mono mobile audition, listen/transcribe delivered speech + SFX hits, and inspect 6 extracted key-frame stills.
+3. **Render, Fast Mux & Post-Export Audit** *(all outputs inside `projects/<project-name>/export/`)*:
+   - Headless render: `npx hyperframes render . -o export/raw_video.mp4 -q looks --format mp4`
+   - Fast 0.5s mux: `ffmpeg -y -i export/raw_video.mp4 -i audio/master_audio_ebur128.wav -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 320k -ar 48000 -movflags +faststart -shortest export/master_deliverable.mp4`
+   - Final Delivered MP4 Audit: measure `ebur128=peak=true` (`-14.0 LUFS ± 0.5`, `TP <= -1.0 dBTP`), run `-af "highpass=f=350,lowpass=f=7000" -ac 1` mono mobile audition, listen/transcribe delivered speech + SFX hits, and inspect 6 extracted key-frame stills. For a decoupled video-only deliverable without re-rendering, strip audio losslessly (`-map 0:v:0 -c:v copy -an -movflags +faststart`) into `video only/`.
 
 *Detailed guide*: Read [references/hyperframes-engine.md](hyperframes-engine.md) and field-tested guardrails in [references/production-lessons-reel03.md](production-lessons-reel03.md).

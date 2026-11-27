@@ -20,12 +20,12 @@ flowchart LR
     E --> F["Google AI Models<br>(Gemini Omni 1.2 Flash / Veo 3.1)"]
     F --> E
     E --> D
-    D --> G["Output Directory<br>the project output directory"]
+    D --> G["Project Raw Assets<br>projects/&lt;project-name&gt;/assets/raw"]
 ```
 
 ### Key Security & Privacy Highlights:
 * **No Account Sharing:** Your Google account credentials, passwords, and 2FA keys are never shared with Antigravity, third-party cloud servers, or exposed in plain text.
-* **Local Session Storage:** The browser state, cookies, and tokens remain strictly inside your local Windows user directory (`C:\Users\ADMIN\.google-flow-chrome`).
+* **Local Session Storage:** The browser state, cookies, and tokens remain strictly inside your local user profile (`%USERPROFILE%\.google-flow-chrome`, e.g., `C:\Users\<user>\.google-flow-chrome`).
 * **Credit Safeguard:** Generation requests require confirmation (`auto_confirm: false` by default) to prevent accidental credit consumption.
 
 ---
@@ -53,21 +53,21 @@ Antigravity registers MCP servers through standard JSON configuration manifests.
 
 | Environment | File Path | Status |
 | :--- | :--- | :---: |
-| **Active Antigravity App** | `C:\Users\ADMIN\.gemini\antigravity\mcp_config.json` | ✅ Configured |
-| **Global Machine Config** | `C:\Users\ADMIN\.gemini\config\mcp_config.json` | ✅ Configured |
-| **Antigravity IDE** | `C:\Users\ADMIN\.gemini\antigravity-ide\mcp_config.json` | ✅ Configured |
-| **MCP Internal Settings** | `C:\Users\ADMIN\.config\google-flow-mcp\config.json` | ✅ Configured |
+| **Active Antigravity App** | `%USERPROFILE%\.gemini\antigravity\mcp_config.json` | ✅ Configured |
+| **Global Machine Config** | `%USERPROFILE%\.gemini\config\mcp_config.json` | ✅ Configured |
+| **Antigravity IDE** | `%USERPROFILE%\.gemini\antigravity-ide\mcp_config.json` | ✅ Configured |
+| **MCP Internal Settings** | `%USERPROFILE%\.config\google-flow-mcp\config.json` | ✅ Configured |
 
 ### 2.3 MCP Internal Config (`config.json`)
-The server’s own configuration file resides at `C:\Users\ADMIN\.config\google-flow-mcp\config.json`:
+The server’s own configuration file resides at `%USERPROFILE%\.config\google-flow-mcp\config.json` (substitute `%USERPROFILE%` with your absolute Windows user directory in JSON, e.g. `C:\\Users\\<user>`):
 ```json
 {
   "chromePath": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
-  "userDataDir": "C:\\Users\\ADMIN\\.google-flow-chrome",
+  "userDataDir": "C:\\Users\\<user>\\.google-flow-chrome",
   "profileDirectory": "Default",
   "cdpPort": 9333,
   "flowUrl": "https://flow.google.com",
-  "stateDir": "C:\\Users\\ADMIN\\.google-flow-mcp",
+  "stateDir": "C:\\Users\\<user>\\.google-flow-mcp",
   "generationTimeoutMs": 1800000,
   "pollIntervalMs": 6000,
   "lockWaitMs": 10000,
@@ -90,11 +90,11 @@ npx -y @park-sang-gwon/google-flow-mcp init
 ### Step 2: Launch Dedicated Chrome & Log In
 Launch Chrome with the dedicated profile flag:
 ```powershell
-Start-Process "C:\Program Files\Google\Chrome\Application\chrome.exe" -ArgumentList '--user-data-dir="C:\Users\ADMIN\.google-flow-chrome"', 'https://flow.google.com'
+Start-Process "C:\Program Files\Google\Chrome\Application\chrome.exe" -ArgumentList "--user-data-dir=`"$env:USERPROFILE\.google-flow-chrome`"", 'https://flow.google.com'
 ```
 1. In the Chrome window that opens, sign in with your Google account.
 2. Confirm you can access `flow.google.com` and verify your available credit balance.
-3. You can leave Chrome open or close it; your session cookies remain saved in `C:\Users\ADMIN\.google-flow-chrome`.
+3. You can leave Chrome open or close it; your session cookies remain saved in `%USERPROFILE%\.google-flow-chrome`.
 
 ### Step 3: Run Diagnostics
 ```powershell
@@ -102,10 +102,10 @@ npx -y @park-sang-gwon/google-flow-mcp doctor
 ```
 Expected output:
 ```text
-ok   config: C:\Users\ADMIN\.config\google-flow-mcp\config.json
+ok   config: %USERPROFILE%\.config\google-flow-mcp\config.json
 ok   chrome: C:\Program Files\Google\Chrome\Application\chrome.exe
-ok   user-data-dir: C:\Users\ADMIN\.google-flow-chrome
-ok   state-dir: C:\Users\ADMIN\.google-flow-mcp
+ok   user-data-dir: %USERPROFILE%\.google-flow-chrome
+ok   state-dir: %USERPROFILE%\.config\google-flow-mcp
 ok   cdp: port 9333 free (Chrome will be launched)
 ok   flow: logged in (https://flow.google.com/about)
 ```
@@ -143,8 +143,8 @@ Every video in Google Flow lives inside a project.
 * The URL will become: `https://flow.google.com/project/<project-id>`.
 
 ### Step 2: Direct Prompting in Antigravity Chat
-Simply state what you want to generate:
-> *"Generate a cinematic 5-second FPV drone shot of a misty pine forest at golden hour using Omni Flash. Save it to the project output directory."*
+Simply state what you want to generate — always pass a project-local `output_dir` inside `projects/<project-name>/assets/raw`:
+> *"Generate a cinematic 5-second FPV drone shot of a misty pine forest at golden hour using Omni Flash. Download it to `projects/<project-name>/assets/raw/`."*
 
 ### Step 3: Automated Staging & Inspection
 Antigravity executes:

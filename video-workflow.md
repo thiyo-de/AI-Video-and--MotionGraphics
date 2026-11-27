@@ -154,13 +154,13 @@ Every page is wrapped in its own isolated viewport container with absolute coord
 **Goal**: Organize, approve, and pre-transcode footage cleanly before audio sync or video render.
 
 ### Action Items
-1. **Confirm Real vs. Staged vs. Google Flow Clips** (no paid Flow generation without user sign-off).
-2. **Pre-Transcode Every Clip to Closed-GOP CFR (`fps=30`, `-an`)**:
+1. **Confirm Real vs. Staged vs. Google Flow Clips** (no paid Flow generation without user sign-off; download raw sources directly into `projects/<project_name>/assets/raw/`).
+2. **Pre-Transcode Every Clip to Closed-GOP CFR (`fps=30`, `-an`)** inside `projects/<project_name>/`:
    ```bash
-   ffmpeg -y -i "raw_footage/clip_p01.mp4" \
+   ffmpeg -y -i "projects/<project_name>/assets/raw/clip_p01.mp4" \
      -map 0:v:0 -vf "fps=30" -c:v libx264 -preset fast -crf 18 -pix_fmt yuv420p \
      -g 30 -keyint_min 30 -sc_threshold 0 -flags +cgop -fps_mode cfr -movflags +faststart \
-     -an "assets/clips/clip_p01_cfr.mp4"
+     -an "projects/<project_name>/assets/clips/clip_p01_cfr.mp4"
    ```
 3. **Map Clips to `<video>` Viewport Containers (`data-media-start`, `muted playsinline`, pre-primed)**.
 
@@ -204,19 +204,19 @@ For key visual events (stamps, reveals, drops), ensure impacts contain:
 1. **Sub Weight ($60–100\text{ Hz}$)**: Chest weight for headphones/TV.
 2. **Harmonic Mid Body ($400\text{ Hz}–1.2\text{ kHz}$)**: Low-mid punch triggering the "phantom fundamental" on laptops/TV.
 3. **Mechanical Transient Snap ($2.5–5\text{ kHz}$)**: Crisp `30ms–50ms` tactile transient cutting cleanly on mobile speakers.
-*Enforce `-10 to -15 dBFS` RMS per stem, `np.argmax` peak-anchored slicing, `1.5s–3.0s` negative space, and separate `01_page_transitions/`, `02_motion_elements_and_graphics/`, `03_animations/` WAV outputs.*
+*Enforce real acoustic SFX retrieval (`media-use` / Openverse CC0, never synthetic wave generation), bandpass/HPF filtering on full clips **before** slicing, `np.argmax` peak-anchored slicing with `>= 3ms` fades, `1.5s–3.0s` negative space, and **post-loudnorm VO dominance** (`SFX` tucked `-2 to -6 dB` below VO with clear `400 Hz–5 kHz` body, or omit SFX when `VO + BGM` fits better), organized in `01_page_transitions/`, `02_motion_elements_and_graphics/`, `03_animations/`.*
 
-### Example Sound Design Cue Matrix (`-10 to -15 dBFS RMS` Stems)
-| Page # | Visual Event Trigger | SFX Category | Audio File | Trim / Edit Rule | Stem RMS Target |
+### Example Sound Design Cue Matrix (Post-Loudnorm Targets Below VO)
+| Page # | Visual Event Trigger | SFX Category | Audio File | Trim / Edit Rule | In-Mix Target |
 | :---: | :--- | :--- | :--- | :--- | :---: |
-| **P01** | `0.00s`: Opening Hook Sweep | `01_page_transitions` | `whoosh_sub_in.wav` | Peak-anchored `argmax` | `-12 dBFS` |
-| **P01** | `1.25s`: Rejection / Split Snap | `03_animations` | `stamp_slam_impact.wav` | Keep transient body + `-2 dB` pocket if VO | `-11 dBFS` |
-| **P02** | `4.44s`: Toggle / Wipe Sweep | `01_page_transitions` | `card_slide_snap.wav` | Trim tail + `10ms` cosine fade | `-12 dBFS` |
-| **P03** | `11.16s`: Telemetry Tick / Chime | `03_animations` | `node_connect_tech.wav` | Crisp `40–120ms` tick, `-10 to -15 dBFS` | `-13 dBFS` |
+| **P01** | `0.00s`: Opening Hook Sweep | `01_page_transitions` | `whoosh_sub_in.wav` | Pre-slice HPF + peak `argmax` | `-19 to -23 dBFS` *(pause)* |
+| **P01** | `1.25s`: Rejection / Split Snap | `03_animations` | `stamp_slam_impact.wav` | Midrange snap + `-2 to -6 dB` under VO | `-20 to -24 dBFS` |
+| **P02** | `4.44s`: Toggle / Wipe Sweep | `01_page_transitions` | `card_slide_snap.wav` | Pre-slice filter + `10ms` fade | `-19 to -23 dBFS` *(pause)* |
+| **P03** | `11.16s`: Telemetry Tick / Chime | `03_animations` | `node_connect_tech.wav` | Crisp `40–120ms` tick under VO | `-22 to -25 dBFS` |
 
 > [!IMPORTANT]
 > ### 🛑 GATE 5: Isolated SFX & Foley Approval (Do Not Proceed Without User Sign-Off)
-> **Deliver combined `sfx_only.wav/.mp3` + 3-bucket breakdown + Individual SFX Analysis (`argmax` peak sync error, `-10 to -15 dBFS` RMS check, dialogue clash check).**  
+> **Deliver combined `sfx_only.wav/.mp3` + 3-bucket breakdown + Individual SFX Analysis (`argmax` peak sync error, `400 Hz–5 kHz` mobile survival, post-loudnorm VO dominance `-2 to -6 dB` under speech, zero overlaps/edge clicks).**  
 > *Wait for user approval before Stage 6 Background Music.*
 
 ---
@@ -239,7 +239,7 @@ For key visual events (stamps, reveals, drops), ensure impacts contain:
 **Goal**: Combine all **5 isolated, user-approved stems** cleanly into a cohesive broadcast mix:
 * **Stem 1: Voiceover (`VO`)** — Center-panned, clean speech presence.
 * **Stem 2: Background Music (`BGM`)** — Stereo width with `220ms` cosine sidechain ducking (`-20.4 dBFS` / `0.095` under VO → `-8.4 dBFS` / `0.380` in breaks/outro).
-* **Stem 3: Sound Effects (`SFX`)** — Peak-locked transition sweeps & hits (`-10 to -15 dBFS` RMS).
+* **Stem 3: Sound Effects (`SFX`)** — Peak-locked transition sweeps & hits tucked `-2 to -6 dB` below VO (`400 Hz–5 kHz` mobile clarity).
 * **Stem 4: Foley** — Subtle tactile micro-sounds (`-2.5 dB / 70ms` pocket if overlapping speech).
 * **Stem 5: Ambience** — Subtle spatial bed (`-28 dBFS`) when appropriate.
 * **Two-Pass EBU R128 Normalization (`-c:a pcm_s24le`)**: **`-14.0 LUFS (±0.5)`**, **`TP <= -1.0 dBTP`**, **`LRA <= 7.0 LU`**, saved as **`master_audio_ebur128.wav` (`48 kHz · 24-bit PCM WAV`)**.
@@ -252,8 +252,8 @@ For key visual events (stamps, reveals, drops), ensure impacts contain:
 
 ### 1. 5-Profile Cross-Device Diagnostic Matrix
 ```bash
-# 1. Mobile Phone Mono (250Hz - 7kHz, -ac 1 outside -af)
-ffmpeg -y -i "audio/master_audio_ebur128.wav" -af "highpass=f=250,lowpass=f=7000" -ac 1 "audio/qa_mobile_mono.mp3"
+# 1. Mobile Phone Mono (350Hz - 7kHz, -ac 1 outside -af)
+ffmpeg -y -i "audio/master_audio_ebur128.wav" -af "highpass=f=350,lowpass=f=7000" -ac 1 "audio/qa_mobile_mono.mp3"
 # 2. Laptop Speakers (160Hz - 12kHz)
 ffmpeg -y -i "audio/master_audio_ebur128.wav" -af "highpass=f=160,lowpass=f=12000" "audio/qa_laptop.mp3"
 # 3. Television / Living Room (60Hz - 14kHz + verify LRA <= 7.0 LU)
@@ -281,7 +281,7 @@ ffmpeg -y -i "audio/master_audio_ebur128.wav" -ac 1 -af "ebur128=peak=true" -f n
 ### 1. Final Visual Render & Key-Frame Verification
 ```bash
 npx hyperframes check "projects/<project_name>"
-npx hyperframes render "projects/<project_name>" -o "export/<project_name>/raw_video.mp4" -q looks --format mp4
+npx hyperframes render "projects/<project_name>" -o "projects/<project_name>/export/raw_video.mp4" -q looks --format mp4
 ```
 Extract representative key-frame stills across every page (`P01..Pn`) and verify smooth playback with zero frozen frames or visual glitches.
 
@@ -289,15 +289,16 @@ Extract representative key-frame stills across every page (`P01..Pn`) and verify
 ```bash
 # Multiplex Approved Audio Master onto rendered video in ~0.5 seconds
 ffmpeg -y \
-  -i "export/<project_name>/raw_video.mp4" \
+  -i "projects/<project_name>/export/raw_video.mp4" \
   -i "projects/<project_name>/audio/master_audio_ebur128.wav" \
   -map 0:v:0 -map 1:a:0 \
   -c:v copy \
   -c:a aac -b:a 320k -ar 48000 \
+  -movflags +faststart \
   -shortest \
-  "export/<project_name>/master_deliverable.mp4"
+  "projects/<project_name>/export/master_deliverable.mp4"
 ```
-*(Because video visuals are separate from audio mastering, audio tweaks only re-run Stage 7–8 + this 0.5s mux without re-rendering video frames.)*
+*(Everything — raw footage, CFR clips, stems, helper scripts, and exports — stays strictly inside `projects/<project_name>/`. Need a silent video-only copy? Extract losslessly via `ffmpeg -y -i "<final>.mp4" -map 0:v:0 -c:v copy -an -movflags +faststart "projects/<project_name>/video only/<name>_video_only.mp4"`. Once the delivered MP4 passes QA, prune temporary render caches such as `tools/cache/hfcache-*`, `projects/<project_name>/.hyperframes/`, and `projects/<project_name>/audio/qa/`.)*
 
 ---
 
@@ -308,7 +309,7 @@ Before finalizing any video deliverable:
 - [ ] **Page Continuity**: Verified seamless transitions from Page $N$ to Page $N+1$ without visual flickers or `1 -> 0 -> 1` opacity pops.
 - [ ] **Loudness & True Peak Audit**: Ran `ffmpeg -i master_deliverable.mp4 -af ebur128=peak=true -f null -` and verified **`-14.0 LUFS (±0.5)`** and true peak $\le$ **`-1.0 dBTP`**.
 - [ ] **Delivered MP4 Speech & SFX Audit**: Inspected the actual muxed **delivered MP4** (listen or transcribe + check cue offsets) to confirm opening/closing narration is crisp and every key SFX lands cleanly on its intended visual cue (numeric loudness alone does not catch dropped dialogue).
-- [ ] **Mobile & Mono Simulation**: Auditioned via mobile filter (`ffmpeg -i master_deliverable.mp4 -af "highpass=f=250,lowpass=f=7000" -ac 1 -f null -` or written mono MP3) with `-ac 1` placed **outside** `-af` to confirm SFX cut through dialogue on phone speakers without phase cancellation.
+- [ ] **Mobile & Mono Simulation**: Auditioned via mobile filter (`ffmpeg -i master_deliverable.mp4 -af "highpass=f=350,lowpass=f=7000" -ac 1 -f null -` or written mono MP3) with `-ac 1` placed **outside** `-af` to confirm SFX cut through dialogue on phone speakers without phase cancellation.
 - [ ] **Continuous Motion**: Confirmed no frozen frames or decoder stalls on any page.
 - [ ] **Sync Verification**: Checked kinetic text highlighting against spoken words page-by-page.
 - [ ] **Clarity & Separation**: Confirmed music ducks cleanly beneath dialogue with zero vocal masking.

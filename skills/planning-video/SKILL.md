@@ -27,7 +27,7 @@ Resolve playbook paths from the directory containing `video-workflow.md`. In a G
    - `video-workflow.md` — Unified **Stage 1–9** Hard-Gated Pipeline, `<= 2.2 words/sec` VO pacing, Preview-First Render-Last, Independent Audio QA.
    - `flowmcp.md` — Google Flow MCP generation guidelines, aspect ratio framing, credit-confirm safety.
    - Follow the [general editing skill](../video-editing/SKILL.md) and use the bundled [Reference 2.0 style index](../video-editing/references/reference-2-0-styles.md) for the default direction. Record the selected reference and technique in the plan.
-   - [Editing quality checklist](../dont-do-in-video-edit/SKILL.md) — Mandatory anti-pattern blacklist (visual, GSAP Zero-Flash, SFX `-10 to -15 dBFS`, cross-device QA, hard gate discipline).
+   - [Editing quality checklist](../dont-do-in-video-edit/SKILL.md) — Mandatory anti-pattern blacklist (visual, GSAP Zero-Flash, mobile-safe SFX under VO, `350 Hz` cross-device QA, hard gate discipline).
 2. **Built-In HyperFrames Engine & Catalog (448 Ready Items)**:
    - [HyperFrames guide](../hyperframes/SKILL.md) — Core HyperFrames HTML/GSAP timing and render contract.
    - Always check `npx --no-install hyperframes catalog --query "<effect>"` (`hyperframes-registry`) first instead of re-coding standard transitions, cursors, charts, glass cards, or overlays.
@@ -85,7 +85,7 @@ Output `PLAN.md` (following `references/plan-template.md`) with **5 strictly sep
   1. `01_page_transitions/` — air sweeps, Z-pullbacks, whip-pans, 3D orbital/axis flips, vertical drops
   2. `02_motion_elements_and_graphics/` — glass bento docks, HUD reveals, radar pin pops, framed containers, clean emblem hits
   3. `03_animations/` — masked word punches, staggered card pops, specular glass sheens, gyro drags, shutter flashes, stepper glides
-- Require **peak-anchored slicing** (`argmax` centered for sweeps, `0ms` onset for impacts), mobile-audible per-stem leveling (**`-10 to -15 dBFS` RMS**, `-1.0 dBFS` peak), intentional negative space, and `-2.5 dB / 70ms` vocal pockets for mid-dialogue foley transients.
+- Retrieve real acoustic SFX (`media-use` Openverse CC0 / bundled sounds — never synthetic wave packs), require **pre-slice filtering + peak-anchored slicing** (`argmax` centered for sweeps, `0ms` onset for impacts, `≥ 3 ms` fades), **`400 Hz–5 kHz` mobile presence tucked `-2 to -6 dB` below VO post-loudnorm** (or `VO + BGM` without SFX when clearer), intentional negative space, and `-2.5 dB / 70ms` vocal pockets for mid-dialogue foley transients.
 
 #### Track 5 · Background Audio (`Music Agent Plan`)
 - Recommend a **content-suited musical direction** based on industry & pacing:
@@ -99,5 +99,5 @@ Output `PLAN.md` (following `references/plan-template.md`) with **5 strictly sep
 ## 3. Hard-Gated Sign-Off (`Gate 1`)
 
 1. Audit the drafted plan against `dont-do-in-video-edit/SKILL.md` before presenting.
-2. Present the concise 5-Track overview + save `projects/<project-name>/PLAN.md` *(when creating a project)* **or** present in chat when analyzing.
+2. Present the concise 5-Track overview + save `projects/<project-name>/PLAN.md` *(when creating a project; keep all project `assets/raw/`, `assets/clips/`, `audio/`, `manifests/`, `tools/`, and `export/` inside `projects/<project-name>/`)* **or** present in chat when analyzing.
 3. **🛑 Gate 1 — STOP & WAIT for user approval** before building the rough cut (`Stage 2`), sourcing footage/Flow (`Stage 3`), generating VO (`Stage 4`), slicing SFX (`Stage 5`), picking BGM (`Stage 6`), or rendering (`Stage 9`). Pause at the downstream gates agreed for this production.

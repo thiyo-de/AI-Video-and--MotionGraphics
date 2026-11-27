@@ -31,6 +31,7 @@ This repository houses the complete standard operating procedures, architectural
    * **Playable review**. Reuse the timeline or supply one low-resolution draft for approval of timing, transitions and sound.
    * **Isolated Stem Audition**: Voiceover and sound effects are reviewed separately before burning into the final mix.
    * **0.5-Second Remuxing**: Visuals and audio are decoupled. Audio changes are remuxed in half a second via FFmpeg stream copy (`-c:v copy -c:a aac`) without waiting for video re-rendering.
+3. **100% Self-Contained Projects**: Every project keeps its own raw footage (`assets/raw/`), transcoded clips (`assets/clips/`), audio stems (`audio/`), scripts (`tools/`), and exports (`export/`) inside `projects/<project-name>/` — never in workspace-root `raw/` or `export/` directories. *(Note: legacy `repos/herk-edit-kit` templates reference `video-projects/<slug>/`, which maps to `projects/<project-name>/` here.)*
 
 ---
 
