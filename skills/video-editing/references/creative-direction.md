@@ -38,7 +38,7 @@ Choose one of these 4 high-retention hook types:
 ---
 
 ## 4. Creative Choreography: Transitions & In-Card Motion
-- **Environmental Foreground Overlays**: Match transitions to the subject's physical world — silhouette bird flyovers across heritage gopurams or natural parks, mist/foliage sweeps in resorts, sliding doorway/archway wipes, or clean architectural light curtains. Cut underneath the foreground pass peak so scenes bridge invisibly.
+- **Motivated Foreground & Optical Wipes**: Match transitions to the shot's visual energy — natural foreground pass-bys, subtle depth-of-field sweeps, frame-edge wipes, or clean directional light curtains. Time the scene cut right underneath the peak occlusion or blur so edits bridge invisibly.
 - **Cinematic Component Focus-Zoom**: Highlight one interactive card, pin, architectural detail, or stat block, pulse focus briefly, then rack-zoom straight through that element (`transformOrigin` + GPU `scale`) into fullscreen 8K spatial exploration.
 - **VO-Synced Motion Clips Inside Cards**: When VO lists sub-features (*e.g., "rooms, surroundings, and facilities"* or *"library, labs, and campus"*), let muted live clips play dynamically inside crisp cards or split windows timed to those exact VO words before zooming full-screen.
 

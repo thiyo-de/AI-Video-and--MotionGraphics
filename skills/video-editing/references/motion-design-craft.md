@@ -38,7 +38,7 @@
 ---
 
 ## 3. Creative Transition & VO-Card Video Patterns (`f(time)` Safe)
-- **Deterministic Organic Overlays (Birds / Mist / Archways)**: Animate inline silhouette `<svg>` paths or pre-transcoded matte/blend clips purely via timeline transforms (`xPercent`, `yPercent`, `scale`, `opacity`), never `Math.random()` or CSS keyframes. Sync scene swap to max occlusion frame.
+- **Deterministic Foreground & Optical Wipes**: Animate subtle matte masks, directional light curtains, or brief-appropriate foreground sweeps purely via timeline transforms (`xPercent`, `yPercent`, `scale`, `opacity`), never `Math.random()` or CSS keyframes. Sync scene swap to max occlusion frame.
 - **Cinematic Component Focus-Zoom**: Set `transformOrigin` on the card/component wrapper (`#target-card`), apply 5% anticipation pull followed by exponential GPU scale-through (`scale: 1 -> 3.0+`, `ease: "power4.in"`) into continuous `data-media-start` fullscreen footage. Never stack full-viewport CSS `blur()` over `backdrop-filter`.
 - **VO-Synced Clips Inside Cards**: Pre-render all cards with explicit `t=0` `.set(...)` baselines, pre-prime `<video muted playsinline preload="auto">` at Frame 0, and trigger each card's active highlight + video motion at exact `Stage 4` `WordBoundary` phrase times (`never .add() DOM mutations`).
 

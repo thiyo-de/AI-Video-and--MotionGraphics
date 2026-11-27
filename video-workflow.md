@@ -6,7 +6,6 @@ Start with the [general video editing skill](skills/video-editing/SKILL.md). Thi
 > **Complements**: [ai-video-editing.md](ai-video-editing.md)
 > **Core Philosophy**: **Preview-First, Render-Last.** Zero wasted render cycles.  
 > **Governing Architecture**: **Strictly Page-by-Page (Screen-by-Screen).** Every single production asset, layout, voiceover line, and sound effect is authored and reviewed as an atomic page before whole-timeline assembly.  
-> **Origin**: Battle-tested and refined during the production of `ruthram360_campus_closer_mastered.mp4` in the local studio archive.
 
 ---
 

@@ -7,7 +7,7 @@ description: Plan, edit, preview and verify videos in any format, including trim
 
 ## Start with the request
 
-Inspect only the relevant brief, media, existing timeline and approvals. For analysis or verification, report what you checked and stop there. For an exact technical change with an established delivery spec, perform the requested work and check the result. For creative work, follow the interview below before committing to a direction.
+Scope edits, audits, examples and reports to the active project and the approved reference library. Include personal collection items only if the user explicitly selects them for the task. Inspect the relevant brief, media, existing timeline and approvals. For analysis or verification, report what you checked and stop there. For an exact technical change with an established delivery spec, perform the requested work and check the result. For creative work, follow the interview below before committing to a direction.
 
 ### Default visual style
 
