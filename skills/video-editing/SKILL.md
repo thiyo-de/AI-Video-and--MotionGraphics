@@ -1,133 +1,56 @@
 ---
 name: video-editing
-description: Master creative director and professional video editing pipeline. Combines commercial creative direction, editorial rhythm and pacing, motion design craft (Disney's 12 principles, kinetic typography, frosted glassmorphism), surgical sound design (transient alignment, micro-trimming, EBU R128 mastering), and technical execution via HyperFrames and FFmpeg. Use whenever the user asks to create, edit, direct, pace, score, polish, or render any video, reel, short, promo, or explainer.
+description: Plan, edit, preview and verify videos in any format, including trims, interviews, tutorials, documentaries, motion pieces and social reels. Use for analysis, creative direction, transitions, voice, sound or final delivery.
 ---
 
-# 🎬 Master Video Editing & Creative Direction
+# Video editing
 
-This skill transforms the agent from a pure code generator into an **Executive Creative Director and Senior Film Editor**. Code (HTML/GSAP/FFmpeg) is strictly an invisible execution canvas; all decisions are governed by storytelling, visual rhythm, human pacing, typographic prestige, and emotional sound design.
+## Start with the request
 
----
+Inspect only the relevant brief, media, existing timeline and approvals. For analysis or verification, report what you checked and stop there. For an exact technical change with an established delivery spec, perform the requested work and check the result. For creative work, follow the interview below before committing to a direction.
 
-## 🏛️ The Unified 9-Stage Hard-Gated Pipeline
+### Default visual style
 
-Every video project—whether 15s Shorts, 30s Reels, or 2-minute product films—follows this single chronological pipeline, pausing for explicit user sign-off at every gate (`Gate 1` → `Gate 7`):
+For every creative edit, start with the bundled [Reference 2.0 style index and nine playable examples](references/reference-2-0-styles.md). The collection is the approved house style unless the user supplies a different direction. Use the index to pick a relevant example and open its existing contact sheet for composition and type. Play the matching passage when deciding motion, pacing or sound. Mention the reference ID and the specific pacing, type treatment or transition in the brief. If two directions would materially change the result, use the interview to resolve the choice. Build the footage, wording, graphics and soundtrack from the project's own material. Keep the single rough-cut review.
 
-```mermaid
-flowchart LR
-    S1[Stage 1: Brief & 5-Track PLAN.md] -->|Gate 1| S2[Stage 2: UI Preview & Motion Craft]
-    S2 -->|Gate 2| S3[Stage 3: Footage / CFR Prep]
-    S3 -->|Gate 3| S4[Stage 4: VO & Timeline Timing Lock]
-    S4 -->|Gate 4| S5[Stage 5: SFX Locked to Animation]
-    S5 -->|Gate 5| S6[Stage 6: BGM Stem]
-    S6 -->|Gate 6| S7[Stage 7-8: 5-Stem Mix & Cross-Device QA]
-    S7 -->|Gate 7: 48kHz 24-bit WAV| S9[Stage 9: Render, Mux & Delivery QA]
+### Ask the editor's questions
+
+Use Grill Me if available. Any agent can run the same interview directly in chat.
+
+1. Read what the user has already supplied. Probe facts such as dimensions, runtime, available tracks and filenames locally. Carry forward previous answers.
+2. Ask one to three unresolved questions that materially change the edit. Give a concrete recommendation and a short reason for each, then wait for the user's reply. An unanswered recommendation stays open. Ask dependent questions in the next round.
+3. Start with the decision that changes the most work. For an interview that may be which answer to keep. For a tutorial it may be real-time versus condensed steps. For a creative brief it may be audience, destination or mood. Ask about language, original dialogue, VO, music, effects or intentional silence when the choice is open. Ask about the output spec only where it is unknown and consequential.
+4. Summarize the chosen direction briefly in the existing brief or conversation. Carry approved choices and open questions into handoffs. Reopen a choice only when an instruction changes or evidence prevents the approved approach. When the user delegates a choice, stay within that delegation.
+
+## Choose the work the edit needs
+
+- Exact trim, crop, audio repair or re-export with complete instructions. Use the current source and validate the requested change. Create a preview if requested.
+- Creative cut or revision. Establish what to keep, select shots or passages, mark cut points and make one playable rough cut. Keep a short edit map in the existing timeline or brief.
+- Staged production. When the approved brief calls for generated footage, motion design or a separately produced mix, consult only the relevant sections of the [studio production guide](references/studio-production.md). Use the full planning skill for a commissioned multitrack production. Apply approvals to the stages the user chose.
+
+## Preview with one playable cut
+
+Use the current timeline and its built-in playback or supply one low-resolution MP4 that opens in a normal player. Show the actual layout at review scale, including framing, text placement, readable captions where planned, moving elements, entrances, exits and the intended transitions at their proposed speed. Include the planned dialogue or draft voiceover, action and transition SFX, and relevant ambience. Mute background music for the review. Use an existing take or inexpensive scratch track for unfinished sound and identify substitutions. For a missing essential track, flag the gap before asking the user to approve timing. Use real footage or stills where available and plain timed labels for missing shots. Spend preview effort on the editorial decision. Custom controls, vector recreations, decorative polish, alternative cuts, contact sheets and high-resolution renders require a specific review need or request.
+
+For an existing assembly with the correct music-free review mix, this example writes a lightweight review copy. If music is baked into that file, export from the timeline with its music track muted or mux the music-free stems first. If the timeline lives in an editor, use its draft playback or proxy export directly. A proxy of an unedited source cannot demonstrate a proposed edit.
+
+```sh
+ffmpeg -n -i assembly.mp4 -map 0:v:0 -map 0:a:0? -vf "scale='min(iw,854)':'min(ih,854)':force_original_aspect_ratio=decrease:force_divisible_by=2" -c:v libx264 -preset ultrafast -crf 28 -pix_fmt yuv420p -c:a aac -b:a 96k -movflags +faststart review.mp4
 ```
 
----
+On revision, play the changed interval with a little context on both sides. To share an excerpt from an updated assembly, use the same command with `-ss START` before the input, `-t DURATION` after it and a fresh output name. Review the full cut again when changes shift later timing. Play the encoded review cut once to verify the layout, moving elements, cuts and intended sounds. Share the preview with its open question and wait for sign-off before polish or a final render.
 
-## Stage 1: Creative Direction, Hook & 5-Track `PLAN.md` *(🛑 Gate 1)*
+## Choose transitions from the shots
 
-Before writing any timeline or composition code, establish the commercial intention and run `/planning-video`:
+Start with a clean cut. When a transition serves the moment, describe the outgoing cue, incoming cue and where the eye or ear follows. For example, cut from a hand reaching to the next shot as it lands, switch angles as a foreground object covers the lens, or bring the next speaker's voice in before the picture changes. Match direction and speed for moving shots. Use a detail zoom only when the incoming shot resolves the same detail. A still hold can be the right choice for a speaker or a step the viewer must read.
 
-1. **The Core Emotional Contrast**:
-   - Every high-converting video contrasts an old painful reality with a new effortless reality.
-   - *Example (Ruthram360)*: Frustrating, flat 20-page PDF brochure (Dull / Ignored) vs 8K HDR Interactive Spatial Twin (Exciting / Instant Trust).
-2. **The 3-Second Hook Rule**:
-   - The first 1.2 to 2.5 seconds must contain a visual pattern interrupt. Never start with a generic logo splash or slow fade-in.
-   - Hook techniques: Bold controversial question, physical rejection stamp, extreme macro zoom, or rapid split-screen comparison.
-3. **Target Audience & Tone**:
-   - B2B / Enterprise (Chancellors, Directors): Calm, authoritative, prestigious, spacious.
-   - Consumer / Tech SaaS (Linear/Stripe style): Hyper-sleek, snappy, dark obsidian, neon micro-accents.
-   - Social / Viral: High-energy beat-synced, punchy kinetic type, rapid curiosity loops.
-4. **Script Speaking Rate Golden Rule (Budgeted in `Stage 1`, Executed in `Stage 4`)**:
-   - Natural human conversational speech is **130 to 145 Words Per Minute (WPM)** (≈ 2.2 words/second).
-   - In a 30.0-second commercial reel: 0.5s visual hook + 2.5s–3.5s musical outro = **Net speech window ~26.0s (50–54 words max)**.
-   - **Strict Prohibition**: NEVER speed up TTS beyond `+8%` target (`+10%` hard max). If voiceover exceeds the window, **edit the copy**.
-   - **Action match cuts**: Plan J-cuts, L-cuts, and velocity-matched motion vectors (`1.0s–1.8s` hold for titles; `2.5s–4.0s` hold for spatial rooms).
+For a modern look, show the user one proposed cut at the relevant timecode. Skip preset slide pushes, page turns and decorative wipes. Use the selected reference to study timing, movement and sound. Build the sequence from the project's own material. If asked for a current trend, verify a dated example relevant to that audience before describing it as trending.
 
-*Detailed guides*: Read [references/creative-direction.md](references/creative-direction.md), [references/editorial-rhythm.md](references/editorial-rhythm.md), and [references/reference-2-0-styles.md](references/reference-2-0-styles.md).
-**🛑 Gate 1**: Stop for user approval of `PLAN.md` (`Clips`, `Motion`, `VO`, `SFX`, `BGM`) before building UI or spending credits.
+Check suspect entries in continuous playback, after a seek and frame-by-frame across the cut. Look for a single black frame, double exposure, position jump, restarted source or an unready incoming frame. In browser compositions set the initial layer state before the first frame and prime the incoming media. Compare the same timecode in encoded output before attributing preview flicker to the export.
 
----
+## Check sound and delivery
 
-## Stage 2: Motion Design & Interactive UI Preview *(🛑 Gate 2 — Zero Render, Token-Saving Wireframe)*
-
-Build `layout_preview_widget.html` + `contact_sheet.html` with zero AI visual slop **and zero wasted illustration tokens**:
-
-0. **Time & Token-Saving Wireframe Rule (Mandatory)**:
-   - For scenes driven by video/Flow footage, render **clean labeled wireframe boxes** displaying the clip name, slot role, and camera move (`[VIDEO: Flow 01 — Temple Grandeur · Z-Dolly In]`) rather than hand-coding multi-path fake SVG buildings, carvings, or human characters.
-   - Spend Stage 2 layout fidelity on **real typography, exact brand palette, contrast scrims, safe-zone spacing, and transition choreography** — reserve real vector/SVG tracing for true Motion Graphics scenes using real reference frames (`Stage 3 / Stage 9`).
-
-1. **Zero System Emojis**:
-   - ❌ **Forbidden**: Raw Unicode/Segoe UI emojis (`🏛️`, `🔬`, `📚`, `📲`, `❌`, `🎓`). They look cartoonish and cheap.
-   - ✅ **Required**: Inline vector SVGs (Lucide / Feather style with `stroke-width: 1.75px` to `2.0px`) embedded in frosted glass micro-badge containers.
-2. **Brief-Matched Typography Hierarchy** *(adapt font family to the brand; zero italic slop)*:
-   - **Headlines / Punchwords**: Bold display grotesk (e.g., `Satoshi 900`, `Space Grotesk`, or architectural sans), uppercase, tight negative tracking.
-   - **Body / Feature Labels**: Clean neutral geometric sans (`Google Sans 500/700`, `Inter`), comfortable line-height.
-   - **Micro-Badges / Technical Readouts**: Tracked uppercase labels or monospace (`JetBrains Mono` / `Space Mono`, `tabular-nums`).
-3. **Intentional Surface System (Plateless Type vs. Layered Cards — Choose One per Brief)**:
-   - Let **real/Flow architectural footage breathe** using unboxed *"type without plates"* over subtle gradient scrims (`.scrim`) when visuals carry the space, OR choose multi-stop frosted cards where UI/HUD explanation demands structure (never box every headline/metric out of habit):
-     ```css
-     background: rgba(15, 23, 42, 0.65);
-     backdrop-filter: blur(24px) saturate(180%);
-     border: 1px solid rgba(255, 255, 255, 0.12);
-     box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.7);
-     border-radius: 24px;
-     ```
-4. **Disney's 12 Animation Principles**:
-   - **Anticipation**: Pull back 5% before launching forward.
-   - **Overshoot & Settling**: Use spring physics (`power3.out` or custom cubic-bezier `0.22, 1, 0.36, 1`) rather than linear slides.
-   - **Secondary Motion**: Badges follow cards with a 0.08s stagger delay.
-5. **Creative Transitions & VO-Synced In-Card Clips**:
-   - **Organic Foreground Overlays**: Use deterministic `f(time)` foreground sweeps matched to the reel's world (e.g., silhouette birds flying across frame for heritage/nature, drifting mist, doorway/pillar wipes), switching scenes under the peak visual pass alongside matched SFX.
-   - **Cinematic Component Focus-Zoom**: Rack camera focus onto one key component (room card, carved detail, telemetry badge, or pin) via wrapper `transformOrigin` + GPU `scale` dive (`cinematic-zoom` / custom GSAP) straight into full-bleed spatial footage (`data-media-start`).
-   - **VO-Synced Clips Inside Cards**: Keep card grids/split containers alive by scrubbing/playing muted motion clips *inside* cards synced to individual VO phrases (`Stage 4` `WordBoundary` cues) instead of static stills.
-
-*Detailed guide*: Read [references/motion-design-craft.md](references/motion-design-craft.md).
-**🛑 Gate 2**: Deliver interactive `layout_preview_widget.html` + `contact_sheet.html` and wait for UI & transition approval before sourcing paid footage or audio.
-
----
-
-## Stage 3: Footage Sourcing & Closed-GOP CFR Media Prep *(🛑 Gate 3)*
-
-Confirm staged clips vs. Google Flow generations (`flowmcp.md`). Transcode every clip to deterministic Closed-GOP CFR (`fps=30, -g 30 -keyint_min 30 -sc_threshold 0 -flags +cgop -fps_mode cfr -an`) and pre-prime `<video>` elements (`muted playsinline`, no duplicate `autoplay loop`).
-
----
-
-## Stages 4–8: Independent Audio Production Pipeline *(Gated Stem-by-Stem)*
-
-Never drop BGM and random SFX straight onto video timelines. Audio is planned (`Stage 1`), built and audited separately (`Stages 4–6`), mixed (`Stage 7`), cross-device tested (`Stage 8`), and approved as **`48 kHz · 24-bit PCM WAV`** before attaching to video:
-
-1. **Stage 4 — Voice Agent (`VO` Only → 🛑 Gate 4)**:
-   - Generate per-page WAVs (`48 kHz · 24-bit`, `<= +8%` rate, `boundary="WordBoundary"` + empty word-list guard), strip leading silence, audit WPM/headroom/tail gaps (`0.5s–1.4s`).
-   - **Approved VO establishes final timing** — lock HTML/rough-cut transition & animation timestamps to actual VO duration before Stage 5!
-2. **Stage 5 — Sound Designer (`SFX` & Foley Only → 🛑 Gate 5)**:
-   - Place cues strictly against the **VO-locked animation preview or rough cut**, never guessed from script.
-   - Pre-process with `0ms` attack latency, `10ms` micro-fades, `1.5s–3.0s` negative space (`<= 1.2s` active SFX per 30s), and active duration caps (clicks **40–120ms**, pops **60–180ms**, sweeps **180–380ms**, hits **250–400ms**). Audition isolated `sfx_only` stem at **-10 to -15 dBFS RMS**.
-3. **Stage 6 — Music Agent (`BGM` Only → 🛑 Gate 6)**:
-   - Prepare instrumental track (`highpass=85Hz, lowpass=8500Hz` speech carve), verify domain energy curve & frequency headroom, audition separately.
-4. **Stage 7 — Audio Mixing Engineer (`5-Stem Mix` → `48 kHz · 24-bit WAV`)**:
-   - Duck BGM smoothly (`0.095–0.14` under VO → `0.24–0.40` in breaks, `220ms` cosine ramps), apply `-2.5 dB / 70ms` vocal pockets over mid-dialogue transients, and run 2-pass linear EBU R128 normalization (**`-14.0 LUFS ± 0.5`**, **`LRA <= 7.0 LU`**, **`TP <= -1.0 dBTP`**).
-5. **Stage 8 — Cross-Device QA & Independent Review *(🛑 Gate 7 — Approved Audio Master)***:
-   - Test across **Mobile Mono (`250Hz–7kHz`, `-ac 1`) · Laptop · Headphones · Television · Full-Band Mono Fold-down**, verify zero masking/distortion/phase drop/timing drift, and wait for user approval of **`master_audio_ebur128.wav`** before Stage 9.
-
-*Detailed guide*: Read [references/sound-design-mastery.md](references/sound-design-mastery.md) and `professional-sound-design/SKILL.md`.
-
----
-
-## Stage 9: Headless Render, Audio Integration & Final Delivery QA *(🚀 Ship)*
-
-Execute the render cleanly using HyperFrames and FFmpeg:
-
-1. **Composition Architecture**:
-   - Composition entry point: `index.html` (`1080×1920 @ 30fps` for vertical reels, `1920×1080` for widescreen), synced strictly to approved Stage 4–8 timestamps.
-   - Ensure all `<video>` elements use `muted playsinline` without duplicate `autoplay loop` attributes, and mark non-reading HUD/watermark elements with `data-layout-ignore`.
-2. **Verification Protocol**:
-   - Run `hyperframes check` (`0` lint errors, `0` runtime errors, `0` collision issues, 100% WCAG AA contrast).
-3. **Render, Fast Mux & Post-Export Audit**:
-   - Headless render: `npx hyperframes render . -o raw_video.mp4 -q looks --format mp4`
-   - Fast 0.5s mux: `ffmpeg -y -i raw_video.mp4 -i master_audio_ebur128.wav -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 320k -ar 48000 -shortest master_deliverable.mp4`
-   - Final Delivered MP4 Audit: measure `ebur128=peak=true` (`-14.0 LUFS ± 0.5`, `TP <= -1.0 dBTP`), run `-af "highpass=f=250,lowpass=f=7000" -ac 1` mono mobile audition, listen/transcribe delivered speech + SFX hits, and inspect 6 extracted key-frame stills.
-
-*Detailed guide*: Read [references/hyperframes-engine.md](references/hyperframes-engine.md) and field-tested guardrails in [references/production-lessons-reel03.md](references/production-lessons-reel03.md).
+- List the tracks expected from the brief. For dialogue or VO, check first and last words, intelligibility, sync and music masking. For intended effects, audition the cue against the visible action. Check entrances, exits, clicks and quiet passages. Check that an intentionally silent delivery meets the agreed track layout.
+- Use the delivery spec for integrated loudness, true peak and channel layout. For the studio social mix, the house target is −14 LUFS ±0.5 and at most −1 dBTP. Measure the encoded deliverable and audition speech and key cues, including a mono fold-down if relevant.
+- Export using the approved size, aspect, frame rate, duration, codec and audio settings. Fully decode the delivered file, probe the actual streams, and play the opening, closing and changed cuts. Check crops, captions, sync and unintended flashes at delivery size.
+- The bundled `scripts/video_workbench.py validate` checks the file against supplied expectations. Pass relevant targets and expected stream counts explicitly, including `--audio-streams 0` for a video-only export. See the [quality checklist](references/quality-gates.md) when a deeper audit is needed. Report what was measured, what was seen or heard, and any check still pending.

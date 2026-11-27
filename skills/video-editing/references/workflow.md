@@ -6,7 +6,7 @@ Identify audience, destination, aspect ratio, target length, desired tone, must-
 
 ## 2. Observe the sources
 
-Probe every file and keep the raw payload. Review contact sheets and listen to representative audio. Check rotation, variable frame rate, color range, clipped highlights, dropped frames, background noise, and whether multiple audio tracks have distinct roles.
+Probe relevant files and listen to representative audio. Check rotation, frame rate, color, noise and the roles of existing tracks. Extract a frame or sheet when it answers an unresolved source question.
 
 If sources must synchronize, record both the numeric offset and the cue that proves it. A visible clap, tap, UI state change, or matching waveform is evidence; simultaneous creation dates are not.
 
@@ -26,9 +26,9 @@ FFmpeg is ideal when the edit is primarily media transforms. Remotion is ideal w
 
 ## 5. Review progressively
 
-Review source sheets, an assembly, a low-resolution draft, transition strips, representative stills, and only then the final. Review at delivery size and with sound.
+Review one playable rough cut and revisit changed intervals. Inspect a frame strip only when diagnosing a specific issue. Check the final at delivery size and with sound when applicable.
 
-Ask an independent reviewer to look for concrete problems: wrong content, broken continuity, unreadable text, sync drift, clipping, masks, ghosting, unexpected holds, and layout hierarchy.
+Review the relevant cuts for wrong content, broken continuity, unreadable text, sync drift, clipping and unintended holds.
 
 ## 6. Render and validate
 
@@ -36,7 +36,7 @@ Render to a candidate path. Fully decode it, inspect the actual output streams, 
 
 ## Handoff
 
-Deliver:
+Select handoff items requested by the brief:
 
 - master video;
 - edit source or render plan;

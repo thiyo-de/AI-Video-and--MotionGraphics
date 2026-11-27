@@ -5,20 +5,20 @@ description: Strict anti-pattern checklist and quality gate covering everything 
 
 # Don't Do in Video Edit (`dont-do-in-video-edit`)
 
-A permanent blacklist of visual, editorial, motion, UI, GSAP, SFX, and render mistakes caught in real production reels. **Never ship a video that triggers any rule below.**
+Use the [general editing skill](../video-editing/SKILL.md) first. The rules below address specific failures in commercially animated reels. Apply each rule only to the corresponding creative choice, technology or audio track.
 
 ---
 
 ## 1. Generic PowerPoint & Slideshow Anti-Patterns
 - **NO slide-deck layouts or cross-reel cloning**: Never center boxy rectangular cards with bullet lists on flat backgrounds, AND never lazily clone a previous reel's UI skeleton (same card layout, pill stepper, and closer halo) into a new domain. Choose depth, palette, and UI framing (full-bleed footage, unboxed editorial type, or intentional bento containers) fresh for each creative brief.
-- **NO dead still frames**: Never freeze the camera completely for `> 2.0s` (`MOTION_PHILOSOPHY` Law #4: *"Camera never sleeps"*). Keep continuous subtle scale push-ins, parallax, or drift alive.
-- **NO stop-then-cut timing**: Never let motion come to a dead halt *before* switching scenes. Cuts must ride active acceleration (`velocity-matched cuts`).
+- For a moving shot, check continuity through the cut. Hold a frame steady when the viewer needs to read or listen.
+- For match-on-action cuts, keep motion continuous across the edit.
 - **NO generic filler slogans**: Never write copy that passes on any random company (*"Trusted Quality"`, `"Modern Solutions"`). Run the **Logo Test** (`pv-story`): prove specific proof points (`8K HDR`, `±1.2mm LiDAR`, `Google Blue-Line`).
 
 ---
 
 ## 2. PowerPoint / Slideshow Transition Mistakes
-- **NO generic crossfades, box wipes, or linear slides**: Never cut between scenes using basic `opacity: 0 -> 1` dissolves, linear slides, or mismatched exit/entry axes (e.g., exiting left while next scene slides down). Choose motivated cuts—velocity camera moves, **component focus-zooms** (`transformOrigin` + GPU wrapper scale), or **deterministic organic foreground overlays** (e.g., bird flyovers, mist, archway wipes synced at occlusion peak, never `Math.random()` / CSS keyframes).
+- **NO generic crossfades, box wipes, or linear slides**: Never cut between scenes using basic `opacity: 0 -> 1` dissolves, linear slides, or mismatched exit/entry axes (e.g., exiting left while next scene slides down). Choose motivated cuts—velocity camera moves, **component focus-zooms** (`transformOrigin` + GPU wrapper scale), or **deterministic motivated foreground/optical wipes** (e.g., depth sweeps, light curtains, or frame-edge wipes synced at occlusion peak, never `Math.random()` / CSS keyframes).
 - **NO static dead cards during VO**: When narration lists multi-room/campus/facility features, avoid static text-only boxes—play pre-primed muted clips cleanly *inside* cards synced to `Stage 4` `WordBoundary` cues, and pass `data-media-start="<sec>"` on continuous PiP/focus-zoom docks (`never` reset video to `0.0s`).
 - **NO card-to-scene sequence mismatch**: Preview card strips (`Card 1 -> Card 2 -> Card 3`) must **never** disagree with the actual scene walkthrough order.
 - **NO empty transition voids or broken focus-zooms**: Never leave an empty dark background or flat placeholder polygon on screen for `>0.3s` during a transformation, and never zoom into an object only to hard-cut onto the back of a device or mismatched angle.
@@ -55,8 +55,8 @@ A permanent blacklist of visual, editorial, motion, UI, GSAP, SFX, and render mi
 ---
 
 ## 6. Hard-Gated Workflow & Verification Mistakes (`Stages 1–9`)
-- **NO fake Stage 2 vector illustrations (Time & Token Waste)**: Never waste time or tokens hand-drawing SVG people, temples, furniture, or fake scenic artwork inside Stage 2 `layout_preview_widget.html` to mimic missing video footage. Draw clean wireframe placeholder containers labeled with the exact clip/video name (`[VIDEO: Flow 01 — <subject>]`) alongside real typography, palette, margins, and transition timing.
-- **NO skipping user gates or rushing steps**: Hard-stop for user approval at every gate (**Gate 1 `PLAN.md`** → **Gate 2 `UI Preview`** → **Gate 3 `Footage/Flow`** → **Gate 4 `VO`** → **Gate 5 `SFX`** → **Gate 6 `BGM`** → **Gate 7 `Approved 48kHz 24-bit Audio Master`** → **Stage 9 Final Render/Mux QA**). Never run Flow generation, TTS, SFX, BGM, or renders without clearing the prior gate.
+- For a preview use available footage and plain timed labels for missing assets. Reuse one player or a proxy export. Reserve custom illustrations and controls for an explicit deliverable.
+- Obtain the required approvals for the agreed production stages. Carry earlier approvals forward and wait at the playable preview before polishing a creative cut.
 - **NO SFX timed from script guesses**: Always let **Stage 4 VO** establish real spoken durations & `WordBoundary` anchors first, snap UI animation/rough-cut cut frames to that VO, and only then lock **Stage 5 SFX** onto actual visual frame timestamps.
 - **NO stale verification screenshots on Windows**: Chrome headless `--screenshot` silently fails or hits locks on paths with spaces or default user profiles. Always write to a space-free scratch path with an isolated `--user-data-dir` + `Start-Process -Wait`, then copy cleanly.
 - **NO unverified delivery**: Never mark a render done without running `hyperframes check`, `ffprobe` stream inspection, `ebur128=peak=true` loudness check, 5-profile cross-device audio check, actual delivered MP4 VO/SFX audition, and visual `read_file` verification of **post-edit** extracted video strips.

@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 
@@ -81,11 +82,11 @@ def main() -> None:
         }
         plan_path = temp / "render-plan.json"
         plan_path.write_text(json.dumps(plan))
-        run(["python3", str(WORKBENCH), "render-ffmpeg", str(plan_path)])
-        run(["python3", str(WORKBENCH), "render-ffmpeg", str(plan_path)])
+        run([sys.executable, str(WORKBENCH), "render-ffmpeg", str(plan_path)])
+        run([sys.executable, str(WORKBENCH), "render-ffmpeg", str(plan_path)])
         run(
             [
-                "python3",
+                sys.executable,
                 str(WORKBENCH),
                 "inspect",
                 "--work-dir",
@@ -95,7 +96,7 @@ def main() -> None:
         )
         run(
             [
-                "python3",
+                sys.executable,
                 str(WORKBENCH),
                 "sheet",
                 str(temp / "final.mp4"),
@@ -108,6 +109,18 @@ def main() -> None:
         )
         report = json.loads((temp / "work" / "validation.json").read_text())
         assert report["passed"] is True
+        # A miss smaller than the former 1 LU tolerance must fail on the encoded file.
+        measured = float(report["loudness"]["input_i"])
+        rejection = temp / "rejected.json"
+        result = subprocess.run(
+            [
+                sys.executable, str(WORKBENCH), "validate", str(temp / "final.mp4"),
+                "--lufs", str(measured + 0.75), "--report", str(rejection),
+            ],
+            check=False,
+        )
+        assert result.returncode == 1
+        assert json.loads(rejection.read_text())["checks"]["loudness"] is False
         assert (temp / "final.mp4").is_file()
         assert (temp / "contact.jpg").is_file()
         assert (temp / "inspection" / "source-report.json").is_file()

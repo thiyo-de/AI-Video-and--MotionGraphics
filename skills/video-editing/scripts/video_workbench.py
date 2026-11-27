@@ -390,7 +390,7 @@ def loudness(
         check=False,
     )
     matches = re.findall(r"\{\s*\"input_i\".*?\}", result.stderr, flags=re.DOTALL)
-    return json.loads(matches[-1]) if matches else None
+    return json.loads(matches[-1]) if result.returncode == 0 and matches else None
 
 
 def parse_rate(value: str) -> float:
@@ -491,8 +491,9 @@ def validate_media(
         )
         checks["loudness"] = (
             measured_loudness is not None
-            and abs(float(measured_loudness["input_i"]) - target_lufs) <= 1.0
-            and float(measured_loudness["input_tp"]) <= true_peak + 0.2
+            and abs(float(measured_loudness["input_i"]) - target_lufs) <= 0.5
+            and float(measured_loudness["input_tp"]) <= true_peak
+            and float(measured_loudness["input_lra"]) <= loudness_range
         )
     sha = digest(source)
     report = {

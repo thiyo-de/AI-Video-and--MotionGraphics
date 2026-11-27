@@ -1,6 +1,6 @@
 # 🎬 Universal AI Video Production Standard (V2.0)
 > **A Reusable Production Framework for High-End AI Video Editing, Deterministic Motion Graphics & Broadcast Audio Mastering**  
-> **Complements & Implements**: [video-workflow.md](file:///d:/AI%20Video%20Editing/AI%20Video%20Editing/video-workflow.md) (The 7-Step Collaborative SOP)  
+> **Complements & Implements**: [video-workflow.md](video-workflow.md) (Studio workflow for the selected production stages)
 > **Applies To**: Any aspect ratio (9:16 Vertical Reels, 16:9 Cinematic Landscape, 1:1 Square, 4:5 Social) & any format (Explainers, Commercial Promos, Product Launches, UI Demos).
 
 ---
@@ -35,7 +35,7 @@ Master Video:            Constant Frame Rate (CFR), Rec.709, YUV420p
 ## 3. Directory & Project Architecture
 
 ```
-D:\AI Video Editing\
+<studio-workspace>/
 │
 ├── AI Video Editing\                        # Studio Standards & Skills Root
 │   ├── ai-video-editing.md                  # This universal production blueprint (V2.0)
@@ -70,7 +70,7 @@ D:\AI Video Editing\
 │       └── narration_timing.json            # WordBoundary timestamps from Edge TTS
 │
 ├── tools\                                   # Studio Toolchain (illustrative names; real per-project scripts live under root `tools/` or `projects/<name>/tools/`)
-│   ├── optimize_clips.py                    # Closed-GOP CFR FFmpeg pre-transcoder (`D:\AI Video Editing\tools\optimize_clips.py`)
+│   ├── optimize_clips.py                    # Closed-GOP CFR FFmpeg pre-transcoder (`project-specific helper`)
 │   ├── produce_*_narration.py               # Edge TTS WordBoundary streaming generator (illustrative pattern; e.g., `produce_vo_reel03.py`)
 │   ├── mix_soundtrack.py                    # Multi-bus audio mixer & EBU R128 normalizer (pattern; see `master_ruthram360_audio.py`)
 │   ├── render_hyperframes.py                # HyperFrames render execution wrapper
@@ -324,7 +324,7 @@ Rendering a full-resolution 1080×1920 video takes 45–75 seconds. Avoid re-ren
 | Production Stage | Rendering Strategy | Command / Action |
 | :--- | :--- | :--- |
 | **1. Plan & Validate (`Stage 1`)** | 5-Track `PLAN.md` + Gate 1 | Lock creative brief, 5-track plan & timeline contract (`hyperframes timeline --json` after markup) |
-| **2. Interactive UI (`Stage 2`)** | **Zero-Render Preview Widget + Gate 2** | Open `layout_preview_widget.html` directly in browser (`0` flicker / `0` JS errors). Zero render wait. |
+| **2. Rough cut (Stage 2)** | **One playable preview and Gate 2** | Review layout, motion and transitions with dialogue or draft VO, effects and ambience in the existing timeline or one low-resolution MP4. Mute background music. |
 | **3. Audio Pipeline (`Stages 4–8`)** | **Independent Audio Master (`Gates 4–7`)** | Build & approve separately: `VO` (locks timeline) → `SFX` (locked to animation) → `BGM` → 5-Stem Mix → **5-Device Cross-Device QA** (`48 kHz · 24-bit WAV`) |
 | **4. Final Video & Remux (`Stage 9`)** | Headless Render + **0.5s Audio Mux** | Render `raw_video.mp4` (`-q looks`), mux approved `48kHz 24-bit WAV` via `-c:v copy -c:a aac -b:a 320k -ar 48000` |
 | **5. Final MP4 QA (`Stage 9`)** | Delivered Container Audit | Verify `ebur128=peak=true`, `-af "highpass=f=250,lowpass=f=7000" -ac 1`, speech/SFX audition, & frame strips |

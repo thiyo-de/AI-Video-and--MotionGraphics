@@ -1,15 +1,15 @@
 ---
 name: planning-video
-description: Comprehensive 5-track pre-production video planner. Analyzes the creative brief or script against the video-editing skill, workspace SOP (AI Video Editing/video-workflow.md), Google Flow MCP specs, HyperFrames 448-item registry, and cloned reference repos (herk-edit-kit, motion-pack-3, product-video-skills), then outputs a clean separated production plan across 5 tracks: (1) Flow/Video Clips, (2) Motion Graphics, (3) Voiceover (VO), (4) SFX, and (5) Background Audio (BGM) — before any credits, TTS, or renders run.
+description: Plan an approved multitrack video production across footage, motion, voiceover, effects and music. Use when a project needs a staged production plan or the user requests a creative planning interview.
 ---
 
 # Planning Video (`/planning-video` — Stage 1 of 9)
 
-Architect every commercial reel, promo, or explainer **before writing composition code, generating Flow clips, synthesizing audio, or rendering video**. This skill runs **Stage 1** of the unified **9-Stage Hard-Gated Studio Pipeline**, outputting a deterministic 5-track `PLAN.md` (with Master Audio Plan) ready for **Gate 1 sign-off**.
+Start with the interview in the [general editing skill](../video-editing/SKILL.md). For a simple edit, record only the relevant decisions there and return. For an approved multitrack production, plan the applicable tracks below and confirm their approval stages. Read specialist material only for the tracks in scope.
 
-### Studio Pipeline Map (`Stage 1 → Stage 9`, Never Skip a Gate)
+### Studio pipeline for the approved tracks
 - **Stage 1 (This Skill)**: Brief, Concept & 5-Track `PLAN.md` + Master Audio Plan → **🛑 Gate 1**
-- **Stage 2**: Lightweight Wireframe UI & Motion Preview (`layout_preview_widget.html`, `0` render, **Time & Token Saver: draw labeled media/video placeholder boxes + real typography/palette/transitions only — NEVER hand-draw fake vector scenes or character illustrations**) → **🛑 Gate 2**
+- **Stage 2**. Present one playable rough cut in the existing player or as a low-resolution MP4. Show layout, motion and transitions with dialogue or scratch VO, SFX and relevant ambience. Mute background music. Reuse available media and label missing shots. Wait for preview approval.
 - **Stage 3**: Footage Sourcing & Closed-GOP CFR Prep (`Clip` / `Flow` map) → **🛑 Gate 3**
 - **Stage 4**: Isolated Voiceover (`VO`) Synthesis & **`WordBoundary` -> Timeline Timing Lock** → **🛑 Gate 4**
 - **Stage 5**: Isolated SFX & Foley locked to **actual VO-locked animation/rough-cut frames** → **🛑 Gate 5**
@@ -21,22 +21,22 @@ Architect every commercial reel, promo, or explainer **before writing compositio
 
 ## 1. Sources Consulted Before Planning
 
-Before designing scenes or writing custom components, check existing capabilities in strict priority order:
+Resolve playbook paths from the directory containing `video-workflow.md`. In a Git checkout this is the repository root. In a studio workspace with installed skills, locate that file in the workspace first. Resolve linked sibling skills from this file. Consult sources for the approved tracks.
 
 1. **Workspace SOP, Anti-Patterns & Brand Guardrails**:
-   - `d:\AI Video Editing\AI Video Editing\video-workflow.md` — Unified **Stage 1–9** Hard-Gated Pipeline, `<= 2.2 words/sec` VO pacing, Preview-First Render-Last, Independent Audio QA.
-   - `d:\AI Video Editing\AI Video Editing\flowmcp.md` — Google Flow MCP generation guidelines, aspect ratio framing, credit-confirm safety.
-   - `d:\AI Video Editing\.agents\skills\video-editing\SKILL.md` + `references/creative-direction.md`, `references/editorial-rhythm.md`, `references/reference-2-0-styles.md`, `references/production-lessons-reel03.md`.
-   - `d:\AI Video Editing\.agents\skills\dont-do-in-video-edit\SKILL.md` — Mandatory anti-pattern blacklist (visual, GSAP Zero-Flash, SFX `-10 to -15 dBFS`, cross-device QA, hard gate discipline).
+   - `video-workflow.md` — Unified **Stage 1–9** Hard-Gated Pipeline, `<= 2.2 words/sec` VO pacing, Preview-First Render-Last, Independent Audio QA.
+   - `flowmcp.md` — Google Flow MCP generation guidelines, aspect ratio framing, credit-confirm safety.
+   - Follow the [general editing skill](../video-editing/SKILL.md) and use the bundled [Reference 2.0 style index](../video-editing/references/reference-2-0-styles.md) for the default direction. Record the selected reference and technique in the plan.
+   - [Editing quality checklist](../dont-do-in-video-edit/SKILL.md) — Mandatory anti-pattern blacklist (visual, GSAP Zero-Flash, SFX `-10 to -15 dBFS`, cross-device QA, hard gate discipline).
 2. **Built-In HyperFrames Engine & Catalog (448 Ready Items)**:
-   - `d:\AI Video Editing\.agents\skills\hyperframes\SKILL.md` — Core HyperFrames HTML/GSAP timing and render contract.
+   - [HyperFrames guide](../hyperframes/SKILL.md) — Core HyperFrames HTML/GSAP timing and render contract.
    - Always check `npx --no-install hyperframes catalog --query "<effect>"` (`hyperframes-registry`) first instead of re-coding standard transitions, cursors, charts, glass cards, or overlays.
-3. **Local Cloned Reference Repos (`d:\AI Video Editing\AI Video Editing\repos\`)**:
+3. **Local Cloned Reference Repos (`repos/`)**:
    - **`product-video-skills/`**: Native HTML/GSAP engine (`lib/pv.js`, `lib/pv.css`), velocity-matched cuts (`PV.zoomOut/In`, `PV.whipOut/In`), 3D `PV.plane` + `PV.crop`, `.hair` calipers, auto-sizing `PV.cycle` pills, `pv-story` & `pv-music` beat-grid tools.
    - **`herk-edit-kit/`**: `MOTION_PHILOSOPHY.md` (11 Laws, perspective grid floors, 4-stop liquid-glass catchlights, light-streak cut whips, chrome text sweeps), `style-library/` (`01-vox-explainer`, `02-kallaway` cards), `style-templates/`, `video-storytelling/SKILL.md` (persistent world & camera altitudes).
    - **`motion-pack-3/`**: 10 standalone `1080x1920 @ 30fps` vertical widgets (`templates/`: `03-apple-maps-route`, `04-wastebasket-trash`, `08-toggle-flip`, `09-stat-counter`, `10-progress-bar`, `02-imessage-notification`, `01-audio-waveform`).
 4. **Independent Audio Production Architecture**:
-   - `d:\AI Video Editing\.agents\skills\professional-sound-design\SKILL.md` + `AI Video Editing/repos/product-video-skills/skills/pv-music/SKILL.md` + `media-use/SKILL.md`.
+   - [Sound design guide](../professional-sound-design/SKILL.md) + `repos/product-video-skills/skills/pv-music/SKILL.md` + [media guide](../media-use/SKILL.md).
 
 ---
 
@@ -65,7 +65,7 @@ Output `PLAN.md` (following `references/plan-template.md`) with **5 strictly sep
 - Select reusable components/primitives before custom coding (`hyperframes catalog` IDs + exact paths inside `AI Video Editing/repos/`).
 - Choose a **brief-driven visual system** rather than repeating one fixed house look: pick typography pairing (e.g., `Google Sans` + `Satoshi`, architectural editorial sans/mono, or light matte ground — always **zero unsolicited `italic`**), a tight functional palette (`<= 5` hues, ideally 1 hero accent per shot), and either full-bleed *"type without plates"* or frosted/elevated bento framing as suited to the domain.
 - Specify page transitions with velocity-matched entry/exit pairs (`zoom-through`, `lateral whip`, `vertical drop`, `3D Y-axis flip`) + light streaks/blooms, AND intentionally mix **scene-world creative transitions**:
-  - **Organic Foreground Overlays**: Birds flying across lens silhouette/flight path, temple pillar/doorway wipes, mist/foliage sweeps matched to occlusion peaks & SFX in `01_page_transitions/`.
+  - **Motivated Foreground & Optical Wipes**: Deterministic `f(time)` foreground passes, depth-of-field sweeps, frame-edge wipes, or directional light curtains matched to occlusion peaks & SFX in `01_page_transitions/`.
   - **Cinematic Component Focus-Zoom**: Target `transformOrigin` on a key card, carving, map pin, or badge → brief focus hold → smooth GPU `scale` dive right into fullscreen spatial footage (`data-media-start`).
   - **VO-Synced Motion Clips Inside Cards**: Play muted clips inside cards/split viewports timed directly to Stage 4 VO clauses (e.g., separate clips highlighting *rooms / surroundings / facilities* as named) before diving full-bleed.
 - Enforce **GSAP Determinism & Alignment Rules**:
@@ -100,4 +100,4 @@ Output `PLAN.md` (following `references/plan-template.md`) with **5 strictly sep
 
 1. Audit the drafted plan against `dont-do-in-video-edit/SKILL.md` before presenting.
 2. Present the concise 5-Track overview + save `projects/<project-name>/PLAN.md` *(when creating a project)* **or** present in chat when analyzing.
-3. **🛑 Gate 1 — STOP & WAIT for user approval** before building UI preview (`Stage 2`), sourcing footage/Flow (`Stage 3`), generating VO (`Stage 4`), slicing SFX (`Stage 5`), picking BGM (`Stage 6`), or rendering (`Stage 9`). Every downstream stage also pauses at its own gate until approved.
+3. **🛑 Gate 1 — STOP & WAIT for user approval** before building the rough cut (`Stage 2`), sourcing footage/Flow (`Stage 3`), generating VO (`Stage 4`), slicing SFX (`Stage 5`), picking BGM (`Stage 6`), or rendering (`Stage 9`). Pause at the downstream gates agreed for this production.

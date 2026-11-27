@@ -4,6 +4,8 @@
 
 ---
 
+For any video request, start with the [general editing skill](skills/video-editing/SKILL.md). The [default style library](skills/video-editing/references/reference-2-0-styles.md) includes nine playable reference videos bundled with the skill. The studio stages below apply to an approved multitrack production.
+
 ## 📖 Overview
 
 This repository houses the complete standard operating procedures, architectural blueprints, and production skills for creating high-end, deterministic video compositions. It combines **HyperFrames (HTML/CSS/WebGL-to-video compilation)**, **GSAP timeline animation**, **Edge TTS neural voice synthesis with streaming metadata**, and **ITU-R BS.1770 / EBU R128 broadcast audio mastering**.
@@ -14,7 +16,7 @@ This repository houses the complete standard operating procedures, architectural
 
 | Component | Path | Description |
 | :--- | :--- | :--- |
-| **Actionable SOP** | [`video-workflow.md`](video-workflow.md) | The **9-Stage Hard-Gated Pipeline**: `PLAN.md` (`Gate 1`), zero-render UI preview (`Gate 2`), footage CFR (`Gate 3`), independent `VO`→`SFX`→`BGM`→`Cross-Device WAV Master` (`Gates 4–7`), and 0.5s MP4 remux (`Stage 9`). |
+| **Actionable SOP** | [`video-workflow.md`](video-workflow.md) | The **9-Stage Hard-Gated Pipeline**: `PLAN.md` (`Gate 1`), playable rough cut (`Gate 2`), footage CFR (`Gate 3`), independent `VO`→`SFX`→`BGM`→`Cross-Device WAV Master` (`Gates 4–7`), and 0.5s MP4 remux (`Stage 9`). |
 | **Technical Blueprint** | [`ai-video-editing.md`](ai-video-editing.md) | Universal Production Standard V2.0: EBU R128 mastering math, closed-GOP CFR encoding, Node.js 22+ requirements, and HyperFrames container contracts. |
 | **Google Flow MCP Guide** | [`flowmcp.md`](flowmcp.md) | Google Flow MCP Integration Guide: CDP automation, session configuration, and Veo/Gemini video generation workflow. |
 | **Core Skills** | [`skills/`](skills/) | Specialized production skills for 5-track planning, anti-pattern quality gates, editorial direction, sound design, media handling, and HyperFrames motion components. |
@@ -26,7 +28,7 @@ This repository houses the complete standard operating procedures, architectural
 
 1. **Strictly Page-by-Page (Screen-by-Screen)**: A video is never treated as an uncontrollable monolithic block. Every scene is an independent atomic page with its own timecode window, DOM viewport container, assigned footage, strict word budget ($\le 2\text{ words/sec}$), and dedicated SFX.
 2. **Preview-First, Render-Last**:
-   * **Zero-Render UI Inspection**: Layouts, typography, badges, and contrast are reviewed instantly in the browser via an interactive layout widget before rendering any video.
+   * **Playable review**. Reuse the timeline or supply one low-resolution draft for approval of timing, transitions and sound.
    * **Isolated Stem Audition**: Voiceover and sound effects are reviewed separately before burning into the final mix.
    * **0.5-Second Remuxing**: Visuals and audio are decoupled. Audio changes are remuxed in half a second via FFmpeg stream copy (`-c:v copy -c:a aac`) without waiting for video re-rendering.
 
@@ -71,7 +73,7 @@ Inside [`skills/`](skills/):
 ## 🚀 Quickstart (`Stage 1 → Stage 9`, Gate-by-Gate)
 
 1. **Stage 1 (`planning-video`)**: Lock a 5-track `PLAN.md` across clips, motion, VO, SFX, and background music (**🛑 Gate 1**).
-2. **Stages 2–3**: Build interactive `layout_preview_widget.html` (**🛑 Gate 2**), then prep CFR clips/Flow (**🛑 Gate 3**).
+2. **Stages 2–3**. Approve one playable rough cut at Gate 2, then prepare the footage required for the production at Gate 3.
 3. **Stages 4–8 (Independent Audio Pipeline)**: Generate & approve `VO` (**🛑 Gate 4** → locks cut frames) → `SFX` locked to animation (**🛑 Gate 5**) → `BGM` (**🛑 Gate 6**) → 5-Stem Mix & **5-Device Cross-Device QA** → **Approved `48 kHz · 24-bit WAV` Master** (**🛑 Gate 7**).
 4. **Stage 9**: Render headless with HyperFrames (`-q looks`), 0.5s mux (`-c:v copy`), audit the delivered MP4, and ship.
 

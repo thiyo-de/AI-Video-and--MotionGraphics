@@ -35,8 +35,8 @@ The root container must declare explicit canvas dimensions and framerate:
 
 ```powershell
 # 1. Verification Check (Lint, Layout, Motion, Audio, Contrast)
-$env:HYPERFRAMES_FFMPEG_PATH="D:\AI Video Editing\tools\ffmpeg\bin\ffmpeg.exe"
-$env:HYPERFRAMES_FFPROBE_PATH="D:\AI Video Editing\tools\ffmpeg\bin\ffprobe.exe"
+$env:HYPERFRAMES_FFMPEG_PATH=(Get-Command ffmpeg -CommandType Application).Source
+$env:HYPERFRAMES_FFPROBE_PATH=(Get-Command ffprobe -CommandType Application).Source
 npx hyperframes check /path/to/project
 
 # 2. Headless GPU-Accelerated Render

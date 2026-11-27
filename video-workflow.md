@@ -1,10 +1,12 @@
 # ⚡ Studio Video Production Workflow (SOP)
 
+Start with the [general video editing skill](skills/video-editing/SKILL.md). This SOP describes the full studio motion-production route. Agree on the tracks and gates for the brief before using the specialist recipes below.
+
 > **Standard Operating Procedure for Fast, Error-Free AI Video Creation**  
-> **Complements**: [ai-video-editing.md](file:///d:/AI%20Video%20Editing/AI%20Video%20Editing/ai-video-editing.md)  
+> **Complements**: [ai-video-editing.md](ai-video-editing.md)
 > **Core Philosophy**: **Preview-First, Render-Last.** Zero wasted render cycles.  
 > **Governing Architecture**: **Strictly Page-by-Page (Screen-by-Screen).** Every single production asset, layout, voiceover line, and sound effect is authored and reviewed as an atomic page before whole-timeline assembly.  
-> **Origin**: Battle-tested and refined during the production of [ruthram360_campus_closer_mastered.mp4](file:///D:/AI%20Video%20Editing/export/reels_9x16/ruthram360_campus_closer_mastered.mp4).
+> **Origin**: Battle-tested and refined during the production of `ruthram360_campus_closer_mastered.mp4` in the local studio archive.
 
 ---
 
@@ -30,7 +32,7 @@
 ```
 [Stage 1: Brief, Page Blueprint & 5-Track PLAN.md] ────────► 🛑 GATE 1: Plan & Audio Architecture Approval
                  │
-[Stage 2: Interactive UI & Motion Preview Widget] ─────────► 🛑 GATE 2: Screen-by-Screen UI Approval (Zero Render)
+[Stage 2: One playable rough cut] ─────────► 🛑 GATE 2: Rough Cut Approval
                  │
 [Stage 3: Footage Sourcing, Clip Map & Closed-GOP CFR] ────► 🛑 GATE 3: Footage / Flow Spend Approval
                  │
@@ -107,9 +109,11 @@ Assign each page to one of four technical pipelines:
 
 ---
 
-## Stage 2: Interactive Page Layout & Motion Preview *(🛑 Gate 2 — Zero Video Render)*
+## Stage 2. Playable rough cut and approval
 
-**Goal**: Build each page as an independent visual viewport in HTML/CSS, inspect every transition in the browser with Zero-Flash `t=0` GSAP baselines, and obtain visual approval **before rendering any video or generating audio**.
+Use the [shared editing workflow](skills/video-editing/SKILL.md) for the preview. Show the layout, sequence, motion and actual transitions in one playable timeline or low-resolution draft. Include dialogue or scratch VO, SFX and relevant ambience with background music muted. Reuse the current project. Substitute a timed label when media is missing.
+
+**Gate 2**. Present the cut and wait for approval. Revisit changed intervals with surrounding context. The following implementation example applies when the approved composition uses HTML and GSAP.
 
 ### Modular Viewport Architecture
 Every page is wrapped in its own isolated viewport container with absolute coordinates:
@@ -143,23 +147,6 @@ Every page is wrapped in its own isolated viewport container with absolute coord
    tl.to("#page-02-viewport", { opacity: 1, duration: 0.4 }, 5.0);
    window.__timelines = { main: tl };
    ```
-
----
-
-### Interactive Page Layout Widget (Zero Video Render)
-
-**Why this saves hours**: Video rendering takes 2–5 minutes per attempt. A tabbed HTML preview widget (`layout_preview_widget.html` + `contact_sheet.html`) renders **instantly in 0.0 seconds** in any browser, allowing screen-by-screen design inspection and Playwright Zero-Flash (`0` flicker / `0` JS error) checks.
-
-### Action Items
-1. **Use Lightweight Wireframe Media Boxes (Time & Token Saver)**: For footage/Flow scenes, draw simple clean wireframe boxes labeled with the exact video slot name and camera move (`[VIDEO: Flow 01 — Temple Grandeur]`) instead of hand-coding fake vector illustrations of buildings or people. Focus Stage 2 strictly on real typography, exact color palette, safe-zone spacing, and transition timing.
-2. Generate `layout_preview_widget.html` + `contact_sheet.html` in the project directory.
-3. Provide interactive clickable tabs for every single page + full playback bar.
-4. Clicking a tab renders that exact page's layout, brief-matched typography (`0` italic slop), clean surface framing, and color contrast inside a 1080×1920 mobile viewport frame.
-
-> [!IMPORTANT]
-> ### 🛑 GATE 2: Screen-by-Screen UI & Motion Approval
-> **Deliver `layout_preview_widget.html` and visual contact sheet screenshots to the user.**  
-> *Wait for explicit user sign-off on layout, typography, transitions, and contrast before generating Flow clips, synthesizing audio, or rendering video.*
 
 ---
 

@@ -52,3 +52,5 @@ atrim=start=0:end=82.75,asetpts=PTS-STARTPTS[aout]
 ```
 
 The tool writes the exact command, obtains a per-output lock, renders a uniquely named candidate adjacent to the destination, performs the validation contract, archives an existing output on the same filesystem, and promotes transactionally only after success.
+
+When a loudness target is supplied, the encoded file must measure within 0.5 LU of it, at or below the requested true peak, and at or below the requested loudness range. For the studio social profile set `lufs` to −14, `true_peak` to −1 and `loudness_range` to 7.

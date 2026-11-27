@@ -1,6 +1,6 @@
 # ⚡ Antigravity × Google Flow MCP Integration Guide
 
-> **File:** `d:\AI Video Editing\flowmcp.md`  
+> **File:** `flowmcp.md`
 > **Target:** Google Antigravity (App, CLI, IDE) ↔ Google Flow (`flow.google.com` / `labs.google/fx/tools/flow`)  
 > **Server Package:** `@park-sang-gwon/google-flow-mcp` (Version 0.3.1+)  
 > **Runtime:** Node.js v22+ / npx / Google Chrome (CDP Port 9333)
@@ -20,7 +20,7 @@ flowchart LR
     E --> F["Google AI Models<br>(Gemini Omni 1.2 Flash / Veo 3.1)"]
     F --> E
     E --> D
-    D --> G["Output Directory<br>d:\AI Video Editing"]
+    D --> G["Output Directory<br>the project output directory"]
 ```
 
 ### Key Security & Privacy Highlights:
@@ -144,7 +144,7 @@ Every video in Google Flow lives inside a project.
 
 ### Step 2: Direct Prompting in Antigravity Chat
 Simply state what you want to generate:
-> *"Generate a cinematic 5-second FPV drone shot of a misty pine forest at golden hour using Omni Flash. Save it to d:\AI Video Editing."*
+> *"Generate a cinematic 5-second FPV drone shot of a misty pine forest at golden hour using Omni Flash. Save it to the project output directory."*
 
 ### Step 3: Automated Staging & Inspection
 Antigravity executes:

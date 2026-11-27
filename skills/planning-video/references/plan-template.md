@@ -1,6 +1,8 @@
 # Video Production Master Plan — `<PROJECT_TITLE>`
 
-- **Format & Specs**: `1080×1920 (9:16)` · `30 fps` · `<30.0s>` total
+Use the sections for the approved production. Record confirmed choices, outstanding creative questions and the stages requiring approval.
+
+- **Delivery** — <destination, aspect ratio, size, frame rate, duration and audio spec>
 - **Audience & Goal**: `<Audience>` → `<Conversion Action>`
 - **Core Contrast**: `<Old Pain>` vs. `<New Proof>`
 - **Visual System**: `<Brief-matched ground, surface style (plateless over scrims OR frosted bento), 1 hero accent, domain-matched fonts (0 italic)>`
@@ -68,9 +70,9 @@
 
 ---
 
-## Hard-Gated Checkpoints (Stop & Wait at Every Gate)
+## Approvals for the selected production stages
 - [ ] **Gate 1 (`Stage 1`)**: `PLAN.md` Tracks 1–5 + Master Audio Plan approved
-- [ ] **Gate 2 (`Stage 2`)**: Interactive UI & Motion Preview (`layout_preview_widget.html`) approved *(Zero render)*
+- [ ] **Gate 2**. User reviewed layout, motion, transitions and planned voice, effects and ambience in one playable cut with background music muted.
 - [ ] **Gate 3 (`Stage 3`)**: Footage / Flow Clip sourcing & CFR prep approved
 - [ ] **Gate 4 (`Stage 4`)**: Isolated Voiceover (`VO`) audition approved *(Locks timeline timing)*
 - [ ] **Gate 5 (`Stage 5`)**: Isolated SFX & Foley (`3` buckets) audition approved *(Locked to real animation frames)*
