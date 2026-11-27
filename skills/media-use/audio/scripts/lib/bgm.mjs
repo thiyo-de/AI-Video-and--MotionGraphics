@@ -3,7 +3,7 @@
 //
 //   retrieve (default when HeyGen is configured) — search HeyGen's music library
 //        by mood, download the top track. Synchronous. assets/bgm/track.mp3.
-//   generate (the alternative; the automatic choice when HeyGen is absent) —
+//   generate (explicit request only) —
 //        Lyria (cloud, $GEMINI_API_KEY/$GOOGLE_API_KEY + google-genai) preferred,
 //        else local MusicGen (facebook/musicgen-small via transformers). Spawned
 //        DETACHED so the engine can return while audio renders; the caller marks

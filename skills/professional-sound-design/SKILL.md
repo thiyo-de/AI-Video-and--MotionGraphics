@@ -11,6 +11,8 @@ description: >-
 
 Every video runs audio as an **independent, gated production pipeline**—never an afterthought bolted onto rendered video. Audio components (`VO`, `SFX/Foley`, `BGM`) are **planned first (`Stage 1`), built & analyzed separately (`Stages 4–6`), combined (`Stage 7`), cross-device tested & independently reviewed (`Stage 8`), and approved as a `48 kHz · 24-bit WAV` master before attaching to video (`Stage 9`)**.
 
+Choose and audition library recordings using the [audio selection workflow](../video-editing/SKILL.md#select-sound-effects-and-background-music) before trimming, syncing or mixing.
+
 ### Independent Audio Architecture (`Stages 4–8`)
 1. **Stage 1 (`Audio Director Plan`)**: From Script + Creative Direction, define tone, emotion, target loudness (`-14.0 LUFS`), VO word budget, 3-bucket SFX strategy, and BGM direction.
 2. **Stage 4 (`Voice Agent` — VO Only → 🛑 Gate 4)**: Synthesize per-page WAV stems (`en-US-AvaNeural`, `<= +8%` speed target, `boundary="WordBoundary"`), strip leading silence, and shift word timings. **Individual VO Analysis**: measure WPM, LUFS/TP, empty word-list guard, pronunciation, and tail silence (`0.5s–1.4s`). **Wait for user approval. Approved VO establishes real timing and locks animation/rough-cut cut frames before Stage 5.**

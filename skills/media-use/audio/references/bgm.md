@@ -1,17 +1,12 @@
 # Background music (BGM)
 
-One music bed per composition, produced by the shared audio engine (`scripts/audio.mjs` → `scripts/lib/bgm.mjs`). Two routes, chosen by the engine's one switch — whether a HeyGen credential is present:
-
-- **HeyGen retrieval — the default when credentialed.** Search HeyGen's music catalog by mood, download the top track. No generation; same isolated HyperFrames credential or explicit API key as TTS.
-- **Local generation (Lyria → MusicGen) — the fallback when there is no credential** (or when asked for explicitly). Generate a WAV from a mood prompt. There is **no `npx hyperframes bgm` command**; the engine spawns `scripts/lyria-recipe.py` or an inline MusicGen script directly.
-
-> **Run the Preflight first — no credential is not a green light to silently generate locally.** Before generating, complete the sign-in **Preflight** (see `../../SKILL.md` → Preflight): run `npx hyperframes auth status`, recommend signing in, and **STOP for the user's choice** (sign in for HeyGen's music library, or continue offline with local generation). This applies to a one-off "generate a BGM" request just as much as inside a full workflow.
+Follow the [audio selection workflow](../../../video-editing/SKILL.md#select-sound-effects-and-background-music) to choose and audition music. The helper can retrieve a track from the signed-in HeyGen catalog or generate music when the user explicitly selects generation.
 
 ## Driving it from the request
 
 `audio_request.json` → `bgm: { mode?, query?, prompt? }`:
 
-- **`mode`** — `retrieve | generate | none`. Omit for **auto** (retrieve when credentialed, else generate). An **explicit** `retrieve` is strict: no credential ⇒ skip, never a detached generate (so a caller with no `wait-bgm` step can't get a pending job it won't await).
+- **`mode`** — `retrieve` (default), `none` (music-free preview), or `generate` (explicit request). Missing credentials skip retrieval.
 - **`query`** — the mood, used for retrieval and as a fallback prompt seed (e.g. a storyboard's `music:` field, falling back to `message` → `arc` → `"calm cinematic underscore"`).
 - **`prompt`** — an explicit full prompt for generation; omit and the engine infers one (see Mood inference). Optional `blob` / `archetype` / `arc` feed that inference.
 
@@ -68,7 +63,7 @@ The engine bakes BPM / scale into the **prompt text** (via the inference above) 
 | Failure                                       | Behavior                                                                                 |
 | --------------------------------------------- | ---------------------------------------------------------------------------------------- |
 | No music match (retrieve)                     | `bgm: null`, anomaly logged. Render proceeds without BGM.                                |
-| Explicit `retrieve`, no credential            | Skipped (no silent generate fallback). Use `mode: generate` or omit `mode` for auto.     |
+| Explicit `retrieve`, no credential            | Skipped (no silent generate fallback). Select a licensed track from another library.     |
 | Neither Lyria nor MusicGen can run (generate) | `bgm` disabled with a `pip install …` hint. Voice + SFX still render.                    |
 | Generate still rendering at assemble time     | `bgm_pending: true`; `wait-bgm.mjs` waits/checks and writes `bgm_status.json` first.     |
 | Generate crashed                              | `wait-bgm.mjs` → `bgm_status.json { status: "failed" }`; the `<audio>` track is omitted. |

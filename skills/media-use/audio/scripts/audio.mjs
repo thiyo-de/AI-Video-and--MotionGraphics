@@ -5,11 +5,10 @@
 //
 //   node <MEDIA_DIR>/scripts/audio.mjs --request ./audio_request.json --hyperframes . --out ./audio_meta.json
 //
-// TTS and BGM degrade on ONE switch — whether HeyGen is configured (credential
-// present, NOT the CLI). SFX needs no credential. This mirrors ../SKILL.md:
+// Default routes (SFX needs no credential):
 //
 //   TTS : HeyGen REST → ElevenLabs → Kokoro (CLI)
-//   BGM : HeyGen retrieve  → (no credential) Lyria/MusicGen generate
+//   BGM : HeyGen retrieve; generation requires explicit generate mode
 //   SFX : Openverse (CC0 / CC BY) → (offline, rate limited, no match) bundled library
 //
 // ── audio_request.json (input) ────────────────────────────────────────────────
@@ -251,16 +250,13 @@ const bgmFields = {
 if (only.has("bgm")) {
   bgm = null;
   Object.keys(bgmFields).forEach((k) => (bgmFields[k] = k === "bgm_pending" ? false : null));
-  // Mode resolution. An EXPLICIT mode (flag or request.bgm.mode) is strict:
-  // "retrieve" means retrieve-or-nothing — it never silently starts a detached
-  // generate (a caller with no wait-bgm step must not get a pending job it
-  // can't await). Only the UNSET/auto default picks generate
-  // when HeyGen is absent.
-  const explicitMode = bgmModeOverride || request.bgm?.mode || null;
-  let mode = noBgm ? "none" : explicitMode || (heygenOK ? "retrieve" : "generate");
+  let mode = noBgm ? "none" : bgmModeOverride || request.bgm?.mode || "retrieve";
+  if (!["retrieve", "generate", "none"].includes(mode)) {
+    die(`Unknown background music mode: ${mode}. Use retrieve, generate or none.`);
+  }
   if (mode === "retrieve" && !heygenOK) {
     anomalies.push(
-      "bgm: retrieve requires a HeyGen credential — skipped (no generate fallback for an explicit retrieve)",
+      "bgm: retrieve requires a HeyGen credential — skipped; choose a licensed track from another library",
     );
     mode = "none";
   }

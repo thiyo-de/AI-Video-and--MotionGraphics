@@ -48,6 +48,22 @@ For a modern look, show the user one proposed cut at the relevant timecode. Skip
 
 Check suspect entries in continuous playback, after a seek and frame-by-frame across the cut. Look for a single black frame, double exposure, position jump, restarted source or an unready incoming frame. In browser compositions set the initial layer state before the first frame and prime the incoming media. Compare the same timecode in encoded output before attributing preview flicker to the export.
 
+## Select sound effects and background music
+
+Watch the rough cut once. For each meaningful transition or moving element, inspect the few frames around its entrance, contact or landing. Record the timecode, visible action and intended sound in the existing edit map. Keep a quiet beat when it serves the scene.
+
+Search approved local recordings and licensed assets first. Search online for the remaining cues by action, material and character (for example, `short dry cloth swish, light, no impact`). When the choice is unclear, audition two or three candidates at comparable loudness against the same frames, with dialogue on and background music muted. Place the audible accent on the visual event. Check the opening for harsh noise, a heavy bass hit or a distracting tail. Reuse an approved cue where it fits.
+
+After picture approval, select music by its role under the story, instruments, energy and vocal space. Test it beneath the busiest spoken line and through the final scene. If the brief calls for sound that the available recordings cannot supply, ask before generating custom SFX or music. A failed search or missing account leaves the choice open.
+
+Choose a source that fits the delivery.
+
+- **Realistic Foley and ambience.** Search the Openverse Audio API with an action and a license filter. Start with CC0. Use CC BY when the required credit can be delivered. Verify the item on its original page. Direct commercial use of Freesound's own API requires a separate arrangement. [Openverse audio search example](https://api.openverse.org/v1/audio/?q=cloth%20movement&license=cc0&page_size=2) · [Freesound API terms](https://freesound.org/docs/api/terms_of_use.html)
+- **Short motion cues and online commercial music.** Browse individual Mixkit effects or instrumentals. Match the music license to the destination, especially for broadcast. [Mixkit SFX](https://mixkit.co/free-sound-effects/) · [Mixkit music](https://mixkit.co/free-stock-music/) · [Terms](https://mixkit.co/terms/)
+- **Alternative instrumental beds.** Browse Pixabay Music and retain the download certificate when the track is registered with Content ID. For a cinematic score, consider Scott Buckley when the client can publish the required credit. [Pixabay music](https://pixabay.com/music/) · [Pixabay FAQ](https://pixabay.com/service/faq/) · [Scott Buckley licensing](https://www.scottbuckley.com.au/library/using-this-music/)
+
+Use the provider's permitted download method. Keep the selected recording's title, creator, source URL, license and required credit or certificate with the project. Use a project-relative path for the local audio. The rough-cut preview keeps background music muted.
+
 ## Check sound and delivery
 
 - List the tracks expected from the brief. For dialogue or VO, check first and last words, intelligibility, sync and music masking. For intended effects, audition the cue against the visible action. Check entrances, exits, clicks and quiet passages. Check that an intentionally silent delivery meets the agreed track layout.
